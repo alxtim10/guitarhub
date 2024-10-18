@@ -8,21 +8,31 @@ use PHPUnit\Framework\Constraint\IsEmpty;
 
 class ProductController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function add(Request $request)
+    public function AddProduct(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|min:0',
+            'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id', // Validate that the category exists
+            'store_id' => 'required|exists:stores,id'
+        ],  [
+            'category_id.exists' => 'The selected category does not exist.',
+            'store_id.exists' => 'The selected store does not exist.',
         ]);
-        
+
         $product = Product::create([
-            'name' => $request->input('name'),
-            'price' => $request->input('price'),
-            'description' => $request->input('description')
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock_quantity' => $request->stock_quantity,
+            'category_id' => $request->category_id,
+            'store_id' => $request->store_id,
+            'discount_percentage' => 0,
+            'discount_start_date' => null,
+            'discount_end_date' => null,
+            'total_purchases' => 0
         ]);
 
         return response()->json([
@@ -33,25 +43,20 @@ class ProductController extends Controller
                 'name' => $product->name,
                 'description' => $product->description,
                 'price' => $product->price,
-                'created_at' => $product->created_at->toDateTimeString()
+                'category_id' => $product->category_id,
+                'store_id' => $product->store_id,
+                'stock_quantity' => $product->stock_quantity,
+                'discount_percentage' => $product->discount_percentage,
+                'discount_start_date' => $product->discount_start_date,
+                'discount_end_date' => $product->discount_end_date,
+                'total_purchases' => $product->total_purchases,
+                'created_at' => $product->created_at->toDateTimeString(),
+                'updated_at' => $product->updated_at
             ]
         ]);
     }
 
-    public function get(Request $request)
-    {
-        if ($request->has('id')) {
-            return $this->getProductById($request);
-        }
-        else if ($request->has('name')) {
-            return $this->getProductByName($request);
-        }
-        else {
-            return $this->getAllProducts();
-        }
-    }
-
-    public function getAllProducts()
+    public function GetAllProduct()
     {
         $products = Product::all();
 
@@ -64,6 +69,15 @@ class ProductController extends Controller
                     'name' => $product->name,
                     'description' => $product->description,
                     'price' => $product->price,
+                    'category_id' => $product->category_id,
+                    'store_id' => $product->store_id,
+                    'stock_quantity' => $product->stock_quantity,
+                    'discount_percentage' => $product->discount_percentage,
+                    'discount_start_date' => $product->discount_start_date,
+                    'discount_end_date' => $product->discount_end_date,
+                    'total_purchases' => $product->total_purchases,
+                    'created_at' => $product->created_at,
+                    'updated_at' => $product->updated_at
                 ];
             }),
             'metadata' => [
@@ -75,10 +89,7 @@ class ProductController extends Controller
         return response()->json($customResponse, 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function getProductById(Request $request)
+    public function GetProductById(Request $request)
     {
         $id = $request->query('id');
         $product = Product::find($id);
@@ -94,8 +105,15 @@ class ProductController extends Controller
                 'name' => $product->name,
                 'description' => $product->description,
                 'price' => $product->price,
-                'created_at' => $product->created_at->toDateTimeString(),
-                'updated_at' => $product->updated_at->toDateTimeString()
+                'category_id' => $product->category_id,
+                'store_id' => $product->store_id,
+                'stock_quantity' => $product->stock_quantity,
+                'discount_percentage' => $product->discount_percentage,
+                'discount_start_date' => $product->discount_start_date,
+                'discount_end_date' => $product->discount_end_date,
+                'total_purchases' => $product->total_purchases,
+                'created_at' => $product->created_at,
+                'updated_at' => $product->updated_at
             ],
             'metadata' => [
                 'request_id' => uniqid(),
@@ -105,7 +123,7 @@ class ProductController extends Controller
         return response()->json($customResponse, 200);
     }
 
-    public function getProductByName(Request $request)
+    public function GetProductByName(Request $request)
     {
         $paramsName = $request->query('name');
 
@@ -135,8 +153,15 @@ class ProductController extends Controller
                     'name' => $product->name,
                     'description' => $product->description,
                     'price' => $product->price,
-                    'created_at' => $product->created_at->toDateTimeString(),
-                    'updated_at' => $product->updated_at->toDateTimeString()
+                    'category_id' => $product->category_id,
+                    'store_id' => $product->store_id,
+                    'stock_quantity' => $product->stock_quantity,
+                    'discount_percentage' => $product->discount_percentage,
+                    'discount_start_date' => $product->discount_start_date,
+                    'discount_end_date' => $product->discount_end_date,
+                    'total_purchases' => $product->total_purchases,
+                    'created_at' => $product->created_at,
+                    'updated_at' => $product->updated_at
                 ];
             }),
             'metadata' => [
@@ -148,18 +173,7 @@ class ProductController extends Controller
         return response()->json($customResponse, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
+    public function UpdateProduct(Request $request)
     {
         $request->validate([
             'id' => 'required|integer|exists:products,id',
@@ -182,15 +196,20 @@ class ProductController extends Controller
                 'name' => $product->name,
                 'description' => $product->description,
                 'price' => $product->price,
+                'category_id' => $product->category_id,
+                'store_id' => $product->store_id,
+                'stock_quantity' => $product->stock_quantity,
+                'discount_percentage' => $product->discount_percentage,
+                'discount_start_date' => $product->discount_start_date,
+                'discount_end_date' => $product->discount_end_date,
+                'total_purchases' => $product->total_purchases,
+                'created_at' => $product->created_at,
                 'updated_at' => $product->updated_at->toDateTimeString(),
             ]
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function delete(Request $request)
+    public function DeleteProduct(Request $request)
     {
         $id = $request->query('id');
 
