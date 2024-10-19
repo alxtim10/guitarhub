@@ -3,7 +3,7 @@ import logo from "../../public/assets/images/logo.svg";
 
 const NavbarMobileTop = () => {
   return (
-    <div className="absolute w-full top-0 py-4 px-7 flex items-center justify-between">
+    <div className="absolute left-0 w-full top-0 py-4 px-7 flex items-center justify-between">
       <Image src={logo} width={35} height={35} alt="logo" />
       <div className="flex items-center justify-center gap-5">
         <svg

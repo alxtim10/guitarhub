@@ -20,9 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.className} p-5 antialiased`}
       >
-        <NavbarMobile />
           {children}
       </body>
     </html>

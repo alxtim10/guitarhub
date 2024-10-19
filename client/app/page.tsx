@@ -5,7 +5,8 @@ import NavbarMobile from "@/components/navbar/NavbarMobile";
 import Image from "next/image";
 export default function Home() {
   return (
-    <main>
+    <main className="p-24">
+      <NavbarMobile />
       <Banner />
       <Category />
       <Catalog />
