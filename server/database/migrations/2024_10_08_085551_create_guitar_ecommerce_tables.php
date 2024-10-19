@@ -58,7 +58,7 @@ return new class extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->id(); // image_id
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Foreign key to products
-            $table->string('image_url');
+            $table->binary('image_file');
             $table->boolean('is_main')->default(0); // Indicates if this image is the main product image
             $table->timestamps();
         });
@@ -68,7 +68,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->dateTime('transaction_date');
             $table->enum('status', ['Pending', 'Shipped', 'Delivered', 'Cancelled']);
-            $table->decimal('total_amount', 10, 2);
+            $table->decimal('total_price', 10, 2);
             $table->string('shipping_address')->nullable();
             $table->timestamps();
         });
@@ -93,6 +93,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->decimal('total_price', 10, 2);
             $table->timestamps();
         });
 
@@ -100,6 +101,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->decimal('price', 10, 2);
             $table->integer('quantity');
         });
 
@@ -113,6 +115,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('category');
             $table->string('image');
             $table->integer('order');
             $table->timestamps();
@@ -124,6 +127,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('banners');
         Schema::dropIfExists('last_seen_items');
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('cart');

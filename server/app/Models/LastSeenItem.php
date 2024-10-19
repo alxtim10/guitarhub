@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionItem extends Model
+class LastSeenItem extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'transaction_id',
+        'user_id',
         'product_id',
-        'quantity',
-        'price',
     ];
 }
