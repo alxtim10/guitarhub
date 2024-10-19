@@ -1,7 +1,10 @@
-import React from 'react'
+import Dashboard from '@/components/admin/pages/Dashboard'
+import React, { Fragment } from 'react'
 
 export default function page() {
   return (
-    <div>CMS</div>
+    <section>
+      <Dashboard />
+    </section>
   )
 }

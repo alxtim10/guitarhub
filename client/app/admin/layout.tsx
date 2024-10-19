@@ -1,3 +1,4 @@
+import Sidebar from "@/components/admin/components/Sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +13,13 @@ export default function AdminLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Sidebar />
+        <div className='ml-[18rem]'>
+          {children}
+        </div>
+      </body>
+
     </html>
   );
 }
