@@ -23,8 +23,9 @@ const Sidebar = () => {
       </div>
       <div className="mt-6 flex flex-col gap-4">
         <Link
-        href={'/admin'}
-        className="flex items-center gap-4 cursor-pointer transition-all hover:translate-x-1">
+          href={"/admin"}
+          className="flex items-center gap-4 cursor-pointer transition-all hover:translate-x-1"
+        >
           <Landmark className="text-greySecondary w-6 h-6" />
           <p className="text-sm text-greySecondary font-medium mt-1:">
             Dashboard
@@ -41,6 +42,15 @@ const Sidebar = () => {
       </div>
       <div className="mt-6 flex flex-col gap-4">
         <Link
+          href={"/admin/categories"}
+          className="flex items-center gap-4 cursor-pointer transition-all hover:translate-x-1"
+        >
+          <AdjustmentsVertical className="text-greySecondary w-6 h-6" />
+          <p className="text-sm text-greySecondary font-medium mt-1">
+            Categories
+          </p>
+        </Link>
+        <Link
           href={"/admin/stores"}
           className="flex items-center gap-4 cursor-pointer transition-all hover:translate-x-1"
         >
@@ -54,15 +64,6 @@ const Sidebar = () => {
           <ObjectsColumn className="text-greySecondary w-6 h-6" />
           <p className="text-sm text-greySecondary font-medium mt-1">
             Products
-          </p>
-        </Link>
-        <Link
-          href={"/admin/categories"}
-          className="flex items-center gap-4 cursor-pointer transition-all hover:translate-x-1"
-        >
-          <AdjustmentsVertical className="text-greySecondary w-6 h-6" />
-          <p className="text-sm text-greySecondary font-medium mt-1">
-            Categories
           </p>
         </Link>
         <Link

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavbarMobile from "@/components/navbar/NavbarMobile";
-import 'react-loading-skeleton/dist/skeleton.css'
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { Poppins } from "next/font/google";
+import QueryClientLayout from "./QueryClientLayout";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["500"] });
 
@@ -19,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} p-5 antialiased`}
-      >
+      <body className={`${inter.className} p-5 antialiased`}>
+        <QueryClientLayout>
           {children}
+        </QueryClientLayout>
       </body>
     </html>
   );

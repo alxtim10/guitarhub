@@ -9,18 +9,23 @@ class CategoryController extends Controller
 {
     public function GetAllCategory()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(5);
 
         $customResponse = [
             'status' => 'Success',
             'message' => 'All Category Retrieved',
-            'data' => $categories->map(function ($category) {
-                return [
-                    'id' => $category->id,
-                    'name' => $category->name,
-                    'description' => $category->description,
-                ];
-            }),
+            'total' => $categories->total(),
+            'current_page' => $categories->currentPage(),
+            'last_page' => $categories->lastPage(),
+            'data' => $categories->map(
+                function ($category) {
+                    return [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                        'description' => $category->description,
+                    ];
+                },
+            ),
             'metadata' => [
                 'request_id' => uniqid(),
                 'timestamp' => now()->toDateTimeString()
@@ -36,7 +41,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|min:0',
         ]);
-        
+
         $category = Category::create([
             'name' => $request->input('name'),
             'description' => $request->input('description')
@@ -52,6 +57,32 @@ class CategoryController extends Controller
                 'created_at' => $category->created_at->toDateTimeString()
             ]
         ]);
+    }
+
+    public function GetCategoryById(Request $request)
+    {
+        $id = $request->query('id');
+        $category = Category::find($id);
+        if (!$category) {
+            return response()->json(['message' => 'Category Not Found'], 404);
+        }
+
+        $customResponse = [
+            'status' => 'Success',
+            'message' => 'Category Found',
+            'data' => [
+                'id' => $category->id,
+                'name' => $category->name,
+                'description' => $category->description,
+                'created_at' => $category->created_at,
+                'updated_at' => $category->updated_at
+            ],
+            'metadata' => [
+                'request_id' => uniqid(),
+                "timestamp" => now()->toDateTimeString()
+            ],
+        ];
+        return response()->json($customResponse, 200);
     }
 
     public function UpdateCategory(Request $request)
