@@ -1,9 +1,11 @@
-import { GetCategoryById } from "@/services/category";
-import { AddCategoryType, CategoryDetailType } from "@/types/category";
-import { useQuery } from "@tanstack/react-query";
+import { EditCategory, GetCategoryById } from "@/services/category";
+import { CategoryDetailType, EditCategoryType } from "@/types/category";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const useEditCategory = (category_id: string) => {
+  const router = useRouter();
   const { data, isLoading, error } = useQuery<CategoryDetailType | null, Error>(
     {
       queryKey: ["category", { category_id: category_id }],
@@ -27,15 +29,30 @@ export const useEditCategory = (category_id: string) => {
     }
   }, [data]);
 
-  const [request, setRequest] = useState<AddCategoryType>({
+  const [request, setRequest] = useState<EditCategoryType>({
+    id: category_id,
     name: "",
     description: "",
   });
 
+  const mutation = useMutation({
+    mutationFn: EditCategory,
+    onSuccess: (data) => {
+      router.push("/admin/categories");
+    },
+    onError: (error) => {
+      console.error("Error creating category:", error);
+    },
+  });
+
+  const handleEdit = () => {
+    mutation.mutate(request);
+  };
+
   return {
-    data,
     isLoading,
     request,
-    handleInput
+    handleInput,
+    handleEdit,
   };
 };

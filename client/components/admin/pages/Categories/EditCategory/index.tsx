@@ -6,7 +6,7 @@ import { Check } from "flowbite-react-icons/outline";
 export default function EditCategoryPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id") || "";
-  const { data, isLoading, request, handleInput } = useEditCategory(id);
+  const { isLoading, request, handleInput, handleEdit } = useEditCategory(id);
   return (
     <section className="mt-10">
       <h1 className="text-2xl font-bold">CATEGORIES</h1>
@@ -35,11 +35,11 @@ export default function EditCategoryPage() {
           />
         </div>
         <button
-          // onClick={handleAdd}
+          onClick={handleEdit}
           className="bg-green-500 text-white mt-5 gap-2 px-4 pr-5 py-3 flex items-center rounded-full"
         >
           <Check />
-          <span>Add Category</span>
+          <span>Edit Category</span>
         </button>
       </div>
     </section>

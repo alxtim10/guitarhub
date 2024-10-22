@@ -85,10 +85,10 @@ class CategoryController extends Controller
         return response()->json($customResponse, 200);
     }
 
-    public function UpdateCategory(Request $request)
+    public function EditCategory(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:products,id',
+            'id' => 'required|integer|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string|min:0',
         ]);
@@ -112,7 +112,7 @@ class CategoryController extends Controller
 
     public function DeleteCategory(Request $request)
     {
-        $id = $request->query('id');
+        $id = $request->input('id');
 
         $category = Category::find($id);
         $category->delete();

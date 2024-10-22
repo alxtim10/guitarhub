@@ -3,6 +3,12 @@ export interface AddCategoryType {
   description: string;
 }
 
+export interface EditCategoryType {
+  id: string;
+  name: string;
+  description: string;
+}
+
 export interface CategoryListParams {
   page?: number;
 }

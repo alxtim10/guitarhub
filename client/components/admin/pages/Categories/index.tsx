@@ -5,7 +5,7 @@ import { Pagination } from "flowbite-react";
 import Link from "next/link";
 
 export default function CategoriesPage() {
-  const { data, isLoading, page, handlePage } = useCategoryHook();
+  const { data, isLoading, page, handlePage, handleDelete } = useCategoryHook();
 
   return (
     <section className="mt-10">
@@ -66,6 +66,16 @@ export default function CategoriesPage() {
                             >
                               Edit
                             </Link>
+                            <button
+                              onClick={() => {
+                                handleDelete({
+                                  id: item.id,
+                                });
+                              }}
+                              className="ml-2 font-medium text-red-600 hover:text-red-800"
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );

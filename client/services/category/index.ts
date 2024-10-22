@@ -44,3 +44,26 @@ export const AddCategory = async (body: {
     throw new Error("Failed to add category");
   }
 };
+
+export const EditCategory = async (body: {
+  id: string;
+  name: string;
+  description: string;
+}) => {
+  try {
+    const response = await axiosInstance.patch(ENDPOINTS.EditCategory, body);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to add category");
+  }
+};
+
+export const DeleteCategory = async (body: { id: string }) => {
+  try {
+    const response = await axiosInstance.post(ENDPOINTS.DeleteCategory, body);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to delete category");
+  }
+};

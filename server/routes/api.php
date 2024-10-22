@@ -33,8 +33,8 @@ Route::delete('/DeleteStore', [StoreController::class, 'DeleteStore']);
 Route::get('/GetAllCategory', [CategoryController::class, 'GetAllCategory']);
 Route::get('/GetCategoryById', [CategoryController::class, 'GetCategoryById']);
 Route::post('/AddCategory', [CategoryController::class, 'AddCategory']);
-Route::patch('/UpdateCategory', [CategoryController::class, 'UpdateCategory']);
-Route::delete('/DeleteCategory', [CategoryController::class, 'DeleteCategory']);
+Route::patch('/EditCategory', [CategoryController::class, 'EditCategory']);
+Route::post('/DeleteCategory', [CategoryController::class, 'DeleteCategory']);
 
 //Product
 Route::get('/GetAllProduct', [ProductController::class, 'GetAllProduct']);
