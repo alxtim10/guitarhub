@@ -22,13 +22,13 @@ export default function AddCategoryPage() {
           />
         </div>
         <div className="flex flex-col justify-center mt-5 gap-2">
-          <label className="text-md text-greyMain">Category Name</label>
+          <label className="text-md text-greyMain">Category Description</label>
           <textarea
             rows={8}
             name="description"
             value={request.description}
             onChange={handleInput}
-            placeholder="Enter Category Name"
+            placeholder="Enter Category Description"
             className="bg-[#f3f3f3] border-0 rounded-lg px-5 py-3"
           />
         </div>

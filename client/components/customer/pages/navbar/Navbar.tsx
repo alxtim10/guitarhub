@@ -1,5 +1,5 @@
 import Image from "next/image"
-import logo from '../../public/assets/images/logo.svg'
+import logo from '../../../../public/assets/images/logo.svg'
 
 const Navbar = () => {
   return (

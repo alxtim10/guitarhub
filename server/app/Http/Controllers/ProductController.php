@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Constraint\IsEmpty;
 
@@ -26,6 +28,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'rating' => $request->rating,
             'stock_quantity' => $request->stock_quantity,
             'category_id' => $request->category_id,
             'store_id' => $request->store_id,
@@ -43,8 +46,9 @@ class ProductController extends Controller
                 'name' => $product->name,
                 'description' => $product->description,
                 'price' => $product->price,
-                'category_id' => $product->category_id,
-                'store_id' => $product->store_id,
+                'rating' => $product->rating,
+                'category' => $product->category_id,
+                'store' => Store::where('id', $product->store_id)->value('name'),
                 'stock_quantity' => $product->stock_quantity,
                 'discount_percentage' => $product->discount_percentage,
                 'discount_start_date' => $product->discount_start_date,
@@ -58,19 +62,24 @@ class ProductController extends Controller
 
     public function GetAllProduct()
     {
-        $products = Product::all();
+        $products = Product::paginate(5);
 
         $customResponse = [
             'status' => 'Success',
             'message' => 'All Product Retrieved',
+            'total' => $products->total(),
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'sold_products' => Product::sum('total_purchases'),
             'data' => $products->map(function ($product) {
                 return [
                     'id' => $product->id,
                     'name' => $product->name,
                     'description' => $product->description,
                     'price' => $product->price,
-                    'category_id' => $product->category_id,
-                    'store_id' => $product->store_id,
+                    'rating' => $product->rating,
+                    'category' => strval($product->category_id) . ' - ' . Category::where('id', $product->category_id)->value('name'),
+                    'store' => strval($product->store_id) . ' - ' . Store::where('id', $product->store_id)->value('name'),
                     'stock_quantity' => $product->stock_quantity,
                     'discount_percentage' => $product->discount_percentage,
                     'discount_start_date' => $product->discount_start_date,

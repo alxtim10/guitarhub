@@ -1,11 +1,12 @@
 import { DeleteCategory, GetAllCategory } from "@/services/category";
 import { CategoryListType } from "@/types/category";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useIsFetching, useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const useCategoryHook = () => {
   const router = useRouter();
+  const isFetching = useIsFetching();
   const [page, setPage] = useState<number>(1);
   const { data, isLoading, error, refetch } = useQuery<
     CategoryListType | null,
@@ -37,6 +38,7 @@ export const useCategoryHook = () => {
   return {
     data,
     isLoading,
+    isFetching,
     page,
     handlePage,
     handleDelete,

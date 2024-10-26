@@ -27,9 +27,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('location')->nullable(); // Physical address or URL
-            $table->boolean('is_online')->default(1); // Indicates if the store is currently online
-            $table->dateTime('last_seen')->nullable(); // Last time the store was accessed
+            $table->string('location')->nullable();
+            $table->decimal('rating', 10, 2)->default(0);
+            $table->boolean('is_online')->default(0);
+            $table->boolean('is_verified')->default(0);
+            $table->dateTime('last_seen')->nullable();
             $table->timestamps();
         });
 
@@ -45,6 +47,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
+            $table->decimal('rating', 10, 2)->default(0);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('store_id')->constrained()->onDelete('cascade');
             $table->integer('stock_quantity');

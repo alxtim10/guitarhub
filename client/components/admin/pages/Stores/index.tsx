@@ -1,7 +1,17 @@
+"use client";
 import { Plus } from "flowbite-react-icons/outline";
-import { Star } from "flowbite-react-icons/solid";
+import StoresAnalytics from "../../components/Stores/Analytics/StoresAnalytics";
+import { useStores } from "./hooks";
+import Loading from "@/components/loaders/Loading";
+import { Pagination } from "flowbite-react";
 
 export default function StoresPage() {
+  const { listData: data, isFetching, page, handlePage, router } = useStores();
+
+  if (isFetching > 0) {
+    return <Loading />;
+  }
+
   return (
     <section className="mt-10">
       <div className="flex items-center justify-between">
@@ -14,39 +24,13 @@ export default function StoresPage() {
           <span className="text-sm">Add New</span>
         </button>
       </div>
-      <div className="flex items-center justify-between gap-5 bg-white p-5 w-full mt-[1rem] shadow-md rounded-lg">
-        <div className="flex flex-col items-start justify-between h-20 w-full border-r">
-          <h1 className="text-md text-greySecondary">Total</h1>
-          <div className="flex items-center justify-center gap-1">
-            <h1 className="text-3xl">500</h1>
-            <p className="text-xs mt-2">Stores</p>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-between h-20 w-full border-r">
-          <h1 className="text-md text-greySecondary">Verified</h1>
-          <div className="flex items-center justify-center gap-1">
-            <h1 className="text-3xl">355</h1>
-            <p className="text-xs mt-2">Stores</p>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-between h-20 w-full border-r  ">
-          <h1 className="text-md text-greySecondary">Average Rating</h1>
-          <div className="flex items-center justify-center gap-1">
-            <Star className="w-4 h-4 text-yellow-300" />
-            <h1 className="text-3xl">4.5</h1>
-            <p className="text-xs mt-2">/ 5</p>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-between h-20 w-full">
-          <h1 className="text-md text-greySecondary">
-            Average Product per Store
-          </h1>
-          <div className="flex items-center justify-center gap-1">
-            <h1 className="text-3xl">30</h1>
-            <p className="text-xs mt-2">Products</p>
-          </div>
-        </div>
-      </div>
+      {data && (
+        <StoresAnalytics
+          total={data.total}
+          total_verified={data.total_verified_stores}
+          average_rating={data.average_rating}
+        />
+      )}
       <hr className="mt-5 border-t border" />
       <input
         type="text"
@@ -60,36 +44,52 @@ export default function StoresPage() {
               <tr className="bg-slate-50 text-title">
                 <th className="py-3 px-4 text-left">Store ID</th>
                 <th className="py-3 px-4 text-left">Store Name</th>
-                <th className="py-3 px-4 text-left">Product Quantity</th>
-                <th className="py-3 px-4 text-left">Product Sold</th>
+                <th className="py-3 px-4 text-left">Store Description</th>
                 <th className="py-3 px-4 text-left">Rating</th>
+                <th className="py-3 px-4 text-left">Location</th>
                 <th className="py-3 px-4 text-left">Action</th>
               </tr>
             </thead>
             <tbody className="text-greyMain">
-              {[...Array(8)].map((_, i) => {
-                return (
-                  <tr key={i} className="border-b border-blue-gray-200">
-                    <td className="py-6 px-4">STR001</td>
-                    <td className="px-4">Company A</td>
-                    <td className="px-4">15</td>
-                    <td className="px-4">1500</td>
-                    <td className="px-4">4.5/5</td>
-                    <td className="px-4">
-                      <a
-                        href="#"
-                        className="font-medium text-blue-600 hover:text-blue-800"
-                      >
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
+              {data?.data.length && (
+                <>
+                  {data.data.map((item, i) => {
+                    return (
+                      <tr key={i} className="border-b border-blue-gray-200">
+                        <td className="py-6 px-4">{item.id}</td>
+                        <td className="px-4">{item.name}</td>
+                        <td className="px-4">{item.description}</td>
+                        <td className="px-4">
+                          {Number(item.rating).toFixed(1)}
+                        </td>
+                        <td className="px-4">{item.location}</td>
+                        <td className="px-4">
+                          <a
+                            href="#"
+                            className="font-medium text-blue-600 hover:text-blue-800"
+                          >
+                            Edit
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              )}
             </tbody>
           </table>
         </div>
       </div>
+      {data && data.last_page > 1 && (
+        <Pagination
+          currentPage={page}
+          totalPages={data.last_page}
+          onPageChange={handlePage}
+          previousLabel=""
+          nextLabel=""
+          showIcons
+        />
+      )}
     </section>
   );
 }

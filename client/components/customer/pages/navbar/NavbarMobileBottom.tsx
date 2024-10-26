@@ -3,7 +3,7 @@ import React from "react";
 
 const NavbarMobileBottom = () => {
   return (
-    <div className="bg-white fixed bottom-0  w-full flex items-center justify-center gap-16 py-3 border-t-2 border-t-gray-200">
+    <div className="bg-white fixed bottom-0 left-0 w-full flex items-center justify-center gap-16 py-3 border-t-2 border-t-gray-200">
 
       <Link href={'/'}>
         <svg
@@ -50,7 +50,7 @@ const NavbarMobileBottom = () => {
         />
       </svg>
 
-      <Link href={'/profile'}>
+      <Link href={'/login'}>
         <svg
           className="w-[25px] h-[25px] text-gray-800 dark:text-white"
           aria-hidden="true"

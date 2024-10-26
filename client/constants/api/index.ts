@@ -6,4 +6,6 @@ export const ENDPOINTS = {
   AddCategory: `${BASE_URL}/AddCategory`,
   EditCategory: `${BASE_URL}/EditCategory`,
   DeleteCategory: `${BASE_URL}/DeleteCategory`,
+  GetAllStore: `${BASE_URL}/GetAllStore`,
+  GetAllProduct: `${BASE_URL}/GetAllProduct`,
 };

@@ -3,9 +3,15 @@ import { Plus } from "flowbite-react-icons/outline";
 import { useCategoryHook } from "./hooks";
 import { Pagination } from "flowbite-react";
 import Link from "next/link";
+import Loading from "@/components/loaders/Loading";
 
 export default function CategoriesPage() {
-  const { data, isLoading, page, handlePage, handleDelete } = useCategoryHook();
+  const { data, isLoading, isFetching, page, handlePage, handleDelete } =
+    useCategoryHook();
+
+  if (isLoading || isFetching > 0) {
+    return <Loading />;
+  }
 
   return (
     <section className="mt-10">

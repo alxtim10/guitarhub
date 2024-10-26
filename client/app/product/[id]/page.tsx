@@ -1,7 +1,7 @@
 'use client'
 
-import Catalog from '@/components/catalog/Catalog'
-import StoreCard from '@/components/product/StoreCard'
+import Catalog from '@/components/customer/pages/catalog/Catalog'
+import StoreCard from '@/components/customer/pages/product/StoreCard'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
