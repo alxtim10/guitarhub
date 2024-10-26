@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -53,3 +54,7 @@ Route::post('/AddTransaction', [TransactionController::class, 'AddTransaction'])
 
 Route::post('/SignUp', [UserController::class, 'SignUp']);
 Route::get('/GetAllUser', [UserController::class, 'GetAllUser']);
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
