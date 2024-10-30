@@ -8,4 +8,6 @@ export const ENDPOINTS = {
   DeleteCategory: `${BASE_URL}/DeleteCategory`,
   GetAllStore: `${BASE_URL}/GetAllStore`,
   GetAllProduct: `${BASE_URL}/GetAllProduct`,
+  Register: `/register`,
+  login: `/login`,
 };

@@ -2,67 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string',
         ]);
 
         $user = User::create([
-            'username' => $validatedData['username'],
+            'fullname' => $validatedData['fullname'],
             'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
+            'password' => Hash::make($validatedData['password']),
         ]);
-
-        return response()->json(['user' => $user], 201);
+        return response()->json([
+            'fullname' => $user->fullname,
+            'email' => $user->email,
+        ]);
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            /** @var \App\Models\MyUserModel $user **/
-            $user = Auth::user();
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json(['token' => $token, 'user' => $user]);
+        $user = User::where('email',  $request->email)->first();
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => ['Username or password incorrect'],
+            ], 401);
         }
 
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User logged in successfully',
+            'fullname' => $user->fullname,
+        ]);
     }
 
     public function logout(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
-        $bt = $request->bearerToken();
-        if ($user) {
-            if ($user->tokens()->where('id', $bt) == $bt) {
-                $user->tokens()->where('id', $bt)->delete();
-            }
-        } else {
-            return response()->json([
-                'status_code' => 400,
-                'message' => 'We could not locate the proper info in order to logout this user'
-            ]);
-        }
-
-
         $request->user()->currentAccessToken()->delete();
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'Logged out successfully'
-        ]);
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'User logged out successfully'
+            ]
+        );
     }
 }
