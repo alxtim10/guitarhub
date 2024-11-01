@@ -1,10 +1,14 @@
+'use client'
+import { useIsLogin } from "@/utils/useIsLogin";
 import Link from "next/link";
 import React from "react";
 
 const NavbarMobileBottom = () => {
+
+  const { isLogin } = useIsLogin();
+
   return (
     <div className="bg-white fixed bottom-0 left-0 w-full flex items-center justify-center gap-16 py-3 border-t-2 border-t-gray-200">
-
       <Link href={'/'}>
         <svg
           className="w-[25px] h-[25px] text-gray-800 dark:text-white"
@@ -50,7 +54,7 @@ const NavbarMobileBottom = () => {
         />
       </svg>
 
-      <Link href={'/login'}>
+      <Link href={isLogin != null ? '/profile' : '/login'}>
         <svg
           className="w-[25px] h-[25px] text-gray-800 dark:text-white"
           aria-hidden="true"

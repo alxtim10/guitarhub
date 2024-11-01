@@ -16,7 +16,7 @@ export default function Register() {
       <div className="bg-white px-5 py-8 rounded-xl mt-10 shadow-lg">
         <h1 className="text-2xl font-bold">Create your account</h1>
         <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
-          <label className="text-sm">Email</label>
+          <label className="text-xs font-semibold">Email</label>
           <input
             type="text"
             name="email"
@@ -24,11 +24,11 @@ export default function Register() {
             onChange={handleInput}
             placeholder="Enter Email"
             className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 placeholder:text-sm focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
           />
         </div>
         <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
-          <label className="text-sm">Full Name</label>
+          <label className="text-xs font-semibold">Full Name</label>
           <input
             type="text"
             name="fullname"
@@ -36,11 +36,11 @@ export default function Register() {
             onChange={handleInput}
             placeholder="Enter Full Name"
             className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 placeholder:text-sm focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
           />
         </div>
         <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
-          <label className="text-sm">Password</label>
+          <label className="text-xs font-semibold">Password</label>
           <input
             type="password"
             name="password"
@@ -48,7 +48,7 @@ export default function Register() {
             onChange={handleInput}
             placeholder="Enter Password"
             className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 placeholder:text-sm focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
           />
         </div>
         <button

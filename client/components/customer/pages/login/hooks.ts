@@ -22,6 +22,7 @@ export const useLogin = () => {
   const mutation = useMutation({
     mutationFn: Login,
     onSuccess: (data) => {
+      localStorage.setItem("isLogin", "logged")
       router.push("/");
     },
     onError: (error) => {
