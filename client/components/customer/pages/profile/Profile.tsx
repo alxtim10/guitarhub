@@ -1,6 +1,6 @@
 'use client'
 import { AngleRight, ArchiveArrowDown, ArrowDown, ArrowLeft, ArrowRight, ArrowsRepeat, ArrowUp, CheckCircle, ChevronLeft, Eye, Rocket, Wallet } from 'flowbite-react-icons/outline'
-import { AddressBook, Cart, Cash, User, UserCircle } from 'flowbite-react-icons/solid'
+import { AddressBook, Cart, Cash, Store, User, UserCircle } from 'flowbite-react-icons/solid'
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
@@ -76,6 +76,17 @@ export default function Profile() {
                             <h1 className='text-xs'>Top Up</h1>
                         </div>
                     </div>
+                </div>
+                <div
+                    onClick={() => {
+                        router.push('/profile/store')
+                    }}
+                    className='px-4 py-4 bg-white flex items-center justify-between shadow-md rounded-lg mt-5 cursor-pointer'>
+                    <div className='flex items-center justify-center gap-2'>
+                        <Store className='text-green-500' />
+                        <h1 className='font-bold mt-[2px]'>My Store</h1>
+                    </div>
+                    <AngleRight className='w-4 h-4' />
                 </div>
                 <hr className='border my-5' />
                 <div className='flex flex-col justify-center gap-5'>

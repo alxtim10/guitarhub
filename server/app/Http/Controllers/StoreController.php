@@ -22,7 +22,9 @@ class StoreController extends Controller
             'data' => $datas->map(function ($data) {
                 return [
                     'id' => $data->id,
+                    'user_id' => $data->user_id,
                     'name' => $data->name,
+                    'domain' => $data->domain,
                     'description' => $data->description,
                     'rating' => $data->rating,
                     'location' => $data->location,
@@ -42,11 +44,17 @@ class StoreController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|min:0',
             'location' => 'required|string|min:0',
+            'domain' => 'required|string|min:0',
+            'user_id' => 'required|exists:users,id'
+        ], [
+            'user_id.exists' => 'The selected user does not exist.',
         ]);
 
         $store = Store::create([
             'name' => $request->input('name'),
+            'domain' => $request->input('domain'),
             'description' => $request->input('description'),
+            'user_id' => $request->input('user_id'),
             'location' => $request->input('location'),
             'rating' => $request->input('rating'),
             'is_online' => $request->input('is_online'),
@@ -59,7 +67,9 @@ class StoreController extends Controller
             'message' => 'Store Created Successfully',
             'data' => [
                 'id' => $store->id,
+                'user_id' => $store->user_id,
                 'name' => $store->name,
+                'domain' => $store->domain,
                 'description' => $store->description,
                 'location' => $store->location,
                 'is_online' => $store->is_online,
@@ -81,6 +91,7 @@ class StoreController extends Controller
 
         $data = Store::find($request->input('id'));
         $data->name = $request->input('name');
+        $data->domain = $request->input('domain');
         $data->description = $request->input('description');
         $data->location = $request->input('location');
         $data->rating = $request->input('rating');
@@ -93,7 +104,9 @@ class StoreController extends Controller
             'status' => 'success',
             'data' => [
                 'id' => $data->id,
+                'user_id' => $data->user_id,
                 'name' => $data->name,
+                'domain' => $data->domain,
                 'description' => $data->description,
                 'location' => $data->location,
                 'is_online' => $data->is_online,

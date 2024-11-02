@@ -13,7 +13,7 @@ export const Register = async (params: RegisterType) => {
 
 export const Login = async (params: LoginType) => {
   try {
-    const response = await axiosInstance.post(ENDPOINTS.login, params);
+    const response = await axiosInstance.post(ENDPOINTS.Login, params);
     return response.data;
   } catch (error) {
     throw new Error("Failed to register account");

@@ -24,6 +24,8 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('domain');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
             $table->string('location')->nullable();
             $table->decimal('rating', 10, 2)->default(0);

@@ -9,5 +9,5 @@ class Store extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'location', 'is_online', 'is_verified', 'last_seen', 'rating'];
+    protected $fillable = ['name', 'domain', 'user_id', 'description', 'location', 'is_online', 'is_verified', 'last_seen', 'rating'];
 }
