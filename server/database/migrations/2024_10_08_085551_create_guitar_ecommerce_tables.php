@@ -155,6 +155,7 @@ return new class extends Migration
             $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
+            $table->timestamps();
         });
 
         Schema::create('last_seen_items', function (Blueprint $table) {

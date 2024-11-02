@@ -62,6 +62,8 @@ Route::get('/GetAllProduct', [ProductController::class, 'GetAllProduct']);
 Route::get('/GetProductById', [ProductController::class, 'GetProductById']);
 Route::get('/GetProductByName', [ProductController::class, 'GetProductByName']);
 Route::post('/AddProduct', [ProductController::class, 'AddProduct']);
+Route::post('/AddProductVariant', [ProductController::class, 'AddProductVariant']);
+Route::get('/GetAllProductVariant', [ProductController::class, 'GetAllProductVariant']);
 Route::patch('/EditProduct', [ProductController::class, 'EditProduct']);
 Route::delete('/DeleteProduct', [ProductController::class, 'DeleteProduct']);
 

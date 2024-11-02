@@ -3,11 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TransactionItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
     public function AddTransaction(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'items' => 'required|array',
+        ],  [
+            'user_id.exists' => 'The selected user does not exist.',
+        ]);
+
+        $transaction = Transaction::create([
+            'user_id' => $request->user_id,
+            'status' => $request->status,
+            'total_price' => $request->total_price,
+        ]);
+
+        $records = array_map(function ($record) use ($transaction) {
+            $record['transaction_id'] = $transaction->id;
+            return $record;
+        }, $validated['items']);
+
+        $transaction_items = TransactionItem::insert($records);
+
+        return response()->json([
+            'status' => 'Success',
+            'data' => [
+                'id' => $transaction->id,
+                'user_id' => $transaction->user_id,
+                'status' => $transaction->status,
+                'total_price' => $transaction->total_price,
+                'items' => $records,
+                'created_at' => $transaction->created_at->toDateTimeString(),
+                'updated_at' => $transaction->updated_at
+            ]
+        ]);
+    }
+
+    public function AddTransactionItems(Request $request)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id'
@@ -17,10 +55,8 @@ class TransactionController extends Controller
 
         $transaction = Transaction::create([
             'user_id' => $request->user_id,
-            'transaction_date' => now(),
             'status' => $request->status,
-            'total_amount' => $request->total_amount,
-            'shipping_address' => $request->shipping_address,
+            'total_price' => $request->total_price,
         ]);
 
         return response()->json([
@@ -29,10 +65,8 @@ class TransactionController extends Controller
             'data' => [
                 'id' => $transaction->id,
                 'user_id' => $transaction->user_id,
-                'transaction_date' => $transaction->transaction_date,
                 'status' => $transaction->status,
-                'total_amount' => $transaction->total_amount,
-                'shipping_address' => $transaction->shipping_address,
+                'total_price' => $transaction->total_price,
                 'created_at' => $transaction->created_at->toDateTimeString(),
                 'updated_at' => $transaction->updated_at
             ]
@@ -50,16 +84,10 @@ class TransactionController extends Controller
                 return [
                     'id' => $transaction->id,
                     'user_id' => $transaction->user_id,
-                    'transaction_date' => $transaction->transaction_date,
                     'status' => $transaction->status,
-                    'total_amount' => $transaction->total_amount,
-                    'shipping_address' => $transaction->shipping_address
+                    'total_price' => $transaction->total_price,
                 ];
             }),
-            'metadata' => [
-                'request_id' => uniqid(),
-                'timestamp' => now()->toDateTimeString()
-            ]
         ];
 
         return response()->json($customResponse, 200);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Constraint\IsEmpty;
@@ -172,6 +173,65 @@ class ProductController extends Controller
                 'updated_at' => $data->updated_at
             ]
         ]);
+    }
+
+    public function AddProductVariant(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'product_id' => 'required|exists:products,id',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+        ],  [
+            'product_id.exists' => 'The selected product does not exist.',
+        ]);
+
+        $data = ProductVariant::create([
+            'name' => $request->name,
+            'product_id' => $request->product_id,
+            'price' => $request->price,
+            'stock_quantity' => $request->stock_quantity,
+        ]);
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Product Created Successfully',
+            'data' => [
+                'id' => $data->id,
+                'name' => $data->name,
+                // 'product' => Product::where('id', $data->product_id)->value('name'),
+                'price' => $data->price,
+                'stock_quantity' => $data->stock_quantity,
+                'created_at' => $data->created_at->toDateTimeString(),
+                'updated_at' => $data->updated_at
+            ]
+        ]);
+    }
+
+    public function GetAllProductVariant(Request $request)
+    {
+        $datas = ProductVariant::paginate(5);
+
+        $customResponse = [
+            'status' => 'Success',
+            'total' => $datas->total(),
+            'current_page' => $datas->currentPage(),
+            'last_page' => $datas->lastPage(),
+            'sold_products' => Product::sum('total_purchases'),
+            'data' => $datas->map(function ($data) {
+                return [
+                    'id' => $data->id,
+                    'name' => $data->name,
+                    'description' => $data->description,
+                    'price' => $data->price,
+                    'product_id' => $data->product_id,
+                    'created_at' => $data->created_at,
+                    'updated_at' => $data->updated_at
+                ];
+            }),
+        ];
+
+        return response()->json($customResponse, 200);
     }
 
     public function EditProduct(Request $request)

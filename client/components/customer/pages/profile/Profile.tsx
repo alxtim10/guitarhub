@@ -10,7 +10,7 @@ export default function Profile() {
 
     return (
         <div>
-            <div className='bg-green-400 pt-6 pb-10 px-4 w-full rounded-b-[2rem]'>
+            <div className='bg-green-400 pt-6 pb-10 px-4 w-full rounded-b-3xl'>
                 <div className='flex items-center gap-3 mb-3'>
                     <ArrowLeft
                         onClick={() => {

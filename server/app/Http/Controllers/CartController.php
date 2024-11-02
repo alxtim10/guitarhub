@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -75,10 +76,15 @@ class CartController extends Controller
         if (!$product) {
             return response()->json(['message' => 'Product Not Found'], 404);
         }
+        $product_variant = ProductVariant::where('id', $request->product_variant_id)->first();
+        if (!$product_variant) {
+            return response()->json(['message' => 'Product Variant Not Found'], 404);
+        }
 
         $cart_item = CartItem::create([
             'cart_id' => $cart->id,
             'product_id' => $request->product_id,
+            'product_variant_id' => $request->product_variant_id,
             'price' => $product->price,
             'quantity' => $request->quantity
         ]);
@@ -89,10 +95,9 @@ class CartController extends Controller
                 'id' => $cart_item->id,
                 'cart_id' => $cart_item->cart_id,
                 'product_id' => $cart_item->product_id,
+                'product_variant_id' => $cart_item->product_variant_id,
                 'price' => $cart_item->price,
                 'quantity' => $cart_item->quantity,
-                'created_at' => $cart_item->created_at->toDateTimeString(),
-                'updated_at' => $cart_item->updated_at
             ]
         ]);
     }
