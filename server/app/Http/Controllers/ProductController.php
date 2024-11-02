@@ -10,89 +10,35 @@ use PHPUnit\Framework\Constraint\IsEmpty;
 
 class ProductController extends Controller
 {
-    public function AddProduct(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'stock_quantity' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id', // Validate that the category exists
-            'store_id' => 'required|exists:stores,id'
-        ],  [
-            'category_id.exists' => 'The selected category does not exist.',
-            'store_id.exists' => 'The selected store does not exist.',
-        ]);
-
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'rating' => $request->rating,
-            'stock_quantity' => $request->stock_quantity,
-            'category_id' => $request->category_id,
-            'store_id' => $request->store_id,
-            'discount_percentage' => 0,
-            'discount_start_date' => null,
-            'discount_end_date' => null,
-            'total_purchases' => 0
-        ]);
-
-        return response()->json([
-            'status' => 'Success',
-            'message' => 'Product Created Successfully',
-            'data' => [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'rating' => $product->rating,
-                'category' => $product->category_id,
-                'store' => Store::where('id', $product->store_id)->value('name'),
-                'stock_quantity' => $product->stock_quantity,
-                'discount_percentage' => $product->discount_percentage,
-                'discount_start_date' => $product->discount_start_date,
-                'discount_end_date' => $product->discount_end_date,
-                'total_purchases' => $product->total_purchases,
-                'created_at' => $product->created_at->toDateTimeString(),
-                'updated_at' => $product->updated_at
-            ]
-        ]);
-    }
-
     public function GetAllProduct()
     {
-        $products = Product::paginate(5);
+        $datas = Product::paginate(5);
 
         $customResponse = [
             'status' => 'Success',
             'message' => 'All Product Retrieved',
-            'total' => $products->total(),
-            'current_page' => $products->currentPage(),
-            'last_page' => $products->lastPage(),
+            'total' => $datas->total(),
+            'current_page' => $datas->currentPage(),
+            'last_page' => $datas->lastPage(),
             'sold_products' => Product::sum('total_purchases'),
-            'data' => $products->map(function ($product) {
+            'data' => $datas->map(function ($data) {
                 return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'description' => $product->description,
-                    'price' => $product->price,
-                    'rating' => $product->rating,
-                    'category' => strval($product->category_id) . ' - ' . Category::where('id', $product->category_id)->value('name'),
-                    'store' => strval($product->store_id) . ' - ' . Store::where('id', $product->store_id)->value('name'),
-                    'stock_quantity' => $product->stock_quantity,
-                    'discount_percentage' => $product->discount_percentage,
-                    'discount_start_date' => $product->discount_start_date,
-                    'discount_end_date' => $product->discount_end_date,
-                    'total_purchases' => $product->total_purchases,
-                    'created_at' => $product->created_at,
-                    'updated_at' => $product->updated_at
+                    'id' => $data->id,
+                    'name' => $data->name,
+                    'description' => $data->description,
+                    'price' => $data->price,
+                    'rating' => $data->rating,
+                    'category' => strval($data->category_id) . ' - ' . Category::where('id', $data->category_id)->value('name'),
+                    'store' => strval($data->store_id) . ' - ' . Store::where('id', $data->store_id)->value('name'),
+                    'stock_quantity' => $data->stock_quantity,
+                    'discount_percentage' => $data->discount_percentage,
+                    'discount_start_date' => $data->discount_start_date,
+                    'discount_end_date' => $data->discount_end_date,
+                    'total_purchases' => $data->total_purchases,
+                    'created_at' => $data->created_at,
+                    'updated_at' => $data->updated_at
                 ];
             }),
-            'metadata' => [
-                'request_id' => uniqid(),
-                'timestamp' => now()->toDateTimeString()
-            ]
         ];
 
         return response()->json($customResponse, 200);
@@ -101,8 +47,8 @@ class ProductController extends Controller
     public function GetProductById(Request $request)
     {
         $id = $request->query('id');
-        $product = Product::find($id);
-        if (!$product) {
+        $data = Product::find($id);
+        if (!$data) {
             return response()->json(['message' => 'Product Not Found'], 404);
         }
 
@@ -110,23 +56,19 @@ class ProductController extends Controller
             'status' => 'Success',
             'message' => 'Product Found',
             'data' => [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'category_id' => $product->category_id,
-                'store_id' => $product->store_id,
-                'stock_quantity' => $product->stock_quantity,
-                'discount_percentage' => $product->discount_percentage,
-                'discount_start_date' => $product->discount_start_date,
-                'discount_end_date' => $product->discount_end_date,
-                'total_purchases' => $product->total_purchases,
-                'created_at' => $product->created_at,
-                'updated_at' => $product->updated_at
-            ],
-            'metadata' => [
-                'request_id' => uniqid(),
-                "timestamp" => now()->toDateTimeString()
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'price' => $data->price,
+                'category_id' => $data->category_id,
+                'store_id' => $data->store_id,
+                'stock_quantity' => $data->stock_quantity,
+                'discount_percentage' => $data->discount_percentage,
+                'discount_start_date' => $data->discount_start_date,
+                'discount_end_date' => $data->discount_end_date,
+                'total_purchases' => $data->total_purchases,
+                'created_at' => $data->created_at,
+                'updated_at' => $data->updated_at
             ],
         ];
         return response()->json($customResponse, 200);
@@ -182,7 +124,57 @@ class ProductController extends Controller
         return response()->json($customResponse, 200);
     }
 
-    public function UpdateProduct(Request $request)
+    public function AddProduct(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id', // Validate that the category exists
+            'store_id' => 'required|exists:stores,id'
+        ],  [
+            'category_id.exists' => 'The selected category does not exist.',
+            'store_id.exists' => 'The selected store does not exist.',
+        ]);
+
+        $data = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'rating' => $request->rating,
+            'stock_quantity' => $request->stock_quantity,
+            'category_id' => $request->category_id,
+            'store_id' => $request->store_id,
+            'discount_percentage' => 0,
+            'discount_start_date' => null,
+            'discount_end_date' => null,
+            'total_purchases' => 0
+        ]);
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Product Created Successfully',
+            'data' => [
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'price' => $data->price,
+                'rating' => $data->rating,
+                'category' => Category::where('id', $data->category_id)->value('name'),
+                'store' => Store::where('id', $data->store_id)->value('name'),
+                'stock_quantity' => $data->stock_quantity,
+                'discount_percentage' => $data->discount_percentage,
+                'discount_start_date' => $data->discount_start_date,
+                'discount_end_date' => $data->discount_end_date,
+                'total_purchases' => $data->total_purchases,
+                'created_at' => $data->created_at->toDateTimeString(),
+                'updated_at' => $data->updated_at
+            ]
+        ]);
+    }
+
+    public function EditProduct(Request $request)
     {
         $request->validate([
             'id' => 'required|integer|exists:products,id',
@@ -191,29 +183,29 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
         ]);
 
-        $product = Product::find($request->input('id'));
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->save();
+        $data = Product::find($request->input('id'));
+        $data->name = $request->input('name');
+        $data->description = $request->input('description');
+        $data->price = $request->input('price');
+        $data->save();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Product name updated successfully',
             'data' => [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'category_id' => $product->category_id,
-                'store_id' => $product->store_id,
-                'stock_quantity' => $product->stock_quantity,
-                'discount_percentage' => $product->discount_percentage,
-                'discount_start_date' => $product->discount_start_date,
-                'discount_end_date' => $product->discount_end_date,
-                'total_purchases' => $product->total_purchases,
-                'created_at' => $product->created_at,
-                'updated_at' => $product->updated_at->toDateTimeString(),
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'price' => $data->price,
+                'category_id' => $data->category_id,
+                'store_id' => $data->store_id,
+                'stock_quantity' => $data->stock_quantity,
+                'discount_percentage' => $data->discount_percentage,
+                'discount_start_date' => $data->discount_start_date,
+                'discount_end_date' => $data->discount_end_date,
+                'total_purchases' => $data->total_purchases,
+                'created_at' => $data->created_at,
+                'updated_at' => $data->updated_at->toDateTimeString(),
             ]
         ], 200);
     }

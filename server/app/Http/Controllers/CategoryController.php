@@ -9,27 +9,22 @@ class CategoryController extends Controller
 {
     public function GetAllCategory()
     {
-        $categories = Category::paginate(5);
+        $datas = Category::paginate(5);
 
         $customResponse = [
             'status' => 'Success',
-            'message' => 'All Category Retrieved',
-            'total' => $categories->total(),
-            'current_page' => $categories->currentPage(),
-            'last_page' => $categories->lastPage(),
-            'data' => $categories->map(
-                function ($category) {
+            'total' => $datas->total(),
+            'current_page' => $datas->currentPage(),
+            'last_page' => $datas->lastPage(),
+            'data' => $datas->map(
+                function ($data) {
                     return [
-                        'id' => $category->id,
-                        'name' => $category->name,
-                        'description' => $category->description,
+                        'id' => $data->id,
+                        'name' => $data->name,
+                        'description' => $data->description,
                     ];
                 },
             ),
-            'metadata' => [
-                'request_id' => uniqid(),
-                'timestamp' => now()->toDateTimeString()
-            ]
         ];
 
         return response()->json($customResponse, 200);
@@ -42,7 +37,7 @@ class CategoryController extends Controller
             'description' => 'required|string|min:0',
         ]);
 
-        $category = Category::create([
+        $data = Category::create([
             'name' => $request->input('name'),
             'description' => $request->input('description')
         ]);
@@ -51,10 +46,10 @@ class CategoryController extends Controller
             'status' => 'Success',
             'message' => 'Category Created Successfully',
             'data' => [
-                'id' => $category->id,
-                'name' => $category->name,
-                'description' => $category->description,
-                'created_at' => $category->created_at->toDateTimeString()
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'created_at' => $data->created_at->toDateTimeString()
             ]
         ]);
     }
@@ -62,8 +57,8 @@ class CategoryController extends Controller
     public function GetCategoryById(Request $request)
     {
         $id = $request->query('id');
-        $category = Category::find($id);
-        if (!$category) {
+        $data = Category::find($id);
+        if (!$data) {
             return response()->json(['message' => 'Category Not Found'], 404);
         }
 
@@ -71,15 +66,11 @@ class CategoryController extends Controller
             'status' => 'Success',
             'message' => 'Category Found',
             'data' => [
-                'id' => $category->id,
-                'name' => $category->name,
-                'description' => $category->description,
-                'created_at' => $category->created_at,
-                'updated_at' => $category->updated_at
-            ],
-            'metadata' => [
-                'request_id' => uniqid(),
-                "timestamp" => now()->toDateTimeString()
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'created_at' => $data->created_at,
+                'updated_at' => $data->updated_at
             ],
         ];
         return response()->json($customResponse, 200);
@@ -93,19 +84,18 @@ class CategoryController extends Controller
             'description' => 'required|string|min:0',
         ]);
 
-        $category = Category::find($request->input('id'));
-        $category->name = $request->input('name');
-        $category->description = $request->input('description');
-        $category->save();
+        $data = Category::find($request->input('id'));
+        $data->name = $request->input('name');
+        $data->description = $request->input('description');
+        $data->save();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Category updated successfully',
             'data' => [
-                'id' => $category->id,
-                'name' => $category->name,
-                'description' => $category->description,
-                'updated_at' => $category->updated_at->toDateTimeString(),
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'updated_at' => $data->updated_at->toDateTimeString(),
             ]
         ], 200);
     }

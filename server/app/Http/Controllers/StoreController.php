@@ -9,32 +9,28 @@ class StoreController extends Controller
 {
     public function GetAllStore()
     {
-        $stores = Store::paginate(5);
+        $datas = Store::paginate(5);
 
         $customResponse = [
             'status' => 'Success',
             'message' => 'All Store Retrieved',
-            'total' => $stores->total(),
-            'current_page' => $stores->currentPage(),
-            'last_page' => $stores->lastPage(),
+            'total' => $datas->total(),
+            'current_page' => $datas->currentPage(),
+            'last_page' => $datas->lastPage(),
             'average_rating' => Store::avg('rating'),
             'total_verified_stores' => Store::where('is_verified', true)->count(),
-            'data' => $stores->map(function ($store) {
+            'data' => $datas->map(function ($data) {
                 return [
-                    'id' => $store->id,
-                    'name' => $store->name,
-                    'description' => $store->description,
-                    'rating' => $store->rating,
-                    'location' => $store->location,
-                    'is_online' => $store->is_online,
-                    'is_verified' => $store->is_verified,
-                    'last_seen' => $store->last_seen,
+                    'id' => $data->id,
+                    'name' => $data->name,
+                    'description' => $data->description,
+                    'rating' => $data->rating,
+                    'location' => $data->location,
+                    'is_online' => $data->is_online,
+                    'is_verified' => $data->is_verified,
+                    'last_seen' => $data->last_seen,
                 ];
             }),
-            'metadata' => [
-                'request_id' => uniqid(),
-                'timestamp' => now()->toDateTimeString()
-            ]
         ];
 
         return response()->json($customResponse, 200);
@@ -78,31 +74,32 @@ class StoreController extends Controller
     public function UpdateStore(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:products,id',
+            'id' => 'required|integer|exists:stores,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string|min:0',
         ]);
 
-        $store = Store::find($request->input('id'));
-        $store->name = $request->input('name');
-        $store->description = $request->input('description');
-        $store->location = $request->input('location');
-        $store->location = $request->input('is_verified');
-        $store->location = $request->input('last_seen');
-        $store->save();
+        $data = Store::find($request->input('id'));
+        $data->name = $request->input('name');
+        $data->description = $request->input('description');
+        $data->location = $request->input('location');
+        $data->rating = $request->input('rating');
+        $data->is_verified = $request->input('is_verified');
+        $data->is_online = $request->input('is_online');
+        $data->last_seen = $request->input('last_seen');
+        $data->save();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Store updated successfully',
             'data' => [
-                'id' => $store->id,
-                'name' => $store->name,
-                'description' => $store->description,
-                'location' => $store->location,
-                'is_online' => $store->is_online,
-                'rating' => $store->rating,
-                'last_seen' => $store->last_seen,
-                'updated_at' => $store->updated_at->toDateTimeString(),
+                'id' => $data->id,
+                'name' => $data->name,
+                'description' => $data->description,
+                'location' => $data->location,
+                'is_online' => $data->is_online,
+                'rating' => $data->rating,
+                'last_seen' => $data->last_seen,
+                'updated_at' => $data->updated_at->toDateTimeString(),
             ]
         ], 200);
     }

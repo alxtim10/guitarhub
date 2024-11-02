@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -24,6 +27,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Shipping
+Route::get('/GetAllShipping', [ShippingController::class, 'GetAllShipping']);
+Route::get('/GetAllShippingVariant', [ShippingController::class, 'GetAllShippingVariant']);
+Route::post('/AddShipping', [ShippingController::class, 'AddShipping']);
+Route::post('/AddShippingVariant', [ShippingController::class, 'AddShippingVariant']);
+Route::get('/GetShippingById', [ShippingController::class, 'GetShippingById']);
+Route::delete('/DeleteShipping', [ShippingController::class, 'DeleteShipping']);
+Route::delete('/DeleteShippingVariant', [ShippingController::class, 'DeleteShippingVariant']);
+//Payment Method
+Route::get('/GetAllPaymentMethod', [PaymentMethodController::class, 'GetAllPaymentMethod']);
+Route::get('/GetAllPaymentMethodCategory', [PaymentMethodController::class, 'GetAllPaymentMethodCategory']);
+Route::post('/AddPaymentMethodCategory', [PaymentMethodController::class, 'AddPaymentMethodCategory']);
+Route::post('/AddPaymentMethod', [PaymentMethodController::class, 'AddPaymentMethod']);
+Route::get('/GetPaymentMethodCategoryById', [PaymentMethodController::class, 'GetPaymentMethodCategoryById']);
+Route::delete('/DeletePaymentMethod', [PaymentMethodController::class, 'DeletePaymentMethod']);
+Route::delete('/DeletePaymentMethodCategory', [PaymentMethodController::class, 'DeletePaymentMethodCategory']);
+
 //Store
 Route::get('/GetAllStore', [StoreController::class, 'GetAllStore']);
 Route::post('/AddStore', [StoreController::class, 'AddStore']);
@@ -42,7 +62,7 @@ Route::get('/GetAllProduct', [ProductController::class, 'GetAllProduct']);
 Route::get('/GetProductById', [ProductController::class, 'GetProductById']);
 Route::get('/GetProductByName', [ProductController::class, 'GetProductByName']);
 Route::post('/AddProduct', [ProductController::class, 'AddProduct']);
-Route::patch('/UpdateProduct', [ProductController::class, 'UpdateProduct']);
+Route::patch('/EditProduct', [ProductController::class, 'EditProduct']);
 Route::delete('/DeleteProduct', [ProductController::class, 'DeleteProduct']);
 
 //Transaction
@@ -51,10 +71,14 @@ Route::get('/GetAllTransaction', [TransactionController::class, 'GetAllTransacti
 Route::post('/AddTransaction', [TransactionController::class, 'AddTransaction']);
 
 //User
-
-Route::post('/SignUp', [UserController::class, 'SignUp']);
 Route::get('/GetAllUser', [UserController::class, 'GetAllUser']);
+Route::post('/Register', [UserController::class, 'Register']);
+Route::post('/Login', [UserController::class, 'Login']);
+Route::post('/Logout', [UserController::class, 'Logout']);
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+//Cart
+Route::get('/GetAllCart', [CartController::class, 'GetAllCart']);
+Route::get('/GetUserCart', [CartController::class, 'GetUserCart']);
+Route::post('/AddCartItem', [CartController::class, 'AddCartItem']);
+Route::patch('/EditProduct', [ProductController::class, 'EditProduct']);
+Route::delete('/DeleteProduct', [ProductController::class, 'DeleteProduct']);

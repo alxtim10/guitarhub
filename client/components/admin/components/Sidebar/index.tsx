@@ -96,7 +96,7 @@ const Sidebar = () => {
           <p className="text-sm text-greySecondary font-medium mt-1">Users</p>
         </Link>
         <Link
-          href={"/admin/carts"}
+          href={"/admin/payments"}
           className="flex items-center gap-4 cursor-pointer transition-all hover:translate-x-1"
         >
           <Cart className="text-greySecondary w-6 h-6" />

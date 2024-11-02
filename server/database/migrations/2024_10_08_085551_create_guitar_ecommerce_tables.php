@@ -40,6 +40,35 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('shippings', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
+        });
+
+        Schema::create('shipping_variants', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shipping_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
+        });
+
+        Schema::create('payment_method_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('payment_methods', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('payment_method_category_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->integer('admin_fee');
+            $table->timestamps();
+        });
+
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -56,20 +85,40 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('product_variants', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->integer('stock_quantity');
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
+        });
+
         Schema::create('product_images', function (Blueprint $table) {
             $table->id(); // image_id
-            $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Foreign key to products
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->binary('image_file');
-            $table->boolean('is_main')->default(0); // Indicates if this image is the main product image
+            $table->boolean('is_main')->default(0);
             $table->timestamps();
         });
 
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->dateTime('transaction_date');
-            $table->enum('status', ['Pending', 'Shipped', 'Delivered', 'Cancelled']);
+            $table->enum('status', ['confirmation', 'payment', 'shipping', 'delivered', 'review', 'completed', 'canceled']);
             $table->decimal('total_price', 10, 2);
+            $table->timestamps();
+        });
+
+        Schema::create('transaction_details', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('transaction_date');
+            $table->foreignId('shipping_id')->constrained()->onDelete('cascade');
+            $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
+            $table->decimal('sub_total', 10, 2);
+            $table->decimal('shipping_price', 10, 2);
+            $table->decimal('discount_price', 10, 2);
+            $table->decimal('is_discount', 10, 2);
             $table->string('shipping_address')->nullable();
             $table->timestamps();
         });
@@ -78,6 +127,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
         });
@@ -102,6 +152,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
         });

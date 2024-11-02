@@ -2,46 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function SignUp(Request $request)
+    public function Register(Request $request)
     {
-
-        $user = User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request['password']),
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' => $request->adress,
+        $validatedData = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string',
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $user = User::create([
+            'fullname' => $validatedData['fullname'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        $cart = Cart::create([
+            'user_id' => $user->id,
+            'total_price' => 0
+        ]);
 
         return response()->json([
-            'status' => 'Success',
-            'message' => 'User Created',
-            'data' => [
-                'id' => $user->id,
-                'username' => $user->username,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'phone' => $user->phone,
-                'email' => $user->email,
-                'address' => $user->address,
-                'created_at' => $user->created_at->toDateTimeString(),
-                'updated_at' => $user->updated_at
-            ],
-            'token' => $token
-        ], 201);
+            'fullname' => $user->fullname,
+            'email' => $user->email,
+            'cart_id' => $cart->id
+        ]);
     }
 
-    public function GetAllUser(){
+    public function Login(Request $request)
+    {
+        $user = User::where('email',  $request->email)->first();
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => ['Username or password incorrect'],
+            ], 401);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User logged in successfully',
+            'fullname' => $user->fullname
+        ]);
+    }
+
+    public function Logout(Request $request)
+    {
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'User logged out successfully'
+            ]
+        );
+    }
+
+    public function GetAllUser()
+    {
         $users = User::all();
         return response()->json($users);
     }
