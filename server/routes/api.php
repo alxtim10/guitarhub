@@ -46,6 +46,7 @@ Route::delete('/DeletePaymentMethodCategory', [PaymentMethodController::class, '
 
 //Store
 Route::get('/GetAllStore', [StoreController::class, 'GetAllStore']);
+Route::get('/GetStoreDetailByUserId', [StoreController::class, 'GetStoreDetailByUserId']);
 Route::post('/AddStore', [StoreController::class, 'AddStore']);
 Route::patch('/UpdateStore', [StoreController::class, 'UpdateStore']);
 Route::delete('/DeleteStore', [StoreController::class, 'DeleteStore']);

@@ -38,6 +38,34 @@ class StoreController extends Controller
         return response()->json($customResponse, 200);
     }
 
+    public function GetStoreDetailByUserId(Request $request)
+    {
+        $id = $request->query('id');
+        $data = Store::where('user_id', $id);
+        if (!$data) {
+            return response()->json(['message' => 'Store Not Found'], 404);
+        }
+
+        $customResponse = [
+            'status' => 'Success',
+            'data' => [
+                'id' => $data->id,
+                'user_id' => $data->user_id,
+                'name' => $data->name,
+                'domain' => $data->domain,
+                'description' => $data->description,
+                'rating' => $data->rating,
+                'location' => $data->location,
+                'is_online' => $data->is_online,
+                'is_verified' => $data->is_verified,
+                'last_seen' => $data->last_seen,
+                'created_at' => $data->created_at,
+                'updated_at' => $data->updated_at
+            ],
+        ];
+        return response()->json($customResponse, 200);
+    }
+
     public function AddStore(Request $request)
     {
         $request->validate([
@@ -56,10 +84,10 @@ class StoreController extends Controller
             'description' => $request->input('description'),
             'user_id' => $request->input('user_id'),
             'location' => $request->input('location'),
-            'rating' => $request->input('rating'),
-            'is_online' => $request->input('is_online'),
-            'is_verified' => $request->input('is_verified'),
-            'last_seen' => $request->input('last_seen'),
+            'rating' => 0,
+            'is_online' => false,
+            'is_verified' => false,
+            'last_seen' => now(),
         ]);
 
         return response()->json([

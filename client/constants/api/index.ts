@@ -7,6 +7,8 @@ export const ENDPOINTS = {
   EditCategory: `${BASE_URL}/EditCategory`,
   DeleteCategory: `${BASE_URL}/DeleteCategory`,
   GetAllStore: `${BASE_URL}/GetAllStore`,
+  GetStoreDetailByUserId: `${BASE_URL}/GetStoreDetailByUserId`,
+  AddStore: `${BASE_URL}/AddStore`,
   GetAllProduct: `${BASE_URL}/GetAllProduct`,
   Register: `/Register`,
   Login: `/Login`,
