@@ -153,9 +153,15 @@ class ProductController extends Controller
             'total_purchases' => 0
         ]);
 
+        $variants = array_map(function ($variant) use ($data) {
+            $variant['product_id'] = $data->id;
+            return $variant;
+        }, $request['variant']);
+
+        ProductVariant::insert($variants);
+
         return response()->json([
             'status' => 'Success',
-            'message' => 'Product Created Successfully',
             'data' => [
                 'id' => $data->id,
                 'name' => $data->name,
@@ -165,6 +171,7 @@ class ProductController extends Controller
                 'category' => Category::where('id', $data->category_id)->value('name'),
                 'store' => Store::where('id', $data->store_id)->value('name'),
                 'stock_quantity' => $data->stock_quantity,
+                'variant' => $variants,
                 'discount_percentage' => $data->discount_percentage,
                 'discount_start_date' => $data->discount_start_date,
                 'discount_end_date' => $data->discount_end_date,
@@ -195,11 +202,10 @@ class ProductController extends Controller
 
         return response()->json([
             'status' => 'Success',
-            'message' => 'Product Created Successfully',
             'data' => [
                 'id' => $data->id,
                 'name' => $data->name,
-                // 'product' => Product::where('id', $data->product_id)->value('name'),
+                'product' => Product::where('id', $data->product_id)->value('name'),
                 'price' => $data->price,
                 'stock_quantity' => $data->stock_quantity,
                 'created_at' => $data->created_at->toDateTimeString(),

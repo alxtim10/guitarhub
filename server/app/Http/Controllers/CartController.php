@@ -81,24 +81,48 @@ class CartController extends Controller
             return response()->json(['message' => 'Product Variant Not Found'], 404);
         }
 
-        $cart_item = CartItem::create([
-            'cart_id' => $cart->id,
-            'product_id' => $request->product_id,
-            'product_variant_id' => $request->product_variant_id,
-            'price' => $product->price,
-            'quantity' => $request->quantity
-        ]);
+        $existing_cart_item = CartItem::where('product_id', $request->product_id)->where('product_variant_id', $request->product_variant_id)->first();
+        if ($existing_cart_item) {
+            $finalQuantity = $existing_cart_item->quantity + $request->quantity;
+            $finalPrice = $finalQuantity * $product->price;
+            $existing_cart_item->quantity = $finalQuantity;
+            $existing_cart_item->price = $finalQuantity * $product->price;
+            $existing_cart_item->save();
+            $cart->total_price += $finalPrice;
+            $cart->save();
 
-        return response()->json([
-            'status' => 'Success',
-            'data' => [
-                'id' => $cart_item->id,
-                'cart_id' => $cart_item->cart_id,
-                'product_id' => $cart_item->product_id,
-                'product_variant_id' => $cart_item->product_variant_id,
-                'price' => $cart_item->price,
-                'quantity' => $cart_item->quantity,
-            ]
-        ]);
+            return response()->json([
+                'status' => 'Success',
+                'data' => [
+                    'id' => $existing_cart_item->id,
+                    'cart_id' => $existing_cart_item->cart_id,
+                    'product_id' => $existing_cart_item->product_id,
+                    'product_variant_id' => $existing_cart_item->product_variant_id,
+                    'price' => $existing_cart_item->price,
+                    'quantity' => $existing_cart_item->quantity,
+                ]
+            ]);
+        } else {
+            $cart_item = CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $request->product_id,
+                'product_variant_id' => $request->product_variant_id,
+                'price' => $product->price * $request->quantity,
+                'quantity' => $request->quantity
+            ]);
+            $cart->total_price += $cart_item->price;
+            $cart->save();
+            return response()->json([
+                'status' => 'Success',
+                'data' => [
+                    'id' => $cart_item->id,
+                    'cart_id' => $cart_item->cart_id,
+                    'product_id' => $cart_item->product_id,
+                    'product_variant_id' => $cart_item->product_variant_id,
+                    'price' => $cart_item->price,
+                    'quantity' => $cart_item->quantity,
+                ]
+            ]);
+        }
     }
 }

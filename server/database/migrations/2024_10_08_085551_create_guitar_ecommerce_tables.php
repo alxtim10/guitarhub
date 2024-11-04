@@ -45,7 +45,7 @@ return new class extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 15, 0);
             $table->timestamps();
         });
 
@@ -53,7 +53,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('shipping_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 15, 0);
             $table->timestamps();
         });
 
@@ -75,7 +75,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 15, 0);
             $table->decimal('rating', 10, 2)->default(0);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('store_id')->constrained()->onDelete('cascade');
@@ -92,7 +92,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->integer('stock_quantity');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 15, 0);
             $table->timestamps();
         });
 
@@ -108,7 +108,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['confirmation', 'payment', 'shipping', 'delivered', 'review', 'completed', 'canceled']);
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('total_price', 15, 0);
             $table->timestamps();
         });
 
@@ -117,10 +117,10 @@ return new class extends Migration
             $table->dateTime('transaction_date');
             $table->foreignId('shipping_id')->constrained()->onDelete('cascade');
             $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
-            $table->decimal('sub_total', 10, 2);
-            $table->decimal('shipping_price', 10, 2);
-            $table->decimal('discount_price', 10, 2);
-            $table->decimal('is_discount', 10, 2);
+            $table->decimal('sub_total', 15, 0);
+            $table->decimal('shipping_price', 15, 0);
+            $table->decimal('discount_price', 15, 0);
+            $table->decimal('is_discount', 15, 0);
             $table->string('shipping_address')->nullable();
             $table->timestamps();
         });
@@ -131,7 +131,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 15, 0);
         });
 
         Schema::create('reviews', function (Blueprint $table) {
@@ -146,7 +146,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('total_price', 15, 0);
             $table->timestamps();
         });
 
@@ -155,7 +155,7 @@ return new class extends Migration
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 15, 0);
             $table->integer('quantity');
             $table->timestamps();
         });
