@@ -84,11 +84,10 @@ class CartController extends Controller
         $existing_cart_item = CartItem::where('product_id', $request->product_id)->where('product_variant_id', $request->product_variant_id)->first();
         if ($existing_cart_item) {
             $finalQuantity = $existing_cart_item->quantity + $request->quantity;
-            $finalPrice = $finalQuantity * $product->price;
             $existing_cart_item->quantity = $finalQuantity;
             $existing_cart_item->price = $finalQuantity * $product->price;
             $existing_cart_item->save();
-            $cart->total_price += $finalPrice;
+            $cart->total_price += $request->quantity * $product->price;
             $cart->save();
 
             return response()->json([
@@ -112,6 +111,7 @@ class CartController extends Controller
             ]);
             $cart->total_price += $cart_item->price;
             $cart->save();
+
             return response()->json([
                 'status' => 'Success',
                 'data' => [
