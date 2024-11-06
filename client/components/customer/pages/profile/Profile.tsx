@@ -97,7 +97,11 @@ export default function Profile() {
                         </div>
                         <AngleRight className='w-4 h-4' />
                     </div>
-                    <div className='flex items-center justify-between cursor-pointer'>
+                    <div
+                        onClick={() => {
+                            router.push('/cart')
+                        }}
+                        className='flex items-center justify-between cursor-pointer'>
                         <div className='flex items-center justify-center gap-2'>
                             <Cart />
                             <h1 className='mt-[2px]'>Cart</h1>

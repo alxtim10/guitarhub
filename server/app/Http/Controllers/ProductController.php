@@ -31,6 +31,7 @@ class ProductController extends Controller
                     'rating' => $data->rating,
                     'category' => strval($data->category_id) . ' - ' . Category::where('id', $data->category_id)->value('name'),
                     'store' => strval($data->store_id) . ' - ' . Store::where('id', $data->store_id)->value('name'),
+                    'variant' => ProductVariant::where('product_id', $data->id)->get(),
                     'stock_quantity' => $data->stock_quantity,
                     'discount_percentage' => $data->discount_percentage,
                     'discount_start_date' => $data->discount_start_date,
@@ -68,6 +69,7 @@ class ProductController extends Controller
                 'discount_start_date' => $data->discount_start_date,
                 'discount_end_date' => $data->discount_end_date,
                 'total_purchases' => $data->total_purchases,
+                'variant' => ProductVariant::where('product_id', $data->id)->get(),
                 'created_at' => $data->created_at,
                 'updated_at' => $data->updated_at
             ],

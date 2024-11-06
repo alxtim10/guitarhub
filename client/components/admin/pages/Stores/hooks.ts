@@ -1,4 +1,4 @@
-import { GetAllStore } from "@/services/stores";
+import { GetAllStore } from "@/services/store";
 import { StoreData, StoresListType } from "@/types/store";
 import { useIsFetching, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

@@ -58,7 +58,7 @@ const page = ({ params }: { params: { id: string } }) => {
                 John Mayer.
             </p>
             <StoreCard />
-            <Catalog />
+            <Catalog title={'For You'} />
         </div>
     )
 }

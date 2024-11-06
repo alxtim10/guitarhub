@@ -43,13 +43,28 @@ class CartController extends Controller
         }
         $items = CartItem::where('cart_id', $data->id)->get();
 
+        $list_items = [];
+        foreach ($items as $data) {
+            $product = Product::where('id', $data->product_id)->first();
+            $product_variant = ProductVariant::where('id', $data->product_variant_id)->first();
+            $list_items[] = [
+                'cart_id' => $data->cart_id,
+                'product_id' => $data->product_id,
+                'product_name' => $product->name,
+                'product_variant_id' => $data->product_variant_id,
+                'product_variant_name' => $product_variant->name,
+                'price' => $data->price,
+                'quantity' => $data->quantity,
+            ];
+        }
+
         $customResponse = [
             'status' => 'Success',
             'data' => [
                 'id' => $data->id,
                 'user_id' => $data->user_id,
                 'total_price' => $data->total_price,
-                'items' => $items,
+                'items' => $list_items,
                 'created_at' => $data->created_at,
                 'updated_at' => $data->updated_at
             ]
@@ -85,9 +100,10 @@ class CartController extends Controller
         if ($existing_cart_item) {
             $finalQuantity = $existing_cart_item->quantity + $request->quantity;
             $existing_cart_item->quantity = $finalQuantity;
-            $existing_cart_item->price = $finalQuantity * $product->price;
+            $existing_cart_item->price = ($product->price + $product_variant->price) * $finalQuantity;
             $existing_cart_item->save();
-            $cart->total_price += $request->quantity * $product->price;
+
+            $cart->total_price += ($product->price + $product_variant->price) * $request->quantity;
             $cart->save();
 
             return response()->json([
@@ -106,10 +122,11 @@ class CartController extends Controller
                 'cart_id' => $cart->id,
                 'product_id' => $request->product_id,
                 'product_variant_id' => $request->product_variant_id,
-                'price' => $product->price * $request->quantity,
+                'price' => ($product->price + $product_variant->price) * $request->quantity,
                 'quantity' => $request->quantity
             ]);
-            $cart->total_price += $cart_item->price;
+
+            $cart->total_price += ($product->price + $product_variant->price) * $request->quantity;
             $cart->save();
 
             return response()->json([

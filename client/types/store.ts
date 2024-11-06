@@ -16,3 +16,7 @@ export interface StoresListType {
   average_rating: number;
   data: StoreData[];
 }
+
+export interface StoreDetailParams {
+  id: number
+}

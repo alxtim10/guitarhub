@@ -41,7 +41,7 @@ class StoreController extends Controller
     public function GetStoreDetailByUserId(Request $request)
     {
         $id = $request->query('id');
-        $data = Store::where('user_id', $id);
+        $data = Store::where('user_id', $id)->first();
         if (!$data) {
             return response()->json(['message' => 'Store Not Found'], 404);
         }

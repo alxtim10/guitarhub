@@ -12,4 +12,6 @@ export const ENDPOINTS = {
   GetAllProduct: `${BASE_URL}/GetAllProduct`,
   Register: `/Register`,
   Login: `/Login`,
+
+  GetUserCart: '/GetUserCart'
 };

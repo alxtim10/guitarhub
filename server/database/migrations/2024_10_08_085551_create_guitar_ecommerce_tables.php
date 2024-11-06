@@ -114,13 +114,19 @@ return new class extends Migration
 
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
             $table->dateTime('transaction_date');
             $table->foreignId('shipping_id')->constrained()->onDelete('cascade');
+            $table->string('shipping_name');
             $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
-            $table->decimal('sub_total', 15, 0);
-            $table->decimal('shipping_price', 15, 0);
+            $table->string('payment_method_name');
+            $table->decimal('total_product_price', 15, 0);
+            $table->decimal('base_shipping_price', 15, 0);
+            $table->decimal('additional_shipping_price', 15, 0);
+            $table->decimal('admin_fee', 15, 0);
             $table->decimal('discount_price', 15, 0);
             $table->decimal('is_discount', 15, 0);
+            $table->decimal('total_price', 15, 0);
             $table->string('shipping_address')->nullable();
             $table->timestamps();
         });

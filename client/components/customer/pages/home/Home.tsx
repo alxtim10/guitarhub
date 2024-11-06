@@ -12,7 +12,7 @@ export default function Home() {
             <div className="my-16">
                 <Banner />
                 <Category />
-                <Catalog />
+                <Catalog title={'For You'} />
             </div>
         </section>
     )

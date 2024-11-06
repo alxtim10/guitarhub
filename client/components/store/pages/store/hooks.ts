@@ -1,8 +1,9 @@
+import { GetStoreDetailByUserId } from "@/services/store";
 import { AddStore } from "@/services/user";
-import { AddStoreParams } from "@/types/user";
-import { useMutation } from "@tanstack/react-query";
+import { AddStoreParams, StoreDetailType } from "@/types/user";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useStore = (user_id: number) => {
 
@@ -15,6 +16,18 @@ export const useStore = (user_id: number) => {
         description: ''
     });
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { data, error } = useQuery<StoreDetailType | null, Error>({
+        queryKey: ["stores"],
+        queryFn: () => GetStoreDetailByUserId({ id: 1 }),
+    });
+    const [storeData, setStoreData] = useState<StoreDetailType | null>(null);
+    const [selectedTabs, setSelectedTabs] = useState<number>(0);
+
+    useEffect(() => {
+        if (data && !error) {
+            setStoreData(data);
+        }
+    }, [data])
 
     const handleInput = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,9 +57,12 @@ export const useStore = (user_id: number) => {
     };
 
     return {
+        storeData,
         handleInput,
         handleAdd,
         request,
-        isLoading
+        isLoading,
+        selectedTabs,
+        setSelectedTabs
     };
 }
