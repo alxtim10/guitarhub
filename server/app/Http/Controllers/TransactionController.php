@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\PaymentMethod;
-use App\Models\Product;
-use App\Models\ProductVariant;
 use App\Models\Shipping;
 use App\Models\ShippingVariant;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\TransactionItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {

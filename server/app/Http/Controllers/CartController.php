@@ -44,17 +44,17 @@ class CartController extends Controller
         $items = CartItem::where('cart_id', $data->id)->get();
 
         $list_items = [];
-        foreach ($items as $data) {
-            $product = Product::where('id', $data->product_id)->first();
-            $product_variant = ProductVariant::where('id', $data->product_variant_id)->first();
+        foreach ($items as $item) {
+            $product = Product::where('id', $item->product_id)->first();
+            $product_variant = ProductVariant::where('id', $item->product_variant_id)->first();
             $list_items[] = [
-                'cart_id' => $data->cart_id,
-                'product_id' => $data->product_id,
+                'cart_id' => $item->cart_id,
+                'product_id' => $item->product_id,
                 'product_name' => $product->name,
-                'product_variant_id' => $data->product_variant_id,
+                'product_variant_id' => $item->product_variant_id,
                 'product_variant_name' => $product_variant->name,
-                'price' => $data->price,
-                'quantity' => $data->quantity,
+                'price' => $item->price,
+                'quantity' => $item->quantity,
             ];
         }
 
