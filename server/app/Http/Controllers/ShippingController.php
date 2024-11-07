@@ -21,7 +21,7 @@ class ShippingController extends Controller
                     return [
                         'id' => $data->id,
                         'name' => $data->name,
-                        'price' => $data->price,
+                        'variant' => ShippingVariant::where('shipping_id', $data->id)->get(),
                     ];
                 },
             ),
@@ -57,12 +57,10 @@ class ShippingController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|integer',
         ]);
 
         $shipping = Shipping::create([
             'name' => $request->input('name'),
-            'price' => $request->input('price')
         ]);
 
         return response()->json([
@@ -70,7 +68,6 @@ class ShippingController extends Controller
             'data' => [
                 'id' => $shipping->id,
                 'name' => $shipping->name,
-                'price' => $shipping->price,
                 'created_at' => $shipping->created_at->toDateTimeString()
             ]
         ]);
@@ -117,7 +114,6 @@ class ShippingController extends Controller
             'data' => [
                 'id' => $data->id,
                 'name' => $data->name,
-                'price' => $data->price,
                 'variants' => $variants,
                 'created_at' => $data->created_at,
                 'updated_at' => $data->updated_at

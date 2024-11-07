@@ -53,6 +53,7 @@ Route::delete('/DeleteStore', [StoreController::class, 'DeleteStore']);
 
 //Category
 Route::get('/GetAllCategory', [CategoryController::class, 'GetAllCategory']);
+Route::get('/GetAllCategoryByStoreId', [CategoryController::class, 'GetAllCategoryByStoreId']);
 Route::get('/GetCategoryById', [CategoryController::class, 'GetCategoryById']);
 Route::post('/AddCategory', [CategoryController::class, 'AddCategory']);
 Route::patch('/EditCategory', [CategoryController::class, 'EditCategory']);

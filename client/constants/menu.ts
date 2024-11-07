@@ -1,1 +1,1 @@
-export const StoreHomeTabs = ['Home', 'Products'];
+export const StoreHomeTabs = ['Home', 'Products', 'Category'];

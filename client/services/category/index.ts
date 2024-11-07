@@ -2,6 +2,7 @@
 import { ENDPOINTS } from "@/constants/api";
 import axiosInstance from "@/lib/axios";
 import {
+  AddCategoryType,
   CategoryDetailParams,
   CategoryDetailType,
   CategoryListParams,
@@ -33,10 +34,7 @@ export const GetCategoryById = async (
   }
 };
 
-export const AddCategory = async (body: {
-  name: string;
-  description: string;
-}) => {
+export const AddCategory = async (body: AddCategoryType) => {
   try {
     const response = await axiosInstance.post(ENDPOINTS.AddCategory, body);
     return response.data;

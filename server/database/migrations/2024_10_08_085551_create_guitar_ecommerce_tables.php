@@ -38,6 +38,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('store_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
             $table->timestamps();
         });
@@ -45,7 +46,6 @@ return new class extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('price', 15, 0);
             $table->timestamps();
         });
 
@@ -159,6 +159,7 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
+            $table->foreignId('store_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 15, 0);

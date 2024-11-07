@@ -2,7 +2,15 @@ export interface UserCartParams {
     id: number
 }
 
-export interface UserCartItem {
+export interface UserCartStore {
+    store_id: number,
+    store_name: string,
+    price: number,
+    quantity: number,
+    products: UserCartStoreProduct[]
+}
+
+export interface UserCartStoreProduct {
     cart_id: number,
     product_id: number,
     product_name: string,
@@ -16,5 +24,5 @@ export interface UserCart {
     id: number,
     user_id: number,
     total_price: number,
-    items: UserCartItem[]
+    items: UserCartStore[]
 }

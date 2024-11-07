@@ -11,6 +11,5 @@ class Shipping extends Model
 
     protected $fillable = [
         'name',
-        'price',
     ];
 }

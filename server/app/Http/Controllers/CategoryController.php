@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -22,9 +23,23 @@ class CategoryController extends Controller
                         'id' => $data->id,
                         'name' => $data->name,
                         'description' => $data->description,
+                        'store_id' => $data->store_id,
                     ];
                 },
             ),
+        ];
+
+        return response()->json($customResponse, 200);
+    }
+
+    public function GetAllCategoryByStoreId(Request $request)
+    {
+        $id = $request->query('id');
+        $data = Category::where('store_id', $id)->get();
+
+        $customResponse = [
+            'status' => 'Success',
+            'data' => $data
         ];
 
         return response()->json($customResponse, 200);
@@ -35,9 +50,15 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|min:0',
+            'user_id' => 'required|exists:users,id'
+        ], [
+            'user_id.exists' => 'The selected user does not exist.',
         ]);
 
+        $store = Store::where('user_id', $request->user_id)->first();
+
         $data = Category::create([
+            'store_id' => $store->id,
             'name' => $request->input('name'),
             'description' => $request->input('description')
         ]);
@@ -47,6 +68,7 @@ class CategoryController extends Controller
             'message' => 'Category Created Successfully',
             'data' => [
                 'id' => $data->id,
+                'store_id' => $data->store_id,
                 'name' => $data->name,
                 'description' => $data->description,
                 'created_at' => $data->created_at->toDateTimeString()

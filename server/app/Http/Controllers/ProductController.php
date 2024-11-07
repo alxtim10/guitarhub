@@ -134,7 +134,7 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id', // Validate that the category exists
+            'category_id' => 'required|exists:categories,id',
             'store_id' => 'required|exists:stores,id'
         ],  [
             'category_id.exists' => 'The selected category does not exist.',

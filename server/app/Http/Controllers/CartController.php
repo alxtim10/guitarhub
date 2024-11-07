@@ -6,7 +6,9 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -44,17 +46,42 @@ class CartController extends Controller
         $items = CartItem::where('cart_id', $data->id)->get();
 
         $list_items = [];
-        foreach ($items as $item) {
-            $product = Product::where('id', $item->product_id)->first();
-            $product_variant = ProductVariant::where('id', $item->product_variant_id)->first();
+        $list_store = $items->pluck('store_id')->unique()->values();
+
+        foreach ($list_store as $store) {
+            $filteredItems = $items->where('store_id', $store);
+            $productIds = $filteredItems->pluck('product_id')->unique();
+            $productVariantIds = $filteredItems->pluck('product_variant_id')->unique();
+
+            $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
+            $productVariants = ProductVariant::whereIn('id', $productVariantIds)->get()->keyBy('id');
+            $store_detail = Store::where('id', $store)->first();
+
+            $productsData = [];
+            $store_price = 0;
+            foreach ($filteredItems as $item) {
+                $product = $products[$item->product_id] ?? null;
+                $product_variant = $productVariants[$item->product_variant_id] ?? null;
+
+                if ($product && $product_variant) {
+                    $productsData[] = [
+                        'cart_id' => $item->cart_id,
+                        'product_id' => $item->product_id,
+                        'product_name' => $product->name,
+                        'product_variant_id' => $item->product_variant_id,
+                        'product_variant_name' => $product_variant->name,
+                        'price' => $item->price,
+                        'quantity' => $item->quantity,
+                    ];
+                }
+                $store_price += $item->price;
+            }
             $list_items[] = [
-                'cart_id' => $item->cart_id,
-                'product_id' => $item->product_id,
-                'product_name' => $product->name,
-                'product_variant_id' => $item->product_variant_id,
-                'product_variant_name' => $product_variant->name,
-                'price' => $item->price,
-                'quantity' => $item->quantity,
+                'store_id' => $store,
+                'store_name' => $store_detail->name,
+                'price' => $store_price,
+                'quantity' => count($productsData),
+                'products' => $productsData
             ];
         }
 
@@ -77,16 +104,24 @@ class CartController extends Controller
     {
         $request->validate([
             'user_id' => 'required|integer',
-            'product_id' => 'required|integer'
+            'product_id' => 'required|integer',
+            'store_id' => 'required|integer',
         ],  [
             'user_id.exists' => 'The selected user does not exist.',
-            'product_id.exists' => 'The selected product does not exist.'
+            'product_id.exists' => 'The selected product does not exist.',
+            'store_id.exists' => 'The selected store does not exist.'
         ]);
 
         $cart = Cart::where('user_id', $request->user_id)->first();
         if (!$cart) {
             return response()->json(['message' => 'Cart Not Found'], 404);
         }
+
+        $store = Store::where('id', $request->store_id)->first();
+        if (!$store) {
+            return response()->json(['message' => 'Store Not Found'], 404);
+        }
+
         $product = Product::where('id', $request->product_id)->first();
         if (!$product) {
             return response()->json(['message' => 'Product Not Found'], 404);
@@ -121,6 +156,7 @@ class CartController extends Controller
             $cart_item = CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $request->product_id,
+                'store_id' => $request->store_id,
                 'product_variant_id' => $request->product_variant_id,
                 'price' => ($product->price + $product_variant->price) * $request->quantity,
                 'quantity' => $request->quantity
@@ -134,6 +170,7 @@ class CartController extends Controller
                 'data' => [
                     'id' => $cart_item->id,
                     'cart_id' => $cart_item->cart_id,
+                    'store_id' => $cart_item->store_id,
                     'product_id' => $cart_item->product_id,
                     'product_variant_id' => $cart_item->product_variant_id,
                     'price' => $cart_item->price,

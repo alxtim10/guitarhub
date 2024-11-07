@@ -24,7 +24,7 @@ class PaymentMethodController extends Controller
                     return [
                         'id' => $data->id,
                         'name' => $data->name,
-                        'variants' => $variants,
+                        'variant' => $variants,
                     ];
                 },
             ),

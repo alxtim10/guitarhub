@@ -1,6 +1,7 @@
 export interface AddCategoryType {
   name: string;
   description: string;
+  user_id?: number
 }
 
 export interface EditCategoryType {
@@ -21,6 +22,7 @@ export interface CategoryData {
   id: Number;
   name: string;
   description: string;
+  store_id: number
 }
 
 export interface CategoryListType {
@@ -28,6 +30,10 @@ export interface CategoryListType {
   current_page: number;
   last_page: number;
   data: CategoryData[];
+}
+
+export interface ListStoreCategory {
+  data: CategoryData[]
 }
 
 export interface CategoryDetailType {

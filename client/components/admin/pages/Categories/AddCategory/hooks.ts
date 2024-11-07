@@ -9,6 +9,7 @@ export const useAddCategoryHook = () => {
   const [request, setRequest] = useState<AddCategoryType>({
     name: "",
     description: "",
+    user_id: 1
   });
 
   const handleInput = (
