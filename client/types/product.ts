@@ -14,6 +14,13 @@ export interface ProductData {
   total_purchases: number;
 }
 
+export interface ProductVariantType {
+  id: number,
+  product_id: number,
+  name: string,
+  stock_quantity: number,
+}
+
 export interface ProductsListType {
   total: number;
   current_page: number;

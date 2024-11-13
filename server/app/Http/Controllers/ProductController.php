@@ -189,7 +189,6 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'product_id' => 'required|exists:products,id',
-            'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
         ],  [
             'product_id.exists' => 'The selected product does not exist.',
@@ -198,7 +197,6 @@ class ProductController extends Controller
         $data = ProductVariant::create([
             'name' => $request->name,
             'product_id' => $request->product_id,
-            'price' => $request->price,
             'stock_quantity' => $request->stock_quantity,
         ]);
 
@@ -208,7 +206,6 @@ class ProductController extends Controller
                 'id' => $data->id,
                 'name' => $data->name,
                 'product' => Product::where('id', $data->product_id)->value('name'),
-                'price' => $data->price,
                 'stock_quantity' => $data->stock_quantity,
                 'created_at' => $data->created_at->toDateTimeString(),
                 'updated_at' => $data->updated_at
@@ -231,7 +228,6 @@ class ProductController extends Controller
                     'id' => $data->id,
                     'name' => $data->name,
                     'description' => $data->description,
-                    'price' => $data->price,
                     'product_id' => $data->product_id,
                     'created_at' => $data->created_at,
                     'updated_at' => $data->updated_at

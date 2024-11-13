@@ -135,10 +135,10 @@ class CartController extends Controller
         if ($existing_cart_item) {
             $finalQuantity = $existing_cart_item->quantity + $request->quantity;
             $existing_cart_item->quantity = $finalQuantity;
-            $existing_cart_item->price = ($product->price + $product_variant->price) * $finalQuantity;
+            $existing_cart_item->price = $product->price * $finalQuantity;
             $existing_cart_item->save();
 
-            $cart->total_price += ($product->price + $product_variant->price) * $request->quantity;
+            $cart->total_price += $product->price * $request->quantity;
             $cart->save();
 
             return response()->json([
@@ -158,11 +158,11 @@ class CartController extends Controller
                 'product_id' => $request->product_id,
                 'store_id' => $request->store_id,
                 'product_variant_id' => $request->product_variant_id,
-                'price' => ($product->price + $product_variant->price) * $request->quantity,
+                'price' => $product->price * $request->quantity,
                 'quantity' => $request->quantity
             ]);
 
-            $cart->total_price += ($product->price + $product_variant->price) * $request->quantity;
+            $cart->total_price += $product->price * $request->quantity;
             $cart->save();
 
             return response()->json([

@@ -5,33 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\PaymentMethod;
-use App\Models\Shipping;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\ShippingVariant;
+use App\Models\StatusMaster;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
-use App\Models\TransactionItem;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
     public function AddTransaction(Request $request)
     {
-
         $cart = Cart::where('user_id', $request->user_id)->first();
-
-        $total_product_price = $cart->total_price;
-
-        $shipping = Shipping::where('id', $request->shipping_id)->first();
+        $cart_item = CartItem::where('cart_id', $cart->id)->first();
+        $product = Product::where('id', $cart_item->product_id)->first();
+        $product_variant = ProductVariant::where('id', $cart_item->product_variant_id)->first();
         $shipping_variant = ShippingVariant::where('id', $request->shipping_variant_id)->first();
-        $shipping_price = $shipping->price + $shipping_variant->price;
-
         $payment_method = PaymentMethod::where('id', $request->payment_method_id)->first();
 
-        $total_price = $total_product_price + $shipping_price + $payment_method->admin_fee - $request->discount_price;
+        $total_price = $product->price + $shipping_variant->price + $payment_method->admin_fee - $request->discount_price;
 
         $transaction = Transaction::create([
             'user_id' => $request->user_id,
-            'status' => "confirmation",
+            'status_master_id' => 1,
+            'status_name' => StatusMaster::where('id', 1)->first()->value('name'),
             'total_price' => $total_price,
         ]);
 
@@ -42,29 +41,18 @@ class TransactionController extends Controller
             'shipping_name' => $shipping_variant->name,
             'payment_method_id' => $request->payment_method_id,
             'payment_method_name' => $payment_method->name,
-            'total_product_price' => $total_product_price,
-            'base_shipping_price' => $shipping->price,
-            'additional_shipping_price' => $shipping_variant->price,
+            'product_price' => $product->price,
+            'product_id' => $product->id,
+            'product_name' => $product->name,
+            'product_variant_id' => $product_variant->id,
+            'product_variant_name' => $product_variant->name,
+            'shipping_price' => $shipping_variant->price,
             'admin_fee' => $payment_method->admin_fee,
             'discount_price' => $request->discount_price,
             'total_price' => $total_price,
             'is_discount' => $request->is_discount,
             'shipping_address' => $request->shipping_address
         ]);
-
-        $cart_item = CartItem::where('cart_id', $cart->id)->get();
-        $records = [];
-        foreach ($cart_item as $record) {
-            $records[] = [
-                'transaction_id' => $transaction->id,
-                'product_id' => $record['product_id'],
-                'product_variant_id' => $record['product_variant_id'],
-                'quantity' => $record['quantity'],
-                'price' => $record['price'],
-            ];
-        }
-
-        TransactionItem::insert($records);
 
         $cart->total_price = 0;
         $cart->save();
@@ -75,11 +63,11 @@ class TransactionController extends Controller
             'data' => [
                 'id' => $transaction->id,
                 'user_id' => $transaction->user_id,
-                'status' => $transaction->status,
+                'status' => StatusMaster::where('id', $transaction->status_master_id)->first()->value('name'),
                 'transaction_detail' => $transaction_detail,
-                'items' => $records,
-                'total_product_price' => $total_product_price,
-                'shipping_price' => $shipping_price,
+                'items' => $product,
+                'product_price' => $product->price,
+                'shipping_price' => $shipping_variant->price,
                 'admin_fee' => $payment_method->admin_fee,
                 'discount_price' => $request->discount_price,
                 'total_price' => $transaction->total_price,
@@ -93,20 +81,40 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::all();
 
-
-
         $customResponse = [
             'status' => 'Success',
             'message' => 'All Transaction Retrieved',
             'data' => $transactions->map(function ($transaction) {
+                $transaction_detail = TransactionDetail::where('transaction_id', $transaction->id)->first();
                 return [
                     'id' => $transaction->id,
                     'user_id' => $transaction->user_id,
-                    'status' => $transaction->status,
+                    'status' => StatusMaster::where('id', $transaction->status_master_id)->get()->value('name'),
                     'total_price' => $transaction->total_price,
-                    'transaction_detail' => TransactionDetail::where('transaction_id', $transaction->id)->first()
+                    'transaction_detail' => $transaction_detail,
+                    'product' => Product::where('id', $transaction_detail->product_id)->first()
                 ];
             }),
+        ];
+
+        return response()->json($customResponse, 200);
+    }
+
+    public function GetTransactionDetail(Request $request)
+    {
+        $id = $request->query('id');
+        $transaction = Transaction::where('id', $id)->first();
+        $user = User::where('id', $transaction->user_id)->first();
+        $transaction_detail = TransactionDetail::where('transaction_id', $transaction->id)->first();
+
+        $customResponse = [
+            'status' => 'Success',
+            'data' => [
+                'id' => $id,
+                'user' => $user,
+                'transaction' => $transaction,
+                'transaction_detail' => $transaction_detail
+            ]
         ];
 
         return response()->json($customResponse, 200);
@@ -139,6 +147,23 @@ class TransactionController extends Controller
                 'request_id' => uniqid(),
                 "timestamp" => now()->toDateTimeString()
             ],
+        ];
+        return response()->json($customResponse, 200);
+    }
+
+    public function SetTransactionStatus(Request $request)
+    {
+        $id = $request->input('id');
+        $status_master_id = $request->input('status_master_id');
+        $transaction = Transaction::find($id);
+
+        $status = StatusMaster::where('id', $status_master_id)->first();
+        $transaction->status_master_id = $status_master_id;
+        $transaction->status_name = $status->name;
+        $transaction->save();
+
+        $customResponse = [
+            'status' => 'Success',
         ];
         return response()->json($customResponse, 200);
     }

@@ -1,14 +1,22 @@
 'use client'
-import { ArrowLeft } from 'flowbite-react-icons/outline';
+import { AngleRight, ArrowLeft } from 'flowbite-react-icons/outline';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import { useTransaction } from './hooks';
+import { useConvertRupiah } from '@/utils/useConvertRupiah';
+import LoadingWeb from '@/components/loaders/LoadingWeb';
+import { formatDate } from '@/utils/useFormatter';
 
 export default function Transaction() {
 
     const router = useRouter();
-
+    const { data, isFetching } = useTransaction();
     const statusList = ['All', 'Payment', 'Process', 'Done']
     const [selected, setSelected] = useState<number>(0);
+
+    if (isFetching > 0) {
+        return <LoadingWeb />
+    }
 
     return (
         <section className='p-5'>
@@ -20,7 +28,7 @@ export default function Transaction() {
                     className='w-7 h-7 cursor-pointer' />
                 <h1 className='font-bold text-lg'>Transactions</h1>
             </div>
-            <div className='flex items-center justify-around w-full mt-10'>
+            <div className='flex items-center justify-around w-full mt-10 mb-7 scroll-px-52'>
                 {statusList.map((item, i) => {
                     return (
                         <div
@@ -36,26 +44,33 @@ export default function Transaction() {
                     )
                 })}
             </div>
-            <div className='mt-8 flex flex-col items-center justify-center gap-5 w-full'>
-                {[...Array(2)].map((_, i) => {
+            {data && (
+                data.map((item, i) => {
                     return (
                         <div
+                            onClick={() => {
+                                router.push(`/transaction/detail?id=${item.id}`);
+                            }}
                             key={i}
-                            className='cursor-pointer relative bg-white shadow-md p-5 rounded-xl w-full flex items-start justify-start gap-3'
+                            className='cursor-pointer relative bg-gray-100 border shadow-lg px-1 pt-1 pb-1 rounded-xl w-full  gap-3'
                         >
-                            <div className='bg-green-300 h-[100px] w-[100px] rounded-xl'></div>
-                            <div className='mt-1'>
-                                <div>
-                                    <h1 className='font-bold'>Yamaha Pacifica viifm200</h1>
-                                    <span className='rounded-full bg-gray-200 px-2 text-xs text-gray-700'>Emerald Green</span>
+                            <div className='flex items-center justify-between bg-white border shadow-sm p-3 rounded-xl'>
+                                <div className='mt-1'>
+                                    <div>
+                                        <h1 className='font-bold'>{item.product.name}</h1>
+                                        <span className='rounded-full text-xs text-gray-700'>{formatDate(item.transaction_detail.transaction_date.toString())}</span>
+                                    </div>
                                 </div>
-                                <h1 className='font-bold mt-3'>Rp 7.500.000</h1>
+                                <div className='bg-green-300 h-[65px] w-[65px] rounded-xl'></div>
                             </div>
-                            <span className='absolute bottom-3 right-3 bg-green-500 px-3 py-1 rounded-full text-xs text-white'>Done</span>
+                            <div className='flex items-center justify-between px-2 pt-4 pb-2'>
+                                <h1 className='font-bold'>{useConvertRupiah(item.transaction_detail.total_price)}</h1>
+                                <span className='bg-green-500 px-3 font-semibold py-1 rounded-full text-xs text-white'>{item.status.toUpperCase()}</span>
+                            </div>
                         </div>
                     )
-                })}
-            </div>
+                })
+            )}
         </section>
     )
 }

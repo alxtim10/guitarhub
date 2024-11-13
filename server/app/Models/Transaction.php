@@ -11,7 +11,8 @@ class Transaction extends Model
 
     protected $fillable = [
         'user_id',
-        'status',
+        'status_master_id',
+        'status_name',
         'total_price',
     ];
 }

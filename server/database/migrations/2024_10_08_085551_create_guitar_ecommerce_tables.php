@@ -92,7 +92,6 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->integer('stock_quantity');
-            $table->decimal('price', 15, 0);
             $table->timestamps();
         });
 
@@ -104,10 +103,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('status_masters', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('status', ['confirmation', 'payment', 'shipping', 'delivered', 'review', 'completed', 'canceled']);
+            $table->foreignId('status_master_id')->constrained()->onDelete('cascade');
+            $table->string('status_name');
             $table->decimal('total_price', 15, 0);
             $table->timestamps();
         });
@@ -120,24 +126,18 @@ return new class extends Migration
             $table->string('shipping_name');
             $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
             $table->string('payment_method_name');
-            $table->decimal('total_product_price', 15, 0);
-            $table->decimal('base_shipping_price', 15, 0);
-            $table->decimal('additional_shipping_price', 15, 0);
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('product_name');
+            $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
+            $table->string('product_variant_name');
+            $table->decimal('product_price', 15, 0);
+            $table->decimal('shipping_price', 15, 0);
             $table->decimal('admin_fee', 15, 0);
             $table->decimal('discount_price', 15, 0);
             $table->decimal('is_discount', 15, 0);
             $table->decimal('total_price', 15, 0);
             $table->string('shipping_address')->nullable();
             $table->timestamps();
-        });
-
-        Schema::create('transaction_items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-            $table->decimal('price', 15, 0);
         });
 
         Schema::create('reviews', function (Blueprint $table) {
@@ -191,10 +191,10 @@ return new class extends Migration
     {
         Schema::dropIfExists('banners');
         Schema::dropIfExists('last_seen_items');
-        Schema::dropIfExists('cart_items');
         Schema::dropIfExists('cart');
+        Schema::dropIfExists('cart_items');
         Schema::dropIfExists('reviews');
-        Schema::dropIfExists('transaction_items');
+        Schema::dropIfExists('status');
         Schema::dropIfExists('transactions');
         Schema::dropIfExists('products');
         Schema::dropIfExists('product_images');

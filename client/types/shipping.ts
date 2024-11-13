@@ -1,7 +1,8 @@
 export interface ShippingSectionType {
-    shippingId: number,
-    shippingName: string,
-    shippingPrice: number,
+    shipping_id: number,
+    shipping_variant_id: number,
+    shipping_name: string,
+    shipping_price: number,
 }
 
 export interface ShippingType {

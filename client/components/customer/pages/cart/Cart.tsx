@@ -17,7 +17,7 @@ export default function Cart() {
 
     return (
         <section className='pb-32'>
-            {cartData && (
+            {cartData && cartData.items.length && (
                 <>
                     <div className='flex items-center gap-3 mb-3 px-5 pt-5'>
                         <ArrowLeft
@@ -28,7 +28,7 @@ export default function Cart() {
                         <h1 className='font-bold text-lg'>Cart</h1>
                     </div>
                     <div className='flex flex-col gap-3 mt-5 px-5'>
-                        {cartData && cartData.items.map((item, i) => {
+                        {cartData.items.map((item, i) => {
                             return (
                                 <div key={i}>
                                     <CartStore data={item} />

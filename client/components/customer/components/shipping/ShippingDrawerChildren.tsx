@@ -1,14 +1,15 @@
-import { PaymentMethodType } from "@/types/payment";
-import { useConvertRupiah } from "@/utils/useConvertRupiah";
+import { ShippingType } from "@/types/shipping"
+import { useConvertRupiah } from "@/utils/useConvertRupiah"
 
-interface PaymentDrawerChildrenProps {
-    data: PaymentMethodType[],
+interface ShippingDrawerChildrenProps {
+    data: ShippingType[],
     setPriceSection: Function,
     setShowModal: Function,
     setIsChoosed: Function
 }
 
-export default function PaymentDrawerChildren(props: PaymentDrawerChildrenProps) {
+
+export default function ShippingDrawerChildren(props: ShippingDrawerChildrenProps) {
     return (
         <div>
             {props.data && props.data.map((item, i) => {
@@ -18,23 +19,23 @@ export default function PaymentDrawerChildren(props: PaymentDrawerChildrenProps)
                         key={i}>
                         <h1>{item.name}</h1>
                         <div className="flex flex-col gap-2 mt-2">
-                            {item.variant.map((variant, y) => {
+                            {item.variant.map((variant, i) => {
                                 return (
-                                    <div
-                                        key={y}
+                                    <div key={i}
                                         onClick={() => {
                                             props.setPriceSection((prev: any) => ({
                                                 ...prev,
-                                                payment_method_id: item.id,
-                                                admin_fee: variant.admin_fee,
-                                                payment_method_name: variant.name
+                                                shipping_id: item.id,
+                                                shipping_variant_id: variant.id,
+                                                shipping_price: variant.price,
+                                                shipping_name: variant.name
                                             }))
                                             props.setShowModal(false);
                                             props.setIsChoosed(true);
                                         }}
                                         className="flex items-center justify-between border border-slate-300 px-4 py-3 cursor-pointer rounded-md">
                                         <h1>{variant.name}</h1>
-                                        <h1>{useConvertRupiah(variant.admin_fee)}</h1>
+                                        <h1>{useConvertRupiah(variant.price)}</h1>
                                     </div>
                                 )
                             })}

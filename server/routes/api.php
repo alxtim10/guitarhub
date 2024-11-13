@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\StatusMasterController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -72,7 +73,13 @@ Route::delete('/DeleteProduct', [ProductController::class, 'DeleteProduct']);
 //Transaction
 Route::get('/GetTransactionByUserId', [TransactionController::class, 'GetTransactionByUserId']);
 Route::get('/GetAllTransaction', [TransactionController::class, 'GetAllTransaction']);
+Route::get('/GetTransactionDetail', [TransactionController::class, 'GetTransactionDetail']);
 Route::post('/AddTransaction', [TransactionController::class, 'AddTransaction']);
+Route::post('/SetTransactionStatus', [TransactionController::class, 'SetTransactionStatus']);
+
+//StatusMaster
+Route::get('/GetAllStatus', [StatusMasterController::class, 'GetAllStatus']);
+Route::post('/AddStatus', [StatusMasterController::class, 'AddStatus']);
 
 //User
 Route::get('/GetAllUser', [UserController::class, 'GetAllUser']);

@@ -1,4 +1,4 @@
-import { AddCategory } from "@/services/category";
+import { AddCategory } from "@/services/category/index";
 import { AddCategoryType } from "@/types/category";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

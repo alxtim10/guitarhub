@@ -16,5 +16,8 @@ export const ENDPOINTS = {
   GetAllShipping: `/GetAllShipping`,
   GetAllPaymentMethod: `/GetAllPaymentMethod`,
 
-  GetUserCart: '/GetUserCart'
+  GetUserCart: '/GetUserCart',
+  AddTransaction: '/AddTransaction',
+  GetAllTransaction: '/GetAllTransaction',
+  GetTransactionDetail: '/GetTransactionDetail',
 };

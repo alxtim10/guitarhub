@@ -1,7 +1,7 @@
 export interface PaymentMethodSectionType {
-    paymentMethodId: number,
-    adminFee: number,
-    paymentMethodName: string
+    payment_method_id: number,
+    admin_fee: number,
+    payment_method_name: string
 }
 
 export interface PaymentMethodType {

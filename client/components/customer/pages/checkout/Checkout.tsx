@@ -13,6 +13,7 @@ export default function Checkout() {
 
     const router = useRouter();
     const {
+        handleAdd,
         showModalShipping,
         setShowModalShipping,
         onCloseModalShipping,
@@ -28,7 +29,7 @@ export default function Checkout() {
         paymentMethodSection,
         setPaymentMethodSection,
     } = useCheckout();
-    const { cartData, isFetching } = useCart();
+    const { cartData } = useCart();
 
     return (
         <section className='px-5 pb-28'>
@@ -71,8 +72,8 @@ export default function Checkout() {
                                         setShowModalShipping(true);
                                     }}
                                     className='w-full border border-gray-300 rounded-lg px-5 flex flex-col items-start justify-center h-[70px] cursor-pointer mt-3'>
-                                    <h1 className='text-sm'>{shippingSection.shippingName}</h1>
-                                    <h1 className='text-xs text-gray-500'>{useConvertRupiah(shippingSection.shippingPrice)}</h1>
+                                    <h1 className='text-sm'>{shippingSection.shipping_name}</h1>
+                                    <h1 className='text-xs text-gray-500'>{useConvertRupiah(shippingSection.shipping_price)}</h1>
                                 </div>
                             </>
                             :
@@ -94,8 +95,8 @@ export default function Checkout() {
                                         setShowModalPayment(true);
                                     }}
                                     className='w-full border border-gray-300 rounded-lg px-5 flex flex-col items-start justify-center h-[70px] cursor-pointer mt-3'>
-                                    <h1 className='text-sm'>{paymentMethodSection.paymentMethodName}</h1>
-                                    <h1 className='text-xs text-gray-500'>{useConvertRupiah(paymentMethodSection.adminFee)}</h1>
+                                    <h1 className='text-sm'>{paymentMethodSection.payment_method_name}</h1>
+                                    <h1 className='text-xs text-gray-500'>{useConvertRupiah(paymentMethodSection.admin_fee)}</h1>
                                 </div>
                             </>
                             :
@@ -119,16 +120,16 @@ export default function Checkout() {
                         </div>
                         <div className='flex items-center justify-between mt-4'>
                             <h1 className='text-slate-600 text-sm'>Shipping Price</h1>
-                            <h1 className='text-sm'>{useConvertRupiah(shippingSection.shippingPrice)}</h1>
+                            <h1 className='text-sm'>{useConvertRupiah(shippingSection.shipping_price)}</h1>
                         </div>
                         <div className='flex items-center justify-between'>
-                            <h1 className='text-slate-600 text-sm'>{paymentMethodSection.adminFee}</h1>
-                            <h1 className='text-sm'>{useConvertRupiah(2000)}</h1>
+                            <h1 className='text-slate-600 text-sm'>Admin Fee</h1>
+                            <h1 className='text-sm'>{useConvertRupiah(paymentMethodSection.admin_fee)}</h1>
                         </div>
                         <hr className='border-dashed border-2 mt-5' />
                         <div className='flex items-center justify-between mt-5'>
                             <h1 className='text-slate-600 text-lg font-bold'>Total</h1>
-                            <h1 className='text-lg font-bold text-green-500'>{useConvertRupiah(cartData.total_price)}</h1>
+                            <h1 className='text-lg font-bold text-green-500'>{useConvertRupiah(Number(cartData.total_price) + Number(shippingSection.shipping_price) + Number(paymentMethodSection.admin_fee))}</h1>
                         </div>
                     </div>
                 </>
@@ -136,7 +137,15 @@ export default function Checkout() {
             <div className='fixed pt-5 pb-7 px-5 border-t left-0 mx-auto max-w-auto bottom-0 bg-white w-full'>
                 <button
                     onClick={() => {
-                        router.push('/checkout')
+                        handleAdd({
+                            user_id: 1,
+                            shipping_id: shippingSection.shipping_id,
+                            shipping_variant_id: shippingSection.shipping_variant_id,
+                            payment_method_id: paymentMethodSection.payment_method_id,
+                            discount_price: 0,
+                            is_discount: false,
+                            shipping_address: 'Kuningan, Jakarta Selatan'
+                        })
                     }}
                     className='bg-green-500 p-4 w-full rounded-full text-white'>Order</button>
             </div>

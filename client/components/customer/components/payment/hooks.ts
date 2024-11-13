@@ -8,7 +8,7 @@ export const usePayment = () => {
 
     const isFetching = useIsFetching();
     const { data, error } = useQuery<PaymentMethodType[] | null, Error>({
-        queryKey: ["shipping"],
+        queryKey: ["payment"],
         queryFn: () => GetAllPaymentMethod(),
     });
     const [paymentMethodData, setPaymentMethodData] = useState<PaymentMethodType[] | null>(null);

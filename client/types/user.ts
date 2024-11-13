@@ -16,3 +16,11 @@ export interface AddStoreParams {
     location: string,
     description: string
 }
+
+export interface UserType {
+    id: number,
+    fullname: string,
+    email: string,
+    phone: string,
+    address: string,
+}
