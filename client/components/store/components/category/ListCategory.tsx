@@ -8,7 +8,7 @@ export default function ListCategory() {
 
   return (
     <section className='flex flex-col gap-3 mt-7'>
-      {storeCategoryData?.length && storeCategoryData.map((item, i) => {
+      {storeCategoryData?.length ? storeCategoryData.map((item, i) => {
         return (
           <div
             key={i}
@@ -18,7 +18,7 @@ export default function ListCategory() {
             <AngleDown />
           </div>
         )
-      })}
+      }) : <></>}
     </section>
   )
 }
