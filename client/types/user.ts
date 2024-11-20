@@ -1,11 +1,12 @@
 
 export interface StoreDetailType {
+    id: number,
+    user_id: string,
     name: string,
     domain: string,
-    user_id: string,
     description: string,
-    location: string,
     rating: string,
+    location: string,
     is_verified: boolean
 }
 

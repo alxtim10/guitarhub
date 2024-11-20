@@ -20,4 +20,6 @@ export const ENDPOINTS = {
   AddTransaction: '/AddTransaction',
   GetAllTransaction: '/GetAllTransaction',
   GetTransactionDetail: '/GetTransactionDetail',
+
+  AddProduct: '/AddProduct'
 };

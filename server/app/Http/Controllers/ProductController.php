@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ class ProductController extends Controller
                     'description' => $data->description,
                     'price' => $data->price,
                     'rating' => $data->rating,
+                    'image_url' => ProductImage::where('product_id', $data->id)->value('image_url'),
                     'category' => strval($data->category_id) . ' - ' . Category::where('id', $data->category_id)->value('name'),
                     'store' => strval($data->store_id) . ' - ' . Store::where('id', $data->store_id)->value('name'),
                     'variant' => ProductVariant::where('product_id', $data->id)->get(),
@@ -135,7 +137,8 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'store_id' => 'required|exists:stores,id'
+            'store_id' => 'required|exists:stores,id',
+            'image_url' => 'required|string|max:500'
         ],  [
             'category_id.exists' => 'The selected category does not exist.',
             'store_id.exists' => 'The selected store does not exist.',
@@ -155,11 +158,16 @@ class ProductController extends Controller
             'total_purchases' => 0
         ]);
 
+        ProductImage::create([
+            'product_id' => $data->id,
+            'image_url' => $request->image_url,
+            'is_main' => true,
+        ]);
+
         $variants = array_map(function ($variant) use ($data) {
             $variant['product_id'] = $data->id;
             return $variant;
         }, $request['variant']);
-
         ProductVariant::insert($variants);
 
         return response()->json([

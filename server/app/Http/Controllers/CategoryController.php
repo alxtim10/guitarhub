@@ -47,14 +47,6 @@ class CategoryController extends Controller
 
     public function AddCategory(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|min:0',
-            'user_id' => 'required|exists:users,id'
-        ], [
-            'user_id.exists' => 'The selected user does not exist.',
-        ]);
-
         $store = Store::where('user_id', $request->user_id)->first();
 
         $data = Category::create([

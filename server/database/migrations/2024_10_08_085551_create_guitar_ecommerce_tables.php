@@ -98,7 +98,7 @@ return new class extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->id(); // image_id
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->binary('image_file');
+            $table->string('image_url');
             $table->boolean('is_main')->default(0);
             $table->timestamps();
         });
@@ -137,6 +137,14 @@ return new class extends Migration
             $table->decimal('is_discount', 15, 0);
             $table->decimal('total_price', 15, 0);
             $table->string('shipping_address')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('transaction_timelines', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
+            $table->dateTime('event_date');
+            $table->string('message');
             $table->timestamps();
         });
 
@@ -194,12 +202,19 @@ return new class extends Migration
         Schema::dropIfExists('cart');
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('reviews');
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('status_masters');
         Schema::dropIfExists('transactions');
+        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('transaction_timelines');
         Schema::dropIfExists('products');
+        Schema::dropIfExists('product_variants');
         Schema::dropIfExists('product_images');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('users');
         Schema::dropIfExists('stores');
+        Schema::dropIfExists('shippings');
+        Schema::dropIfExists('shipping_variants');
+        Schema::dropIfExists('payment_methods');
+        Schema::dropIfExists('payment_method_categories');
     }
 };
