@@ -9,7 +9,7 @@ export const useProduct = () => {
   const isFetching = useIsFetching();
   const [page, setPage] = useState<number>(1);
   const { data, isLoading, error } = useQuery<ProductsListType | null, Error>({
-    queryKey: ["stores", page],
+    queryKey: ["products", page],
     queryFn: () => GetAllProduct(),
   });
   const [listData, setListData] = useState<ProductsListType>();

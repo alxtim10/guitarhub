@@ -1,3 +1,11 @@
+export interface ProductsListType {
+  total: number;
+  current_page: number;
+  last_page: number;
+  sold_products: number;
+  data: ProductData[];
+}
+
 export interface ProductData {
   id: number;
   name: string;
@@ -5,6 +13,8 @@ export interface ProductData {
   price: number;
   rating: number;
   category: string;
+  image_url: string;
+  variant: ProductVariantType[];
   store: string;
   stock_quantity: number;
   sold_quantity: number;
@@ -21,10 +31,21 @@ export interface ProductVariantType {
   stock_quantity: number,
 }
 
-export interface ProductsListType {
-  total: number;
-  current_page: number;
-  last_page: number;
-  sold_products: number;
-  data: ProductData[];
+
+
+export interface VariantTypeRequest {
+  name: string,
+  stock_quantity: number
+}
+
+export interface AddProductParams {
+  category_id: number,
+  store_id: number,
+  name: string,
+  description: string,
+  image_url: string,
+  price: number,
+  variant: VariantTypeRequest[],
+  stock_quantity: number,
+  rating: number
 }

@@ -1,6 +1,8 @@
+'use client'
 import { UserTransactionDetailType } from '@/types/transaction'
 import { AngleRight } from 'flowbite-react-icons/outline'
 import { MapPinAlt } from 'flowbite-react-icons/solid'
+import { useRouter } from 'next/navigation'
 
 interface TransactionStatusCardProps {
     data: UserTransactionDetailType,
@@ -10,7 +12,7 @@ interface TransactionStatusCardProps {
 
 export default function TransactionStatusCard({ data, setOpenModal }: TransactionStatusCardProps) {
 
-
+    const router = useRouter();
     const getDefaultStyle = (id: number) => {
         if (id == 1) {
             return (
@@ -36,7 +38,7 @@ export default function TransactionStatusCard({ data, setOpenModal }: Transactio
                         <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
                     </div>
                     <div
-                        onClick={() => setOpenModal(true)}
+                        onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
                         className='p-4 bg-green-500 cursor-pointer'>
                         <div className='flex items-center justify-between'>
                             <h1 className='font-semibold text-white'>Shipping Info</h1>

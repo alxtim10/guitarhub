@@ -72,7 +72,11 @@ export default function StoreHome() {
                             </TabPanel>
                             <TabPanel className={'mt-7'}>
                                 <div className='flex items-center justify-center'>
-                                    <button className='bg-green-400 rounded-full px-2 py-1 cursor-pointer text-white text-xs'>+ Add Product</button>
+                                    <button
+                                        onClick={() => {
+                                            router.push(`/profile/store/add-product?store_id=${storeData.id}`)
+                                        }}
+                                        className='bg-green-400 rounded-full px-2 py-1 cursor-pointer text-white text-xs'>+ Add Product</button>
                                 </div>
                                 <Catalog title={''} />
                             </TabPanel>
