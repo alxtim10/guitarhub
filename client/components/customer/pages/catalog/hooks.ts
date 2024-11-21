@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 export const useCatalog = () => {
 
     const { data, isLoading, error } = useQuery<ProductsListType | null, Error>({
-        queryKey: ["products"],
+        queryKey: ["store_products"],
         queryFn: () => GetAllProduct(),
     });
 

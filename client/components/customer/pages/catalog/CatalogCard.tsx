@@ -9,8 +9,8 @@ interface CatalogCardProps {
 
 const CatalogCard = ({ data }: CatalogCardProps) => {
   return (
-    <div className="flex flex-col gap-2">
-      <Image src={data.image_url} alt="product" className="bg-green-200 w-full h-40 rounded-lg" fill />
+    <div className="flex flex-col gap-2 w-full">
+      <Image src={data.image_url} alt="product" className="relative bg-green-200 rounded-lg" width={400} height={100} />
       <div>
         <h1 className="text-sm text-gray-700">{data.name}</h1>
         <div className="flex items-center justify-between">

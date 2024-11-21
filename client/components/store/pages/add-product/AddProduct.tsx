@@ -24,7 +24,7 @@ export default function AddProduct() {
 
 
     return (
-        <section className='p-5'>
+        <section className='p-5 pb-10'>
             <div className='flex items-center gap-3 mb-3'>
                 <ArrowLeft
                     onClick={() => {
@@ -33,8 +33,7 @@ export default function AddProduct() {
                     className='w-7 h-7 cursor-pointer' />
                 <h1 className='font-bold text-lg'>Add Product</h1>
             </div>
-            {JSON.stringify(request)}
-            <div className="bg-white px-5 py-5 rounded-xl mt-10 shadow-lg">
+            <div className="bg-white px-5 py-5 rounded-xl mt-5 shadow-lg">
                 <h1 className="text-2xl font-bold">General Information</h1>
                 <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
                     <label className="text-xs font-semibold">Name</label>
