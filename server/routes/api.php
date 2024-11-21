@@ -76,6 +76,7 @@ Route::get('/GetAllTransaction', [TransactionController::class, 'GetAllTransacti
 Route::get('/GetTransactionDetail', [TransactionController::class, 'GetTransactionDetail']);
 Route::post('/AddTransaction', [TransactionController::class, 'AddTransaction']);
 Route::post('/SetTransactionStatus', [TransactionController::class, 'SetTransactionStatus']);
+Route::get('/GetAllTransactionTimeline', [TransactionController::class, 'GetAllTransactionTimeline']);
 
 //StatusMaster
 Route::get('/GetAllStatus', [StatusMasterController::class, 'GetAllStatus']);

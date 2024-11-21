@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             PaymentMethodCategorySeeder::class, // Child table next
             PaymentMethodSeeder::class, // Child table next
             ShippingSeeder::class,
-            ShippingVariantSeeder::class
+            ShippingVariantSeeder::class,
+            StatusMasterSeeder::class
         ]);
     }
 }
