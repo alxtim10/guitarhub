@@ -14,8 +14,7 @@ export interface AddTransactionType {
 export interface TransactionType {
     id: number,
     user_id: number,
-    status_master_id: number,
-    status_name: string,
+    status: string,
     total_price: number,
     transaction_detail: TransactionDetailType,
     product: ProductData

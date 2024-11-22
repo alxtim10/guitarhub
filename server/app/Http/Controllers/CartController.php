@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\Store;
 use Exception;
@@ -57,6 +58,7 @@ class CartController extends Controller
 
             $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
             $productVariants = ProductVariant::whereIn('id', $productVariantIds)->get()->keyBy('id');
+            $productImages = ProductImage::whereIn('product_id', $productIds)->get()->keyBy('product_id');
             $store_detail = Store::where('id', $store)->first();
 
             $productsData = [];
@@ -64,6 +66,7 @@ class CartController extends Controller
             foreach ($filteredItems as $item) {
                 $product = $products[$item->product_id] ?? null;
                 $product_variant = $productVariants[$item->product_variant_id] ?? null;
+                $product_image = $productImages[$item->product_id] ?? null;
 
                 if ($product && $product_variant) {
                     $productsData[] = [
@@ -72,6 +75,7 @@ class CartController extends Controller
                         'product_name' => $product->name,
                         'product_variant_id' => $item->product_variant_id,
                         'product_variant_name' => $product_variant->name,
+                        'image_url' => $product_image->image_url,
                         'price' => $item->price,
                         'quantity' => $item->quantity,
                     ];

@@ -20,3 +20,16 @@ export interface StoresListType {
 export interface StoreDetailParams {
   id: number
 }
+
+export interface StoreDetailType {
+  id: number,
+  name: string,
+  domain: string,
+  user_id: number,
+  description: string,
+  location: string,
+  rating: number,
+  is_online: boolean,
+  is_verified: boolean,
+  last_seen: Date
+}

@@ -43,3 +43,10 @@ export interface CategoryDetailType {
     description: string;
   };
 }
+
+export interface CategoryDetailTypeV2 {
+  id: number,
+  name: string,
+  store_id: number,
+  description: string
+}

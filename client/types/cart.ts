@@ -16,6 +16,7 @@ export interface UserCartStoreProduct {
     product_name: string,
     product_variant_id: number,
     product_variant_name: string,
+    image_url: string,
     price: number,
     quantity: number
 }
@@ -25,4 +26,12 @@ export interface UserCart {
     user_id: number,
     total_price: number,
     items: UserCartStore[]
+}
+
+export interface AddCartItemParams {
+    user_id: number,
+    store_id: number,
+    product_id: number,
+    product_variant_id: number,
+    quantity: number
 }
