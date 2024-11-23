@@ -84,6 +84,7 @@ Route::post('/AddStatus', [StatusMasterController::class, 'AddStatus']);
 
 //User
 Route::get('/GetAllUser', [UserController::class, 'GetAllUser']);
+Route::get('/GetUserById', [UserController::class, 'GetUserById']);
 Route::post('/Register', [UserController::class, 'Register']);
 Route::post('/Login', [UserController::class, 'Login']);
 Route::post('/Logout', [UserController::class, 'Logout']);

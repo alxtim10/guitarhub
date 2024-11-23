@@ -47,7 +47,8 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'User logged in successfully',
-            'fullname' => $user->fullname
+            'fullname' => $user->fullname,
+            'id' => $user->id
         ]);
     }
 
@@ -65,5 +66,26 @@ class UserController extends Controller
     {
         $users = User::all();
         return response()->json($users);
+    }
+
+    public function GetUserById(Request $request)
+    {
+        $id = $request->query('id');
+        $data = User::where('id', $id)->first();
+
+        $customResponse = [
+            'status' => 'Success',
+            'data' => [
+                'id' => $data->id,
+                'fullname' => $data->fullname,
+                'phone' => $data->phone,
+                'email' => $data->email,
+                'address' => $data->address,
+            ]
+        ];
+
+        return response()->json($customResponse, 200);
+
+        return response()->json($user);
     }
 }

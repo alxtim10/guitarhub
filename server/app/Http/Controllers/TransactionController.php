@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\PaymentMethod;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\ShippingVariant;
 use App\Models\StatusMaster;
@@ -105,7 +106,8 @@ class TransactionController extends Controller
                     'status' => StatusMaster::where('id', $transaction->status_master_id)->get()->value('name'),
                     'total_price' => $transaction->total_price,
                     'transaction_detail' => $transaction_detail,
-                    'product' => Product::where('id', $transaction_detail->product_id)->first()
+                    'product' => Product::where('id', $transaction_detail->product_id)->first(),
+                    'image_url' => ProductImage::where('product_id', $transaction_detail->product_id)->value('image_url')
                 ];
             }),
         ];
@@ -126,7 +128,8 @@ class TransactionController extends Controller
                 'id' => $id,
                 'user' => $user,
                 'transaction' => $transaction,
-                'transaction_detail' => $transaction_detail
+                'transaction_detail' => $transaction_detail,
+                'image_url' => ProductImage::where('product_id', $transaction_detail->product_id)->value('image_url')
             ]
         ];
 
