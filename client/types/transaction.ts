@@ -14,18 +14,19 @@ export interface AddTransactionType {
 export interface TransactionType {
     id: number,
     user_id: number,
-    status_master_id: number,
-    status_name: string,
+    status: string,
     total_price: number,
     transaction_detail: TransactionDetailType,
-    product: ProductData
+    product: ProductData,
+    image_url: string
 }
 
 export interface UserTransactionDetailType {
     id: number,
     user: UserType,
     transaction: TransactionType,
-    transaction_detail: TransactionDetailType
+    transaction_detail: TransactionDetailType,
+    image_url: string
 }
 
 

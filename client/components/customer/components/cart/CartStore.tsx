@@ -1,7 +1,7 @@
 import { UserCartStore } from "@/types/cart";
 import { useConvertRupiah } from "@/utils/useConvertRupiah";
-import { Minus, Plus } from "flowbite-react-icons/outline";
 import { Store } from "flowbite-react-icons/solid";
+import Image from "next/image";
 
 interface CartStoreProps {
     data: UserCartStore;
@@ -24,16 +24,17 @@ export default function CartStore({
                 {data.products.map((item, i) => {
                     return (
                         <div key={i} className="relative flex gap-4">
-                            <div className="bg-gray-500 h-28 w-28 rounded-md"></div>
+                            <Image
+                                src={item.image_url}
+                                alt="product"
+                                width={100}
+                                height={100}
+                                className="object-cover rounded-lg"
+                            />
                             <div className="flex flex-col items-start">
                                 <h1 className="text-lg font-bold">{item.product_name}</h1>
                                 <h1 className="mt-1 text-xs text-gray-600 bg-gray-200 text-center rounded-md px-2">{item.product_variant_name}</h1>
                                 <h1 className="mt-11 text-xs font-bold text-green-500 text-center rounded-md">{useConvertRupiah(item.price)}</h1>
-                            </div>
-                            <div className="absolute  bottom-0 right-0 flex items-center justify-center gap-3">
-                                <span className="cursor-pointer border rounded-full p-1 bg-gray-200"><Minus className="w-5 h-5" /></span>
-                                <h1>{data.quantity}</h1>
-                                <span className="cursor-pointer border rounded-full p-1 bg-gray-200"><Plus className="w-5 h-5" /></span>
                             </div>
                         </div>
                     )

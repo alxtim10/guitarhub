@@ -1,7 +1,7 @@
 import { GetStoreDetailByUserId } from "@/services/store";
 import { AddStore } from "@/services/user";
 import { AddStoreParams, StoreDetailType } from "@/types/user";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useIsFetching, useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,19 +15,14 @@ export const useStore = (user_id: number) => {
         location: '',
         description: ''
     });
+    const isFetching = useIsFetching();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { data, error } = useQuery<StoreDetailType | null, Error>({
+    const { data: storeData, error } = useQuery<StoreDetailType | null, Error>({
         queryKey: ["stores"],
         queryFn: () => GetStoreDetailByUserId({ id: 1 }),
     });
-    const [storeData, setStoreData] = useState<StoreDetailType | null>(null);
     const [selectedTabs, setSelectedTabs] = useState<number>(0);
 
-    useEffect(() => {
-        if (data && !error) {
-            setStoreData(data);
-        }
-    }, [data])
 
     const handleInput = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -63,6 +58,7 @@ export const useStore = (user_id: number) => {
         request,
         isLoading,
         selectedTabs,
-        setSelectedTabs
+        setSelectedTabs,
+        isFetching
     };
 }

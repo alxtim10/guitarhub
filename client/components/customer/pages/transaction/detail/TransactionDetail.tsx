@@ -9,6 +9,7 @@ import { useTransactionDetail } from './hooks';
 import LoadingWeb from '@/components/loaders/LoadingWeb';
 import { formatDate } from '@/utils/useFormatter';
 import ModalBase from '@/components/customer/components/modal/Modal';
+import Image from 'next/image';
 
 export default function TransactionDetail() {
 
@@ -42,7 +43,15 @@ export default function TransactionDetail() {
               <h1 className='font-bold'>Product</h1>
             </div>
             <div className='bg-white p-3 mt-3 rounded-lg'>
-              <div>
+              <div className='relative h-[400px]'>
+                <Image
+                  src={data.image_url}
+                  alt="product"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+              <div className='mt-3'>
                 <h1 className='text-sm text-stone-500'>Product Name</h1>
                 <h1 className='font-bold'>{data.transaction_detail.product_name}</h1>
               </div>

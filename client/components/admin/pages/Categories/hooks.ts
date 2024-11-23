@@ -1,4 +1,4 @@
-import { DeleteCategory, GetAllCategory } from "@/services/category";
+import { DeleteCategory, GetAllCategory } from "@/services/category/index";
 import { CategoryListType } from "@/types/category";
 import { useIsFetching, useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

@@ -9,6 +9,7 @@ import { StoreHomeTabs } from '@/constants/menu';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import Catalog from '@/components/customer/pages/catalog/Catalog';
 import ListCategory from '../../components/category/ListCategory';
+import LoadingWeb from '@/components/loaders/LoadingWeb';
 
 export default function StoreHome() {
 
@@ -20,16 +21,17 @@ export default function StoreHome() {
         request,
         isLoading,
         selectedTabs,
-        setSelectedTabs
+        setSelectedTabs,
+        isFetching
     } = useStore(1);
 
-    if (isLoading) {
-        return <Loading />
+    if (isLoading && isFetching > 0) {
+        return <LoadingWeb />
     }
 
     return (
         <section>
-            {storeData ?
+            {storeData && (
                 <>
                     <div className='relative bg-green-400 pt-7 pb-7 px-4 w-full rounded-b-3xl'>
                         <div className='flex items-center gap-3 mb-3'>
@@ -93,7 +95,8 @@ export default function StoreHome() {
                         </TabPanels>
                     </TabGroup>
                 </>
-                :
+            )}
+            {!storeData &&
                 <>
                     <div className='bg-green-400 pt-6 pb-16 px-4 w-full rounded-b-3xl'>
                         <div className='flex items-center gap-3 mb-3'>

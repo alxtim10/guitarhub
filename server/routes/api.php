@@ -76,6 +76,7 @@ Route::get('/GetAllTransaction', [TransactionController::class, 'GetAllTransacti
 Route::get('/GetTransactionDetail', [TransactionController::class, 'GetTransactionDetail']);
 Route::post('/AddTransaction', [TransactionController::class, 'AddTransaction']);
 Route::post('/SetTransactionStatus', [TransactionController::class, 'SetTransactionStatus']);
+Route::get('/GetAllTransactionTimeline', [TransactionController::class, 'GetAllTransactionTimeline']);
 
 //StatusMaster
 Route::get('/GetAllStatus', [StatusMasterController::class, 'GetAllStatus']);
@@ -83,6 +84,7 @@ Route::post('/AddStatus', [StatusMasterController::class, 'AddStatus']);
 
 //User
 Route::get('/GetAllUser', [UserController::class, 'GetAllUser']);
+Route::get('/GetUserById', [UserController::class, 'GetUserById']);
 Route::post('/Register', [UserController::class, 'Register']);
 Route::post('/Login', [UserController::class, 'Login']);
 Route::post('/Logout', [UserController::class, 'Logout']);

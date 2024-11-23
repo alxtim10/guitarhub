@@ -1,3 +1,6 @@
+import { CategoryDetailTypeV2 } from "./category";
+import { StoreDetailType } from "./store";
+
 export interface ProductsListType {
   total: number;
   current_page: number;
@@ -12,10 +15,12 @@ export interface ProductData {
   description: string;
   price: number;
   rating: number;
-  category: string;
+  category_name: string;
+  store_name: string;
+  category: CategoryDetailTypeV2;
+  store: StoreDetailType;
   image_url: string;
   variant: ProductVariantType[];
-  store: string;
   stock_quantity: number;
   sold_quantity: number;
   discount_percentage: number;
@@ -48,4 +53,21 @@ export interface AddProductParams {
   variant: VariantTypeRequest[],
   stock_quantity: number,
   rating: number
+}
+
+export interface ProductDetailType {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: CategoryDetailTypeV2;
+  store: StoreDetailType;
+  rating: number;
+  image_url: string;
+  stock_quantity: number;
+  discount_percentage: number;
+  discount_start_date: Date;
+  discount_end_date: Date;
+  total_purchases: number;
+  variant: ProductVariantType[];
 }

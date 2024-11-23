@@ -1,7 +1,12 @@
+'use client'
 import Image from "next/image";
 import logo from "../../../../public/assets/images/logo.svg";
+import { useRouter } from "next/navigation";
 
 const NavbarMobileTop = () => {
+
+  const router = useRouter();
+
   return (
     <div className="absolute left-0 w-full top-0 py-4 px-7 flex items-center justify-between">
       <Image src={logo} width={35} height={35} alt="logo" />
@@ -23,7 +28,10 @@ const NavbarMobileTop = () => {
           />
         </svg>
         <svg
-          className="w-[32px] h-[32px] text-gray-800 dark:text-white"
+          onClick={() => {
+            router.push('/cart');
+          }}
+          className="w-[32px] h-[32px] text-gray-800 dark:text-white cursor-pointer"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
