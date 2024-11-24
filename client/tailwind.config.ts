@@ -16,6 +16,7 @@ const config: Config = {
         title: '#18191F',
         greyMain: '#414141',
         greySecondary: '#919191',
+        primary: '#049CE5'
       },
     },
   },

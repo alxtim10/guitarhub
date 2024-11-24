@@ -105,6 +105,7 @@ return new class extends Migration
 
         Schema::create('status_masters', function (Blueprint $table) {
             $table->id();
+            $table->string('category');
             $table->string('name');
             $table->timestamps();
         });

@@ -7,19 +7,13 @@ export const useCart = () => {
 
     const isFetching = useIsFetching();
     const { data, error } = useQuery<UserCart | null, Error>({
-        queryKey: ["stores"],
+        queryKey: ["carts"],
         queryFn: () => GetUserCart({ id: 1 }),
     });
-    const [cartData, setCartData] = useState<UserCart | null>(null);
 
-    useEffect(() => {
-        if (data) {
-            setCartData(data)
-        }
-    }, [data])
 
     return {
-        cartData,
+        data,
         isFetching
     }
 }

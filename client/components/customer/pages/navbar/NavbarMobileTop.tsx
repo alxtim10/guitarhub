@@ -22,8 +22,8 @@ const NavbarMobileTop = () => {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-width="2.5"
+            strokeLinecap="round"
+            strokeWidth="2.5"
             d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
           />
         </svg>
@@ -41,9 +41,9 @@ const NavbarMobileTop = () => {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.5"
             d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
           />
         </svg>

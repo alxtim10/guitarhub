@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class, // Parent table first
+            CartSeeder::class, // Parent table first
             PaymentMethodCategorySeeder::class, // Child table next
             PaymentMethodSeeder::class, // Child table next
             ShippingSeeder::class,

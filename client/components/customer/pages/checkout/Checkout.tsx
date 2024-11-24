@@ -29,11 +29,11 @@ export default function Checkout() {
         paymentMethodSection,
         setPaymentMethodSection,
     } = useCheckout();
-    const { cartData } = useCart();
+    const { data } = useCart();
 
     return (
         <section className='px-5 pb-28'>
-            {cartData && (
+            {data && (
                 <>
                     <div className='flex items-center gap-3 mb-3 py-5'>
                         <ArrowLeft
@@ -55,7 +55,7 @@ export default function Checkout() {
                     </div>
                     <hr className='mt-2' />
                     <div className='flex flex-col gap-3 mt-5'>
-                        {cartData && cartData.items.map((item, i) => {
+                        {data && data.items.map((item, i) => {
                             return (
                                 <div key={i}>
                                     <CartStore data={item} />
@@ -116,7 +116,7 @@ export default function Checkout() {
                         <hr className='border-dashed border-2 mb-5' />
                         <div className='flex items-center justify-between'>
                             <h1 className='text-slate-600 text-sm'>Sub Total</h1>
-                            <h1 className='text-sm'>{useConvertRupiah(cartData.total_price)}</h1>
+                            <h1 className='text-sm'>{useConvertRupiah(data.total_price)}</h1>
                         </div>
                         <div className='flex items-center justify-between mt-4'>
                             <h1 className='text-slate-600 text-sm'>Shipping Price</h1>
@@ -129,7 +129,7 @@ export default function Checkout() {
                         <hr className='border-dashed border-2 mt-5' />
                         <div className='flex items-center justify-between mt-5'>
                             <h1 className='text-slate-600 text-lg font-bold'>Total</h1>
-                            <h1 className='text-lg font-bold text-green-500'>{useConvertRupiah(Number(cartData.total_price) + Number(shippingSection.shipping_price) + Number(paymentMethodSection.admin_fee))}</h1>
+                            <h1 className='text-lg font-bold text-green-500'>{useConvertRupiah(Number(data.total_price) + Number(shippingSection.shipping_price) + Number(paymentMethodSection.admin_fee))}</h1>
                         </div>
                     </div>
                 </>

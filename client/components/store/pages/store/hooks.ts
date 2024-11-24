@@ -1,9 +1,8 @@
-import { GetStoreDetailByUserId } from "@/services/store";
-import { AddStore } from "@/services/user";
+import { AddStore, GetStoreDetailByUserId } from "@/services/store";
 import { AddStoreParams, StoreDetailType } from "@/types/user";
 import { useIsFetching, useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const useStore = (user_id: number) => {
 
@@ -37,6 +36,7 @@ export const useStore = (user_id: number) => {
     const mutation = useMutation({
         mutationFn: AddStore,
         onSuccess: () => {
+            console.log("asd")
             setIsLoading(false);
             router.push("/profile");
         },

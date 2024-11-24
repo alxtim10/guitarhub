@@ -15,42 +15,55 @@ class StatusMasterSeeder extends Seeder
     {
         DB::table('status_masters')->insert([
             [
+                'category' => 'PAYMENT',
                 'name' => 'Awaiting Payment',
             ],
             [
+                'category' => 'PROCESS',
                 'name' => 'Pending',
             ],
             [
+                'category' => 'PROCESS',
                 'name' => 'Confirmed',
             ],
             [
+                'category' => 'PROCESS',
                 'name' => 'Processing',
             ],
             [
+                'category' => 'SHIPMENT',
                 'name' => 'Ready for Shipment',
             ],
             [
+                'category' => 'SHIPMENT',
                 'name' => 'Shipped',
             ],
             [
+                'category' => 'SHIPMENT',
                 'name' => 'In Transit',
             ],
             [
+                'category' => 'SHIPMENT',
                 'name' => 'Out for Delivery',
             ],
             [
+                'category' => 'SHIPMENT',
                 'name' => 'Delivered',
             ],
             [
+                'category' => 'SHIPMENT',
                 'name' => 'Failed Delivery',
             ],
             [
+                'category' => 'DONE',
                 'name' => 'Completed',
             ],
             [
+                'category' => 'DONE',
                 'name' => 'Returned',
             ],
             [
+                'category' => 'DONE',
                 'name' => 'Cancelled',
             ],
         ]);
