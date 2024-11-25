@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useProfile } from './hooks';
 import LoadingWeb from '@/components/loaders/LoadingWeb';
+import { toast } from 'react-toastify';
 
 export default function Profile() {
 
@@ -124,7 +125,8 @@ export default function Profile() {
                                 </div>
                                 <AngleRight className='w-4 h-4' />
                             </div>
-                            <div className='flex items-center justify-between cursor-pointer'>
+                            <div
+                                className='flex items-center justify-between cursor-pointer'>
                                 <div className='flex items-center justify-center gap-2'>
                                     <ArrowsRepeat />
                                     <h1 className='mt-[2px]'>Payment Method</h1>
@@ -133,8 +135,19 @@ export default function Profile() {
                             </div>
                             <h1
                                 onClick={() => {
+                                    toast.success('Logged Out', {
+                                        position: "bottom-center",
+                                        autoClose: 3000,
+                                        hideProgressBar: true,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "light",
+                                    })
                                     window.localStorage.removeItem("user_id");
-                                    router.push('/');
+                                    router.refresh();
+                                    router.push('/login');
                                 }}
                                 className='text-center text-red-600 font-bold cursor-pointer'>Log Out</h1>
                         </div>

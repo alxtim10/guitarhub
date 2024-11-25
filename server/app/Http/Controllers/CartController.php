@@ -141,29 +141,7 @@ class CartController extends Controller
         DB::beginTransaction();
 
         try {
-            if ($existing_cart_item) {
-                $finalQuantity = $existing_cart_item->quantity + $request->quantity;
-                $existing_cart_item->quantity = $finalQuantity;
-                $existing_cart_item->price = $product->price * $finalQuantity;
-                $existing_cart_item->save();
-
-                $cart->total_price += $product->price * $request->quantity;
-                $cart->save();
-
-                DB::commit();
-
-                return response()->json([
-                    'status' => 'Success',
-                    'data' => [
-                        'id' => $existing_cart_item->id,
-                        'cart_id' => $existing_cart_item->cart_id,
-                        'product_id' => $existing_cart_item->product_id,
-                        'product_variant_id' => $existing_cart_item->product_variant_id,
-                        'price' => $existing_cart_item->price,
-                        'quantity' => $existing_cart_item->quantity,
-                    ]
-                ]);
-            } else {
+            if (!$existing_cart_item) {
                 $cart_item = CartItem::create([
                     'cart_id' => $cart->id,
                     'product_id' => $request->product_id,
@@ -190,6 +168,8 @@ class CartController extends Controller
                         'quantity' => $cart_item->quantity,
                     ]
                 ]);
+            } else {
+                return response()->json(['message' => 'Product already in cart'], 404);
             }
         } catch (Exception $e) {
             DB::rollback();

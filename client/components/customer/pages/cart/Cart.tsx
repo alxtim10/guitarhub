@@ -43,14 +43,6 @@ export default function Cart() {
                     </div>
                 </>
             )}
-            <div className="coupon">
-                <div className="cut-circle left"></div>
-                <div className="cut-circle right"></div>
-                <div className="content">
-                    <h2>Coupon Title</h2>
-                    <p>Use this coupon to save!</p>
-                </div>
-            </div>
         </section>
     )
 }

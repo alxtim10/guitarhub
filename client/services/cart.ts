@@ -17,7 +17,7 @@ export const AddCartItem = async (body: AddCartItemParams) => {
     try {
         const response = await axiosInstance.post(ENDPOINTS.AddCartItem, body);
         return response.data;
-    } catch (error) {
-        throw new Error("Failed to add cart");
+    } catch (error: any) {
+        throw new Error(error.response.data.message);
     }
 };

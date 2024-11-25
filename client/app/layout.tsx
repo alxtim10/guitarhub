@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Poppins } from "next/font/google";
 import QueryClientLayout from "./QueryClientLayout";
 import AuthLayout from "./AuthLayout";
