@@ -4,6 +4,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { Poppins } from "next/font/google";
 import QueryClientLayout from "./QueryClientLayout";
+import AuthLayout from "./AuthLayout";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["500"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <QueryClientLayout>
-          {children}
-        </QueryClientLayout>
+        <AuthLayout>
+          <QueryClientLayout>
+            {children}
+          </QueryClientLayout>
+        </AuthLayout>
       </body>
     </html>
   );

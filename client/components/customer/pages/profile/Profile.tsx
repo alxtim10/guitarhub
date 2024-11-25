@@ -19,7 +19,7 @@ export default function Profile() {
         <div>
             {data && (
                 <>
-                    <div className='bg-green-400 pt-6 pb-10 px-4 w-full rounded-b-3xl'>
+                    <div className='bg-gradient-to-b from-green-400 to-green-500 pt-6 pb-10 px-4 w-full rounded-b-3xl'>
                         <div className='flex items-center gap-3 mb-3'>
                             <ArrowLeft
                                 onClick={() => {
@@ -131,6 +131,12 @@ export default function Profile() {
                                 </div>
                                 <AngleRight className='w-4 h-4' />
                             </div>
+                            <h1
+                                onClick={() => {
+                                    window.localStorage.removeItem("user_id");
+                                    router.push('/');
+                                }}
+                                className='text-center text-red-600 font-bold cursor-pointer'>Log Out</h1>
                         </div>
                     </div>
                 </>

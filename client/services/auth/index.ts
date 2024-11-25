@@ -10,12 +10,3 @@ export const Register = async (params: RegisterType) => {
     throw new Error("Failed to register account");
   }
 };
-
-export const Login = async (params: LoginType) => {
-  try {
-    const response = await axiosInstance.post(ENDPOINTS.Login, params);
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to register account");
-  }
-};

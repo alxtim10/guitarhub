@@ -6,13 +6,6 @@ import React from "react";
 
 const NavbarMobileBottom = () => {
 
-  const { isLogin } = useIsLogin();
-  const router = useRouter();
-
-  if (isLogin == null) {
-    router.push('/login');
-  }
-
   return (
     <div className="bg-white fixed bottom-0 left-0 w-full flex items-center justify-center gap-16 py-3 border-t-2 border-t-gray-200">
       <Link href={'/'}>
@@ -60,7 +53,7 @@ const NavbarMobileBottom = () => {
         />
       </svg>
 
-      <Link href={isLogin != null ? '/profile' : '/login'}>
+      <Link href='/profile'>
         <svg
           className="w-[25px] h-[25px] text-gray-800 dark:text-white"
           aria-hidden="true"
