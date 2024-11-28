@@ -129,7 +129,7 @@ export default function Checkout() {
                         <hr className='border-dashed border-2 mt-5' />
                         <div className='flex items-center justify-between mt-5'>
                             <h1 className='text-slate-600 text-lg font-bold'>Total</h1>
-                            <h1 className='text-lg font-bold text-green-500'>{useConvertRupiah(Number(data.total_price) + Number(shippingSection.shipping_price) + Number(paymentMethodSection.admin_fee))}</h1>
+                            <h1 className='text-lg font-bold text-primary'>{useConvertRupiah(Number(data.total_price) + Number(shippingSection.shipping_price) + Number(paymentMethodSection.admin_fee))}</h1>
                         </div>
                     </div>
                 </>
@@ -147,7 +147,7 @@ export default function Checkout() {
                             shipping_address: 'Kuningan, Jakarta Selatan'
                         })
                     }}
-                    className='bg-green-500 p-4 w-full rounded-full text-white'>Order</button>
+                    className='bg-primary p-4 w-full rounded-full text-white'>Order</button>
             </div>
             <ShippingDrawer
                 modalActive={showModalShipping}

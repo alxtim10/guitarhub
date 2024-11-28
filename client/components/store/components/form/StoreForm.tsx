@@ -69,7 +69,7 @@ export default function StoreForm({
             </div>
             <button
                 onClick={handleAdd}
-                className="shadow-md mt-5 w-full bg-green-500  text-white py-3 rounded-md"
+                className="shadow-md mt-5 w-full bg-primary  text-white py-3 rounded-md"
             >
                 Create
             </button>

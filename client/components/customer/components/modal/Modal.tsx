@@ -28,7 +28,7 @@ export default function ModalBase({
                     <div>{useConvertRupiah(14025000)}</div>
                     <Button 
                     onClick={() => setOpenModal(false)}
-                    className="bg-green-500 mt-5 w-full">Finish</Button>
+                    className="bg-primary mt-5 w-full">Finish</Button>
                 </DialogPanel>
             </div>
         </Dialog>

@@ -56,8 +56,8 @@ export default function TransactionTimeline() {
                             return (
                                 <div key={i}
                                     className="relative pl-8 py-4 group">
-                                    <div className="group-last:before:hidden before:absolute before:left-0 sm:before:left-0 before:h-full before:px-[0.5px] before:bg-green-500  before:self-start before:-translate-x-1/2 before:translate-y-3 ">
-                                        <CheckCircle className="text-green-500 absolute bg-white rounded-full left-0 -translate-x-1/2 translate-y-1.5" />
+                                    <div className="group-last:before:hidden before:absolute before:left-0 sm:before:left-0 before:h-full before:px-[0.5px] before:bg-primary  before:self-start before:-translate-x-1/2 before:translate-y-3 ">
+                                        <CheckCircle className="text-primary absolute bg-white rounded-full left-0 -translate-x-1/2 translate-y-1.5" />
                                     </div>
                                     <p className="font-semibold">{data.title}</p>
                                     <p className="">

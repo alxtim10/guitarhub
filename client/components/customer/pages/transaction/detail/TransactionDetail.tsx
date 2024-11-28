@@ -90,7 +90,7 @@ export default function TransactionDetail() {
               <hr className='mt-3' />
               <div className='mt-3'>
                 <h1 className='text-sm text-stone-500'>Total</h1>
-                <h1 className='font-bold text-green-500'>{useConvertRupiah(data.transaction_detail.total_price)}</h1>
+                <h1 className='font-bold text-primary'>{useConvertRupiah(data.transaction_detail.total_price)}</h1>
               </div>
             </div>
           </div>

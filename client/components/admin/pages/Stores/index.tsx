@@ -19,7 +19,7 @@ export default function StoresPage() {
           <h1 className="text-2xl font-bold">STORES</h1>
           <p className="text-greySecondary">View all stores information</p>
         </div>
-        <button className=" py-2 pl-2 pr-4 flex items-center justify-center gap-1 rounded-lg bg-green-400 text-white transition-all hover:bg-green-500">
+        <button className=" py-2 pl-2 pr-4 flex items-center justify-center gap-1 rounded-lg bg-green-400 text-white transition-all hover:bg-primary">
           <Plus className="text-white w-5 h-5" />
           <span className="text-sm">Add New</span>
         </button>

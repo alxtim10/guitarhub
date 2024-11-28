@@ -17,7 +17,7 @@ export default function CartStore({
                     <Store />
                     <h1 className="mt-1">{data.store_name}</h1>
                 </div>
-                <h1 className="text-green-500 font-bold">{useConvertRupiah(data.price)} {`(${data.quantity})`}</h1>
+                <h1 className="text-primary font-bold">{useConvertRupiah(data.price)} {`(${data.quantity})`}</h1>
             </div>
             <hr />
             <div className="flex flex-col gap-5 pt-5 px-4">
@@ -34,9 +34,9 @@ export default function CartStore({
                             <div className="flex flex-col items-start">
                                 <h1 className="text-lg font-bold">{item.product_name}</h1>
                                 <h1 className="mt-1 text-xs text-gray-600 bg-gray-200 text-center rounded-md px-2">{item.product_variant_name}</h1>
-                                <h1 className="mt-11 text-xs font-bold text-green-500 text-center rounded-md">{useConvertRupiah(item.price)}</h1>
+                                <h1 className="mt-11 text-xs font-bold text-primary text-center rounded-md">{useConvertRupiah(item.price)}</h1>
                             </div>
-                            <button className="absolute bottom-0 right-0 bg-green-500 rounded-full px-2 py-1 text-white text-sm shadow-md">
+                            <button className="absolute bottom-0 right-0 bg-primary rounded-full px-2 py-1 text-white text-sm shadow-md">
                                 Checkout
                             </button>
                         </div>

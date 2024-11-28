@@ -55,7 +55,7 @@ export default function Register() {
           onClick={() => {
             handleRegister();
           }}
-          className="shadow-md mt-5 w-full bg-green-500  text-white py-3 rounded-md"
+          className="shadow-md mt-5 w-full bg-primary  text-white py-3 rounded-md"
         >
           Register
         </button>
@@ -66,7 +66,7 @@ export default function Register() {
           onClick={() => {
             router.push("/login");
           }}
-          className="text-green-400 cursor-pointer hover:text-green-500"
+          className="text-green-400 cursor-pointer hover:text-primary"
         >
           {" "}
           Login

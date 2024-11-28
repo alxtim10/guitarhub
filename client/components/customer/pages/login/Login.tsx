@@ -47,7 +47,7 @@ const Login = () => {
         </div>
         <button
           onClick={handleLogin}
-          className="shadow-md mt-5 w-full bg-green-500  text-white py-3 rounded-md"
+          className="shadow-md mt-5 w-full bg-primary  text-white py-3 rounded-md"
         >
           Sign In
         </button>
@@ -58,7 +58,7 @@ const Login = () => {
           onClick={() => {
             router.push("/register");
           }}
-          className="text-green-400 cursor-pointer hover:text-green-500"
+          className="text-green-400 cursor-pointer hover:text-primary"
         >
           {" "}
           Register

@@ -20,7 +20,7 @@ export default function Profile() {
         <div>
             {data && (
                 <>
-                    <div className='bg-gradient-to-b from-green-400 to-green-500 pt-6 pb-10 px-4 w-full rounded-b-3xl'>
+                    <div className='bg-gradient-to-b from-primary to-[#e4180a] pt-6 pb-10 px-4 w-full rounded-b-3xl shadow-md'>
                         <div className='flex items-center gap-3 mb-3'>
                             <ArrowLeft
                                 onClick={() => {
@@ -29,7 +29,7 @@ export default function Profile() {
                                 className='text-white w-7 h-7 cursor-pointer' />
                             <h1 className='font-bold text-white text-lg'>My Profile</h1>
                         </div>
-                        <div className='flex flex-col items-center justify-center gap-2'>
+                        <div className='flex flex-col items-center justify-center gap-2 mb-2'>
                             <UserCircle className='w-[5rem] h-[5rem] text-white' />
                             <div className='flex flex-col items-center justify-center gap-1'>
                                 <h1 className='text-lg font-bold text-white'>{data.fullname}</h1>
@@ -38,7 +38,7 @@ export default function Profile() {
                         </div>
                     </div>
                     <div className='mx-8'>
-                        <div className='py-4 -mt-7 bg-white shadow-md rounded-lg flex items-center justify-around'>
+                        <div className='py-4 -mt-9 bg-white shadow-md rounded-lg flex items-center justify-around'>
                             <div className='cursor-pointer flex flex-col items-center justify-center gap-1'>
                                 <Wallet />
                                 <h1 className='text-xs font-bold'>Payment</h1>
@@ -60,9 +60,9 @@ export default function Profile() {
                             onClick={() => {
                                 router.push('/transaction')
                             }}
-                            className='cursor-pointer flex items-center justify-center gap-1 mt-3'>
-                            <h1 className='text-xs'>Transactions</h1>
-                            <ArrowRight className='w-5 h-5' />
+                            className='flex items-center justify-center gap-1 mt-3'>
+                            <h1 className='text-xs cursor-pointer'>Transactions</h1>
+                            <ArrowRight className='w-5 h-5 cursor-pointer' />
                         </div>
                         <div className='px-4 py-4 bg-white flex items-center justify-between shadow-md rounded-lg mt-5'>
                             <div>
@@ -93,7 +93,7 @@ export default function Profile() {
                             }}
                             className='px-4 py-4 bg-white flex items-center justify-between shadow-md rounded-lg mt-5 cursor-pointer'>
                             <div className='flex items-center justify-center gap-2'>
-                                <Store className='text-green-500' />
+                                <Store className='text-primary' />
                                 <h1 className='font-bold mt-[2px]'>My Store</h1>
                             </div>
                             <AngleRight className='w-4 h-4' />
