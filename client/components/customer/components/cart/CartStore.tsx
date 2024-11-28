@@ -33,8 +33,8 @@ export default function CartStore({
                             />
                             <div className="flex flex-col items-start">
                                 <h1 className="text-lg font-bold">{item.product_name}</h1>
-                                <h1 className="mt-1 text-xs text-gray-600 bg-gray-200 text-center rounded-md px-2">{item.product_variant_name}</h1>
-                                <h1 className="mt-11 text-xs font-bold text-primary text-center rounded-md">{useConvertRupiah(item.price)}</h1>
+                                <h1 className="mt-1 text-xs text-subtitle bg-gray-200 text-center rounded-md px-2">{item.product_variant_name}</h1>
+                                <h1 className="mt-11 text-sm font-bold text-center rounded-md">{useConvertRupiah(item.price)}</h1>
                             </div>
                             <button className="absolute bottom-0 right-0 bg-primary rounded-full px-2 py-1 text-white text-sm shadow-md">
                                 Checkout
