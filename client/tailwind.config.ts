@@ -14,9 +14,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         title: '#18191F',
+        subtitle: '#5B616E',
         greyMain: '#414141',
         greySecondary: '#919191',
-        primary: '#049CE5'
+        primary: '#0182FF'
       },
     },
   },

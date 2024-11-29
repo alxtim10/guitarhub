@@ -50,7 +50,7 @@ export default function ProductDetail() {
                                                 product_variant_id: item.id
                                             }))
                                         }}
-                                        key={i} className={`w-full flex items-center justify-center text-xs border-2 ${selectedItem === item ? 'border-green-500 bg-green-500 text-white' : 'border-black bg-white'} cursor-pointer transition-all font-medium rounded-full px-2 py-1 mt-2`}>
+                                        key={i} className={`w-full flex items-center justify-center text-xs border-2 ${selectedItem === item ? 'border-green-500 bg-primary text-white' : 'border-black bg-white'} cursor-pointer transition-all font-medium rounded-full px-2 py-1 mt-2`}>
                                         {item.name}
                                     </div>
                                 )
@@ -66,7 +66,7 @@ export default function ProductDetail() {
                         <h1 className='font-bold text-md w-full'>{useConvertRupiah(Number(data.price))}</h1>
                         <button
                             onClick={handleAdd}
-                            className='bg-green-500 text-white py-3 px-2 w-full text-[0.9rem] rounded-2xl font-bold shadow-md'>Add to Cart</button>
+                            className='bg-primary text-white py-3 px-2 w-full text-[0.9rem] rounded-2xl font-bold shadow-md'>Add to Cart</button>
                     </div>
                 </>
             )}

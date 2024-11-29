@@ -63,7 +63,7 @@ export default function StoreHome() {
                         <TabList className='flex items-center justify-around w-full outline-none'>
                             {StoreHomeTabs.map((tab, i) => {
                                 return (
-                                    <Tab className={`${selectedTabs === i ? 'text-green-500 border-b-green-500' : 'border-b-transparent'} border-b cursor-pointer transition-all outline-none`} key={i}>{tab}</Tab>
+                                    <Tab className={`${selectedTabs === i ? 'text-primary border-b-green-500' : 'border-b-transparent'} border-b cursor-pointer transition-all outline-none`} key={i}>{tab}</Tab>
                                 )
                             })}
                         </TabList>

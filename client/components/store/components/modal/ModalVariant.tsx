@@ -70,7 +70,7 @@ export default function ModalVariant({
                             }))
                             setOpenModal(false);
                         }}
-                        className="bg-green-500 mt-5 w-full">Add</Button>
+                        className="bg-primary mt-5 w-full">Add</Button>
                 </DialogPanel>
             </div>
         </Dialog>

@@ -80,7 +80,7 @@ export default function AddProduct() {
                     onClick={() => {
                         setOpenModal(true);
                     }}
-                    className="shadow-md mt-5 w-full bg-green-500  text-white py-1 rounded-md"
+                    className="shadow-md mt-5 w-full bg-primary  text-white py-1 rounded-md"
                 >
                     + Variant
                 </button>
@@ -123,7 +123,7 @@ export default function AddProduct() {
                 onClick={() => {
                     handleAdd();
                 }}
-                className="shadow-md mt-5 w-full bg-green-500  text-white py-3 rounded-md"
+                className="shadow-md mt-5 w-full bg-primary  text-white py-3 rounded-md"
             >
                 Add
             </button>

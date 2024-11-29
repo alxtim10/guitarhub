@@ -39,7 +39,7 @@ export default function TransactionStatusCard({ data, setOpenModal }: Transactio
                     </div>
                     <div
                         onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
-                        className='p-4 bg-green-500 cursor-pointer'>
+                        className='p-4 bg-primary cursor-pointer'>
                         <div className='flex items-center justify-between'>
                             <h1 className='font-semibold text-white'>Shipping Info</h1>
                             <AngleRight className='w-4 h-4 text-white' />
@@ -58,7 +58,7 @@ export default function TransactionStatusCard({ data, setOpenModal }: Transactio
             <div className='p-4'>
                 <h1 className='text-sm font-semibold'>Shipping Address</h1>
                 <div className='flex items-start justify-start gap-2 mt-3'>
-                    <MapPinAlt className='text-green-500 w-5 h-5 mt-1' />
+                    <MapPinAlt className='text-primary w-5 h-5 mt-1' />
                     <div className='flex flex-col items-start justify-center'>
                         <div className='flex items-center justify-start gap-1'>
                             <h1 className='font-bold'>{data.user.fullname}</h1>

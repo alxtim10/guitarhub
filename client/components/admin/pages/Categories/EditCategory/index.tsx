@@ -36,7 +36,7 @@ export default function EditCategoryPage() {
         </div>
         <button
           onClick={handleEdit}
-          className="bg-green-500 text-white mt-5 gap-2 px-4 pr-5 py-3 flex items-center rounded-full"
+          className="bg-primary text-white mt-5 gap-2 px-4 pr-5 py-3 flex items-center rounded-full"
         >
           <Check />
           <span>Edit Category</span>

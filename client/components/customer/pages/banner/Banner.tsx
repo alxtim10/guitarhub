@@ -51,7 +51,7 @@ const Banner = () => {
       >
         {[...Array(5)].map((_, i) => (
           <SwiperSlide key={i} className="h-full w-full relative">
-            <div className="w-full bg-gradient-to-br from-green-300 to-green-400 rounded-lg h-[150px] p-4 relative">
+            <div className="w-full bg-primary rounded-lg h-[150px] p-4 relative">
              
             </div>
           </SwiperSlide>

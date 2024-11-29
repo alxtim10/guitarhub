@@ -10,7 +10,7 @@ interface CatalogCardProps {
 const CatalogCard = ({ data }: CatalogCardProps) => {
   return (
     <div className="flex flex-col gap-2 w-full">
-      <Image src={data.image_url} alt="product" className="bg-green-200 rounded-lg" objectFit="cover" width={200} height={450} />
+      <Image src={data.image_url} alt="product" className="rounded-2xl" objectFit="cover" width={200} height={450} />
       <div>
         <h1 className="text-sm text-gray-700 w-[180px] mt-1 overflow-hidden text-ellipsis whitespace-nowrap">{data.name}</h1>
         <h1 className="text-md font-semibold mt-1">{useConvertRupiah(Number(data.price))}</h1>
