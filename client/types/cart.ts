@@ -11,6 +11,7 @@ export interface UserCartStore {
 }
 
 export interface UserCartStoreProduct {
+    id: number,
     cart_id: number,
     product_id: number,
     product_name: string,

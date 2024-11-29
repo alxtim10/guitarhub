@@ -22,6 +22,7 @@ export const ENDPOINTS = {
   GetUserById: '/GetUserById',
 
   AddCartItem: '/AddCartItem',
+  DeleteCartItem: '/DeleteCartItem',
   AddTransaction: '/AddTransaction',
   GetAllTransaction: '/GetAllTransaction',
   GetTransactionDetail: '/GetTransactionDetail',

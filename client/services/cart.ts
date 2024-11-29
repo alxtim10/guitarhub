@@ -21,3 +21,12 @@ export const AddCartItem = async (body: AddCartItemParams) => {
         throw new Error(error.response.data.message);
     }
 };
+
+export const DeleteCartItem = async (body: { id: number }) => {
+    try {
+        const response = await axiosInstance.post(ENDPOINTS.DeleteCartItem, body);
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response.data.message);
+    }
+};

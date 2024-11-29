@@ -65,7 +65,8 @@ export default function ModalVariant({
                         onClick={() => {
                             setRequest((prev: any) => ({
                                 ...prev,
-                                variant: [...prev.variant, requestModal]
+                                variant: [...prev.variant, requestModal],
+                                stock_quantity: Number(prev.stock_quantity) + Number(requestModal.stock_quantity)
                             }))
                             setOpenModal(false);
                         }}

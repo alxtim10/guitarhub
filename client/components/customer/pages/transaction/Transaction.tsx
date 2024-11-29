@@ -1,5 +1,5 @@
 'use client'
-import { AngleRight, ArrowLeft } from 'flowbite-react-icons/outline';
+import { ArrowLeft } from 'flowbite-react-icons/outline';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useTransaction } from './hooks';
@@ -33,6 +33,7 @@ export default function Transaction() {
                 {statusList.map((item, i) => {
                     return (
                         <div
+                            key={i}
                             onClick={() => {
                                 setSelected(i);
                             }}
@@ -72,7 +73,7 @@ export default function Transaction() {
                             </div>
                             <div className='flex items-center justify-between px-2 pt-4 pb-2'>
                                 <h1 className='font-bold'>{useConvertRupiah(item.transaction_detail.total_price)}</h1>
-                                <span className='bg-green-500 px-3 font-semibold py-1 rounded-full text-xs text-white'>{item.status.toUpperCase()}</span>
+                                <span className='bg-green-500 px-3 font-semibold py-1 rounded-full text-xs text-white'>{item.status_name.toUpperCase()}</span>
                             </div>
                         </div>
                     )

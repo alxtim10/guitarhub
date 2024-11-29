@@ -11,7 +11,7 @@ export const useProductDetail = (id: string) => {
 
     const isFetching = useIsFetching();
     const { data, error } = useQuery<ProductDetailType | null, Error>({
-        queryKey: ["product_detail", 2],
+        queryKey: ["product_detail", id],
         queryFn: () => GetProductById({ id: id }),
     });
 

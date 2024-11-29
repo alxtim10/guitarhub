@@ -75,17 +75,6 @@ export default function AddProduct() {
             bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
                         />
                     </div>
-                    <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
-                        <label className="text-xs font-semibold">Stock</label>
-                        <input
-                            type="number"
-                            name="stock_quantity"
-                            value={request.stock_quantity}
-                            onChange={handleInput}
-                            className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
-                        />
-                    </div>
                 </div>
                 <button
                     onClick={() => {

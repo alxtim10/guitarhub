@@ -15,6 +15,5 @@ class CartItem extends Model
         'store_id',
         'product_variant_id',
         'price',
-        'quantity',
     ];
 }

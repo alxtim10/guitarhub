@@ -93,5 +93,4 @@ Route::post('/Logout', [UserController::class, 'Logout']);
 Route::get('/GetAllCart', [CartController::class, 'GetAllCart']);
 Route::get('/GetUserCart', [CartController::class, 'GetUserCart']);
 Route::post('/AddCartItem', [CartController::class, 'AddCartItem']);
-Route::patch('/EditProduct', [ProductController::class, 'EditProduct']);
-Route::delete('/DeleteProduct', [ProductController::class, 'DeleteProduct']);
+Route::post('/DeleteCartItem', [CartController::class, 'DeleteCartItem']);

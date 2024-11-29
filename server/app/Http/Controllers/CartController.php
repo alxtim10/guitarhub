@@ -70,6 +70,7 @@ class CartController extends Controller
 
                 if ($product && $product_variant) {
                     $productsData[] = [
+                        'id' => $item->id,
                         'cart_id' => $item->cart_id,
                         'product_id' => $item->product_id,
                         'product_name' => $product->name,
@@ -148,7 +149,6 @@ class CartController extends Controller
                     'store_id' => $request->store_id,
                     'product_variant_id' => $request->product_variant_id,
                     'price' => $product->price * $request->quantity,
-                    'quantity' => $request->quantity
                 ]);
 
                 $cart->total_price += $product->price * $request->quantity;
@@ -165,7 +165,6 @@ class CartController extends Controller
                         'product_id' => $cart_item->product_id,
                         'product_variant_id' => $cart_item->product_variant_id,
                         'price' => $cart_item->price,
-                        'quantity' => $cart_item->quantity,
                     ]
                 ]);
             } else {
@@ -174,5 +173,23 @@ class CartController extends Controller
         } catch (Exception $e) {
             DB::rollback();
         }
+    }
+
+
+    public function DeleteCartItem(Request $request)
+    {
+        $id = $request->input('id');
+        $data = CartItem::find($id);
+        $data->delete();
+
+        $cart = Cart::where('id', $data->cart_id)->first();
+
+        $cart->total_price -= $data->price;
+        $cart->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Cart Item Deleted'
+        ]);
     }
 }

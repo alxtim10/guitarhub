@@ -1,6 +1,6 @@
 'use client'
 import { AngleRight, ArrowLeft, MapPin } from 'flowbite-react-icons/outline';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react'
 import { useCart } from '../cart/hooks';
 import CartStore from '../../components/cart/CartStore';
@@ -12,6 +12,8 @@ import PaymentDrawer from '../../components/payment/PaymentDrawer';
 export default function Checkout() {
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const product_id = searchParams.get('product_id') || '';
     const {
         handleAdd,
         showModalShipping,
@@ -28,7 +30,8 @@ export default function Checkout() {
         setShippingSection,
         paymentMethodSection,
         setPaymentMethodSection,
-    } = useCheckout();
+        productData
+    } = useCheckout(product_id);
     const { data } = useCart();
 
     return (
@@ -53,6 +56,7 @@ export default function Checkout() {
                         </div>
                         <AngleRight className='w-5 h-5' />
                     </div>
+                    {JSON.stringify(productData)}
                     <hr className='mt-2' />
                     <div className='flex flex-col gap-3 mt-5'>
                         {data && data.items.map((item, i) => {

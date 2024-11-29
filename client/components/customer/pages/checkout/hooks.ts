@@ -1,13 +1,15 @@
+import { GetProductById } from "@/services/product";
 import { AddTransaction } from "@/services/transaction";
 import { PaymentMethodSectionType } from "@/types/payment";
+import { ProductDetailType } from "@/types/product";
 import { ShippingSectionType } from "@/types/shipping";
 import { AddTransactionType } from "@/types/transaction";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
-export const useCheckout = () => {
+export const useCheckout = (product_id?: string) => {
 
     const router = useRouter();
     const [showModalShipping, setShowModalShipping] = useState(false);
@@ -45,6 +47,19 @@ export const useCheckout = () => {
         mutation.mutate(request);
     };
 
+    const [productData, setProductData] = useState<ProductDetailType>();
+    useEffect(() => {
+        if (product_id) {
+            const { data, error } = useQuery<ProductDetailType | null, Error>({
+                queryKey: ["product_detail", product_id],
+                queryFn: () => GetProductById({ id: product_id }),
+            });
+            if (data) {
+                setProductData(data);
+            }
+        }
+    }, [product_id])
+
     return {
         handleAdd,
         showModalShipping,
@@ -61,5 +76,6 @@ export const useCheckout = () => {
         setShippingSection,
         paymentMethodSection,
         setPaymentMethodSection,
+        productData
     }
 }
