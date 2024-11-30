@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useLogin } from "./hooks";
 
 const Login = () => {
-  
+
   const { request, handleLogin, handleInput } = useLogin();
   const router = useRouter();
 
   return (
     <section className="p-5">
-      <Image src={Logo} width={35} height={35} alt="logo" />
+      <Image src={Logo} width={120} height={120} alt="logo" />
       <div className="bg-white px-5 py-8 rounded-xl mt-10 shadow-lg">
         <h1 className="text-2xl font-bold">Sign in to your account</h1>
         <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
@@ -22,13 +22,13 @@ const Login = () => {
             value={request.email}
             onChange={handleInput}
             className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-primary focus:ring-0 focus:outline-0 transition-all"
           />
         </div>
         <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
           <div className="flex items-center justify-between w-full">
             <label className="text-xs font-semibold">Password</label>
-            <label className="text-xs text-green-400 cursor-pointer hover:text-green-600 transition-all">
+            <label className="text-xs text-greySecondary cursor-pointer hover:text-greyMain transition-all">
               Forgot your password?
             </label>
           </div>
@@ -38,7 +38,7 @@ const Login = () => {
             value={request.password}
             onChange={handleInput}
             className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-primary focus:ring-0 focus:outline-0 transition-all"
           />
         </div>
         <div className="mt-4 gap-3 flex items-center justify-start w-full">
@@ -58,7 +58,7 @@ const Login = () => {
           onClick={() => {
             router.push("/register");
           }}
-          className="text-green-400 cursor-pointer hover:text-primary"
+          className="text-primary cursor-pointer hover:text-[#3d89d4]"
         >
           {" "}
           Register

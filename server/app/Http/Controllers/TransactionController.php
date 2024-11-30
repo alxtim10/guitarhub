@@ -29,12 +29,16 @@ class TransactionController extends Controller
         $shipping_variant = ShippingVariant::where('id', $request->shipping_variant_id)->first();
         $payment_method = PaymentMethod::where('id', $request->payment_method_id)->first();
 
+        $orderCount = Transaction::count() + 1;
+        $orderCode = 'GTR' . sprintf('%04d', $orderCount);
+
         $total_price = $product->price + $shipping_variant->price + $payment_method->admin_fee - $request->discount_price;
 
         DB::beginTransaction();
         try {
             $transaction = Transaction::create([
                 'user_id' => $request->user_id,
+                'code' => $orderCode,
                 'status_master_id' => 1,
                 'status_name' => StatusMaster::where('id', 1)->first()->value('name'),
                 'total_price' => $total_price,
@@ -150,6 +154,7 @@ class TransactionController extends Controller
             'data' => $transactions->map(function ($transaction) {
                 return [
                     'id' => $transaction->id,
+                    'code' => $transaction->code,
                     'user_id' => $transaction->user_id,
                     'transaction_date' => $transaction->transaction_date,
                     'status' => $transaction->status_name,

@@ -133,37 +133,39 @@ export default function Checkout() {
                             <h1 className='text-lg font-bold text-primary'>{useConvertRupiah(Number(data.total_price) + Number(shippingSection.shipping_price) + Number(paymentMethodSection.admin_fee))}</h1>
                         </div>
                     </div>
+
+
+                    <div className='fixed pt-5 pb-7 px-5 border-t left-0 mx-auto max-w-auto bottom-0 bg-white w-full'>
+                        <button
+                            onClick={() => {
+                                handleAdd({
+                                    user_id: 1,
+                                    shipping_id: shippingSection.shipping_id,
+                                    shipping_variant_id: shippingSection.shipping_variant_id,
+                                    payment_method_id: paymentMethodSection.payment_method_id,
+                                    discount_price: 0,
+                                    is_discount: false,
+                                    shipping_address: 'Kuningan, Jakarta Selatan'
+                                })
+                            }}
+                            className='bg-primary p-4 w-full rounded-full text-white'>Order</button>
+                    </div>
+                    <ShippingDrawer
+                        modalActive={showModalShipping}
+                        closeModal={onCloseModalShipping}
+                        setIsChoosed={setIsShipping}
+                        setShowModal={setShowModalShipping}
+                        setPriceSection={setShippingSection}
+                    />
+                    <PaymentDrawer
+                        modalActive={showModalPayment}
+                        closeModal={onCloseModalPayment}
+                        setIsChoosed={setIsPayment}
+                        setShowModal={setShowModalPayment}
+                        setPriceSection={setPaymentMethodSection}
+                    />
                 </>
             )}
-            <div className='fixed pt-5 pb-7 px-5 border-t left-0 mx-auto max-w-auto bottom-0 bg-white w-full'>
-                <button
-                    onClick={() => {
-                        handleAdd({
-                            user_id: 1,
-                            shipping_id: shippingSection.shipping_id,
-                            shipping_variant_id: shippingSection.shipping_variant_id,
-                            payment_method_id: paymentMethodSection.payment_method_id,
-                            discount_price: 0,
-                            is_discount: false,
-                            shipping_address: 'Kuningan, Jakarta Selatan'
-                        })
-                    }}
-                    className='bg-primary p-4 w-full rounded-full text-white'>Order</button>
-            </div>
-            <ShippingDrawer
-                modalActive={showModalShipping}
-                closeModal={onCloseModalShipping}
-                setIsChoosed={setIsShipping}
-                setShowModal={setShowModalShipping}
-                setPriceSection={setShippingSection}
-            />
-            <PaymentDrawer
-                modalActive={showModalPayment}
-                closeModal={onCloseModalPayment}
-                setIsChoosed={setIsPayment}
-                setShowModal={setShowModalPayment}
-                setPriceSection={setPaymentMethodSection}
-            />
         </section>
     )
 }

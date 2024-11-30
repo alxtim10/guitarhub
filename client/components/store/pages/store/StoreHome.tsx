@@ -33,7 +33,7 @@ export default function StoreHome() {
         <section>
             {storeData && (
                 <>
-                    <div className='relative bg-green-400 pt-7 pb-7 px-4 w-full rounded-b-3xl'>
+                    <div className='relative bg-primary shadow-md pt-7 pb-7 px-4 w-full rounded-b-3xl'>
                         <div className='flex items-center gap-3 mb-3'>
                             <ArrowLeft
                                 onClick={() => {
@@ -47,15 +47,15 @@ export default function StoreHome() {
                             <div className='flex flex-col items-start justify-center mt-1'>
                                 <div className='flex items-center justify-center gap-3'>
                                     <h1 className='font-bold text-white text-2xl mt-1'>{storeData.name}</h1>
-                                    <div className='bg-green-100 text-gray-700  rounded-full shadow-lg px-2 flex items-center justify-center gap-1 text-sm mt-2'>
+                                    <div className='bg-white text-black  rounded-full shadow-lg px-2 flex items-center justify-center gap-1 text-sm mt-1'>
                                         <h1>{storeData.rating}</h1>
-                                        <Star className='text-yellow-300 w-4 h-4 mb-1' />
+                                        <Star className='text-yellow-300 w-4 h-4 mb-[2px]' />
                                     </div>
                                 </div>
                                 <p className='text-xs text-gray-100'>{storeData.location}</p>
                             </div>
                         </div>
-                        <button className='absolute right-5 bottom-3 cursor-pointer bg-green-200 rounded-full px-3 py-1 text-xs flex items-center justify-center'><span>Edit Store</span>
+                        <button className='absolute right-5 bottom-3 cursor-pointer bg-white rounded-full px-3 py-1 text-xs flex items-center justify-center'><span>Edit Store</span>
                             <AngleRight className='w-3 h-3' />
                         </button>
                     </div>
@@ -63,13 +63,15 @@ export default function StoreHome() {
                         <TabList className='flex items-center justify-around w-full outline-none'>
                             {StoreHomeTabs.map((tab, i) => {
                                 return (
-                                    <Tab className={`${selectedTabs === i ? 'text-primary border-b-green-500' : 'border-b-transparent'} border-b cursor-pointer transition-all outline-none`} key={i}>{tab}</Tab>
+                                    <Tab className={`${selectedTabs === i ? 'text-primary border-b-primary' : 'border-b-transparent'} border-b cursor-pointer transition-all outline-none`} key={i}>{tab}</Tab>
                                 )
                             })}
                         </TabList>
-                        <TabPanels className='px-4'>
+                        <TabPanels className=''>
                             <TabPanel className='mt-7'>
-                                <div className='bg-green-400 h-[12rem] rounded-xl'></div>
+                                <div className='px-4'>
+                                    <div className='bg-primary h-[12rem] rounded-xl'></div>
+                                </div>
                                 <Catalog title={'Recommendation'} />
                             </TabPanel>
                             <TabPanel className={'mt-7'}>
@@ -78,7 +80,7 @@ export default function StoreHome() {
                                         onClick={() => {
                                             router.push(`/profile/store/add-product?store_id=${storeData.id}`)
                                         }}
-                                        className='bg-green-400 rounded-full px-2 py-1 cursor-pointer text-white text-xs'>+ Add Product</button>
+                                        className='bg-primary rounded-full px-2 py-1 cursor-pointer text-white text-xs'>+ Add Product</button>
                                 </div>
                                 <Catalog title={''} />
                             </TabPanel>
@@ -88,7 +90,7 @@ export default function StoreHome() {
                                         onClick={() => {
                                             router.push('/profile/store/addcategory')
                                         }}
-                                        className='bg-green-400 rounded-full px-2 py-1 cursor-pointer text-white text-xs'>+ Add Category</button>
+                                        className='bg-primary rounded-full px-2 py-1 cursor-pointer text-white text-xs'>+ Add Category</button>
                                 </div>
                                 <ListCategory />
                             </TabPanel>
@@ -98,7 +100,7 @@ export default function StoreHome() {
             )}
             {!storeData &&
                 <>
-                    <div className='bg-green-400 pt-6 pb-16 px-4 w-full rounded-b-3xl'>
+                    <div className='bg-primary shadow-lg pt-6 pb-16 px-4 w-full rounded-b-3xl'>
                         <div className='flex items-center gap-3 mb-3'>
                             <ArrowLeft
                                 onClick={() => {
@@ -110,7 +112,7 @@ export default function StoreHome() {
                         <p className='font-bold text-white text-2xl text-center mt-11'>
                             Nama toko yang unik, selalu terlihat menarik
                         </p>
-                        <p className='text-black text-center text-sm mt-3'>
+                        <p className='text-white text-center text-sm mt-3'>
                             Gunakan nama yang singkat dan sederhana agar tokomu mudah dingat pembeli.
                         </p>
                     </div>

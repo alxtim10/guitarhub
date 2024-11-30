@@ -34,7 +34,7 @@ export default function AddCategory() {
                         value={request.name}
                         onChange={handleInput}
                         className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-primary focus:ring-0 focus:outline-0 transition-all"
                     />
                 </div>
                 <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
@@ -45,7 +45,7 @@ export default function AddCategory() {
                         value={request.description}
                         onChange={handleInput}
                         className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs focus:border-primary focus:ring-0 focus:outline-0 transition-all"
                     />
                 </div>
 

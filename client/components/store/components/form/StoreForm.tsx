@@ -24,7 +24,7 @@ export default function StoreForm({
                     value={request.name}
                     onChange={handleInput}
                     className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-primary focus:ring-0 focus:outline-0 transition-all"
                 />
             </div>
             <div className="mt-5 gap-3 flex flex-col items-start justify-center w-full">
@@ -38,7 +38,7 @@ export default function StoreForm({
                         value={request.domain}
                         onChange={handleInput}
                         className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs h-11 focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs h-11 focus:border-primary focus:ring-0 focus:outline-0 transition-all"
                     />
                 </div>
             </div>
@@ -52,7 +52,7 @@ export default function StoreForm({
                     value={request.description}
                     onChange={handleInput}
                     className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs focus:border-primary focus:ring-0 focus:outline-0 transition-all"
                 />
             </div>
             <div className="gap-3 flex flex-col items-start justify-center w-full mt-5">
@@ -64,7 +64,7 @@ export default function StoreForm({
                     value={request.location}
                     onChange={handleInput}
                     className="w-full rounded-lg border-2 border-gray-200 
-            bg-gray-100 text-xs focus:border-green-300 focus:ring-0 focus:outline-0 transition-all"
+            bg-gray-100 text-xs focus:border-primary focus:ring-0 focus:outline-0 transition-all"
                 />
             </div>
             <button

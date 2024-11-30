@@ -19,14 +19,14 @@ export default function ProductDetail() {
     }
 
     return (
-        <div>
+        <div className='bg-white min-h-screen'>
             {data && (
                 <>
                     <Link href={'/'} className='absolute top-5 left-5 z-[99]'>
                         <AngleLeft className='bg-white rounded-full w-7 h-7 p-1 shadow-xl border border-gray-500' />
                     </Link>
                     <div className="relative w-full h-[450px] bg-gray-300 rounded-b-xl">
-                        <Image alt="" src={data.image_url} fill className="object-cover rounded-b-xl" />
+                        <Image alt="" src={data.image_url} fill className="object-cover rounded-b-2xl" />
                     </div>
                     <div className='p-4'>
                         <h1 className='font-semibold text-lg'>{data.name}</h1>
