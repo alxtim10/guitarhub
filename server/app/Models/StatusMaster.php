@@ -10,6 +10,8 @@ class StatusMaster extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
+        'category',
         'name'
     ];
 }

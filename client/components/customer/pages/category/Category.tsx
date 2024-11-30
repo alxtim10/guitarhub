@@ -10,7 +10,7 @@ const Category = () => {
           <h1 className="text-[0.6rem] text-center font-semibold">Category 1</h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-1 r">
-          <div className="bg-`primary` h-14 w-14 rounded-lg"></div>
+          <div className="bg-primary h-14 w-14 rounded-lg"></div>
           <h1 className="text-[0.6rem] text-center font-semibold">Category 1</h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-1 r">

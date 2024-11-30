@@ -24,8 +24,10 @@ export const ENDPOINTS = {
   AddCartItem: '/AddCartItem',
   DeleteCartItem: '/DeleteCartItem',
   AddTransaction: '/AddTransaction',
+  SetTransactionStatus: '/SetTransactionStatus',
   GetAllTransaction: '/GetAllTransaction',
   GetTransactionDetail: '/GetTransactionDetail',
+  GetAllTransactionTimeline: '/GetAllTransactionTimeline',
 
   AddProduct: '/AddProduct'
 };

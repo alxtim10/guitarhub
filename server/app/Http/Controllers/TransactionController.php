@@ -152,7 +152,8 @@ class TransactionController extends Controller
                     'id' => $transaction->id,
                     'user_id' => $transaction->user_id,
                     'transaction_date' => $transaction->transaction_date,
-                    'status' => $transaction->status,
+                    'status' => $transaction->status_name,
+                    'status_master_id' => $transaction->status_master_id,
                     'total_amount' => $transaction->total_amount,
                     'shipping_address' => $transaction->shipping_address,
                     'created_at' => $transaction->created_at,
@@ -167,7 +168,7 @@ class TransactionController extends Controller
     {
         $id = $request->input('id');
         $status_master_id = $request->input('status_master_id');
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::where('id', $id)->first();
         $status = StatusMaster::where('id', $status_master_id)->first();
 
         $transaction->status_master_id = $status_master_id;

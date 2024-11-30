@@ -7,12 +7,16 @@ import { QrCode } from "flowbite-react-icons/outline";
 
 interface ModalBaseProps {
     openModal: boolean,
-    setOpenModal: Function
+    setOpenModal: Function,
+    handleSetTransactionStatus: Function,
+    id: string
 }
 
 export default function ModalBase({
     openModal,
-    setOpenModal
+    setOpenModal,
+    handleSetTransactionStatus,
+    id
 }: ModalBaseProps) {
     return (
         <Dialog
@@ -26,9 +30,15 @@ export default function ModalBase({
                     <QrCode className="w-44 h-44" />
                     <h1 className="font-bold mt-3">Total Payment</h1>
                     <div>{useConvertRupiah(14025000)}</div>
-                    <Button 
-                    onClick={() => setOpenModal(false)}
-                    className="bg-primary mt-5 w-full">Finish</Button>
+                    <Button
+                        onClick={() => {
+                            handleSetTransactionStatus({
+                                id: Number(id),
+                                status_master_id: 2
+                            })
+                            setOpenModal(false);
+                        }}
+                        className="bg-primary mt-5 w-full">Finish</Button>
                 </DialogPanel>
             </div>
         </Dialog>

@@ -1,7 +1,7 @@
 import { GetProductById } from "@/services/product";
 import { AddTransaction } from "@/services/transaction";
 import { PaymentMethodSectionType } from "@/types/payment";
-import { ProductDetailType } from "@/types/product";
+import { ProductDetailType, ProductVariantType } from "@/types/product";
 import { ShippingSectionType } from "@/types/shipping";
 import { AddTransactionType } from "@/types/transaction";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
-export const useCheckout = (product_id?: string) => {
+export const useCheckout = (product_id: string, product_variant_id: string) => {
 
     const router = useRouter();
     const [showModalShipping, setShowModalShipping] = useState(false);
@@ -47,18 +47,20 @@ export const useCheckout = (product_id?: string) => {
         mutation.mutate(request);
     };
 
-    const [productData, setProductData] = useState<ProductDetailType>();
+
+    const { data: productData, error } = useQuery<ProductDetailType | null, Error>({
+        queryKey: ["checkout_product_detail", product_id],
+        queryFn: () => GetProductById({ id: product_id }),
+    });
+    const [variantData, setVariantData] = useState<ProductVariantType | null>();
+
     useEffect(() => {
-        if (product_id) {
-            const { data, error } = useQuery<ProductDetailType | null, Error>({
-                queryKey: ["product_detail", product_id],
-                queryFn: () => GetProductById({ id: product_id }),
-            });
-            if (data) {
-                setProductData(data);
-            }
+        if (productData) {
+            const tempVariantData = productData.variant.find((x: ProductVariantType) => x.id == Number(product_variant_id));
+            setVariantData(tempVariantData);
         }
-    }, [product_id])
+
+    }, [productData])
 
     return {
         handleAdd,
@@ -76,6 +78,7 @@ export const useCheckout = (product_id?: string) => {
         setShippingSection,
         paymentMethodSection,
         setPaymentMethodSection,
-        productData
+        productData,
+        variantData
     }
 }

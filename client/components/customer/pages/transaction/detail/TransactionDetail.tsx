@@ -16,9 +16,10 @@ export default function TransactionDetail() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
   const router = useRouter();
-  const { data, isFetching,
-    openModal,
-    setOpenModal } = useTransactionDetail(id);
+  const {
+    data,
+    isFetching,
+  } = useTransactionDetail(id);
 
   if (isFetching > 0) {
     return <LoadingWeb />
@@ -32,11 +33,11 @@ export default function TransactionDetail() {
             router.push('/transaction');
           }}
           className='w-7 h-7 cursor-pointer' />
-        <h1 className='font-bold text-lg'>Transaction {id}</h1>
+        <h1 className='font-bold text-lg'>Transaction</h1>
       </div>
       {data && (
         <>
-          <TransactionStatusCard data={data} setOpenModal={setOpenModal} />
+          <TransactionStatusCard data={data} />
           <div className='bg-stone-100 border rounded-lg shadow-md p-2 mt-5'>
             <div className='flex items-center gap-1'>
               <ObjectsColumn className='w-5 h-5' />
@@ -96,7 +97,6 @@ export default function TransactionDetail() {
           </div>
         </>
       )}
-      <ModalBase openModal={openModal} setOpenModal={setOpenModal} />
     </section>
   )
 }

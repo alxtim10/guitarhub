@@ -62,7 +62,7 @@ export default function CartStore({
                 <h1 className="text-primary font-bold">{useConvertRupiah(data.price)} {`(${data.quantity})`}</h1>
             </div>
             <hr />
-            <div className="flex flex-col gap-5 pt-5 px-4">
+            <div className="flex flex-col gap-5 pt-5 px-2">
                 {data.products.map((item, i) => {
                     return (
                         <div key={i} className="relative flex gap-4">
@@ -73,16 +73,16 @@ export default function CartStore({
                                 height={100}
                                 className="object-cover rounded-lg"
                             />
-                            <div className="flex flex-col items-start">
+                            <div className="flex flex-col items-start mt-1">
                                 <h1 className="text-lg font-bold">{item.product_name}</h1>
-                                <h1 className="mt-1 text-xs text-subtitle bg-gray-200 text-center rounded-md px-2">{item.product_variant_name}</h1>
-                                <h1 className="mt-11 text-sm font-bold text-center rounded-md">{useConvertRupiah(item.price)}</h1>
+                                <h1 className="mt-1 text-xs text-black bg-white shadow-md text-center rounded-md px-2">{item.product_variant_name}</h1>
+                                <h1 className="mt-3 text-md font-bold text-center rounded-md">{useConvertRupiah(item.price)}</h1>
                             </div>
                             <button
                                 onClick={() => {
-                                    router.push(`/checkout?product_id=${item.product_id}`)
+                                    router.push(`/checkout?product_id=${item.product_id}&product_variant_id=${item.product_variant_id}`)
                                 }}
-                                className="absolute bottom-0 right-0 bg-primary rounded-full px-2 py-1 text-white text-sm shadow-md">
+                                className="absolute bottom-0 right-2 bg-primary rounded-full px-2 py-1 text-white text-sm shadow-md">
                                 Checkout
                             </button>
                             <div className="absolute top-1 right-0">

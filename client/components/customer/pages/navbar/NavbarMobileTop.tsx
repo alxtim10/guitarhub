@@ -1,6 +1,7 @@
 'use client'
+import { Logo } from "@/public/assets/images";
+import { Cart } from "flowbite-react-icons/outline";
 import Image from "next/image";
-import logo from "../../../../public/assets/images/logo.svg";
 import { useRouter } from "next/navigation";
 
 const NavbarMobileTop = () => {
@@ -9,44 +10,11 @@ const NavbarMobileTop = () => {
 
   return (
     <div className="absolute left-0 w-full top-0 py-4 px-7 flex items-center justify-between">
-      <Image src={logo} width={35} height={35} alt="logo" />
+      <Image src={Logo} className='cursor-pointer' width={120} height={120} alt="logo" />
       <div className="flex items-center justify-center gap-5">
-        <svg
-          className="w-[32px] h-[32px] text-gray-800 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2.5"
-            d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-          />
-        </svg>
-        <svg
-          onClick={() => {
-            router.push('/cart');
-          }}
-          className="w-[32px] h-[32px] text-gray-800 dark:text-white cursor-pointer"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2.5"
-            d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
-          />
-        </svg>
+        <div className="bg-gray-50 rounded-full p-[6px] shadow-xl border cursor-pointer">
+          <Cart className="w-7 h-7 text-black" />
+        </div>
       </div>
     </div>
   );

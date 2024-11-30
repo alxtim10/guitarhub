@@ -11,13 +11,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
         foreground: "var(--foreground)",
         title: '#18191F',
         subtitle: '#5B616E',
         greyMain: '#414141',
         greySecondary: '#919191',
-        primary: '#0182FF'
+        primary: '#0182FF',
+        background: '#f0f0f0'
       },
     },
   },

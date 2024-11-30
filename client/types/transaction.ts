@@ -14,8 +14,8 @@ export interface AddTransactionType {
 export interface TransactionType {
     id: number,
     user_id: number,
-    status_master_id: number,
     status_name: string,
+    status_master_id: string,
     total_price: number,
     transaction_detail: TransactionDetailType,
     product: ProductData,
@@ -50,4 +50,16 @@ export interface TransactionDetailType {
     is_discount: number,
     total_price: number,
     shipping_address: string,
+}
+
+export interface SetTransactionStatusParams {
+    id: number,
+    status_master_id: number
+}
+
+export interface TransactionTimelineType {
+    id: number,
+    transaction_id: number,
+    event_date: Date,
+    message: string,
 }

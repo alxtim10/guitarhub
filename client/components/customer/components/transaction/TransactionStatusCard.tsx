@@ -6,11 +6,10 @@ import { useRouter } from 'next/navigation'
 
 interface TransactionStatusCardProps {
     data: UserTransactionDetailType,
-    setOpenModal: Function
 }
 
 
-export default function TransactionStatusCard({ data, setOpenModal }: TransactionStatusCardProps) {
+export default function TransactionStatusCard({ data }: TransactionStatusCardProps) {
 
     const router = useRouter();
     const getDefaultStyle = (id: number) => {
@@ -21,7 +20,7 @@ export default function TransactionStatusCard({ data, setOpenModal }: Transactio
                         <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
                     </div>
                     <div
-                        onClick={() => setOpenModal(true)}
+                        onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
                         className='p-4 bg-green-400 cursor-pointer'>
                         <div className='flex items-center justify-between'>
                             <h1 className='font-semibold text-white'>Finish Payment</h1>
@@ -34,7 +33,7 @@ export default function TransactionStatusCard({ data, setOpenModal }: Transactio
         } else if (id == 2) {
             return (
                 <>
-                    <div className='bg-blue-500 rounded-t-lg px-4 py-3'>
+                    <div className='bg-orange-500 rounded-t-lg px-4 py-3'>
                         <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
                     </div>
                     <div
@@ -52,8 +51,8 @@ export default function TransactionStatusCard({ data, setOpenModal }: Transactio
     }
 
     return (
-        <div className='bg-white rounded-lg  shadow-md'>
-            {getDefaultStyle(data.transaction.status_master_id)}
+        <div className='bg-white rounded-lg shadow-md'>
+            {getDefaultStyle(Number(data.transaction.status_master_id))}
             <hr />
             <div className='p-4'>
                 <h1 className='text-sm font-semibold'>Shipping Address</h1>

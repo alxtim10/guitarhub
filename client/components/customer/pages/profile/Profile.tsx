@@ -30,13 +30,13 @@ export default function Profile() {
                             <h1 className='font-bold text-lg'>My Profile</h1>
                         </div>
                     </div>
-                    <div className='relative mx-2 p-4 bg-primary flex flex-col items-start justify-between rounded-3xl mt-5 min-h-[320px]'>
+                    <div className='relative mx-2 p-4 bg-primary shadow-md flex flex-col items-start justify-between rounded-3xl mt-5 min-h-[320px]'>
                         <div className='absolute top-2 right-2 shadow-lg cursor-pointer'>
                             <UserCircle className='w-10 h-10 text-white' />
                         </div>
                         <div className='flex flex-col'>
                             <h1 className='text-lg font-bold text-[#f0f0f0]'>Hello,</h1>
-                            <h1 className='mt-1 text-lg font-bold text-white'>{data.fullname}</h1>
+                            <h1 className='text-2xl font-bold text-white'>{data.fullname}</h1>
                             <div className='mt-1 text-[0.6rem] w-fit shadow-md bg-gradient-to-br from-yellow-300 to-yellow-400 rounded-full px-3 py-1'>Gold Member</div>
                         </div>
                         <div className='flex flex-col gap-4'>

@@ -8,12 +8,14 @@ import { useConvertRupiah } from '@/utils/useConvertRupiah';
 import ShippingDrawer from '../../components/shipping/ShippingDrawer';
 import { useCheckout } from './hooks';
 import PaymentDrawer from '../../components/payment/PaymentDrawer';
+import CheckoutProductCart from '../../components/checkout/CheckoutProductCart';
 
 export default function Checkout() {
 
     const router = useRouter();
     const searchParams = useSearchParams();
     const product_id = searchParams.get('product_id') || '';
+    const product_variant_id = searchParams.get('product_variant_id') || '';
     const {
         handleAdd,
         showModalShipping,
@@ -30,12 +32,13 @@ export default function Checkout() {
         setShippingSection,
         paymentMethodSection,
         setPaymentMethodSection,
-        productData
-    } = useCheckout(product_id);
+        productData,
+        variantData
+    } = useCheckout(product_id, product_variant_id);
     const { data } = useCart();
 
     return (
-        <section className='px-5 pb-28'>
+        <section className='px-5 pb-28 bg-white min-h-screen'>
             {data && (
                 <>
                     <div className='flex items-center gap-3 mb-3 py-5'>
@@ -56,19 +59,13 @@ export default function Checkout() {
                         </div>
                         <AngleRight className='w-5 h-5' />
                     </div>
-                    {JSON.stringify(productData)}
                     <hr className='mt-2' />
-                    <div className='flex flex-col gap-3 mt-5'>
-                        {data && data.items.map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    <CartStore data={item} />
-                                    <hr />
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <div className='flex items-center justify-center gap-2 w-full mt-3'>
+                    {productData && variantData && (
+                        <div className='flex flex-col gap-3 mt-3'>
+                            <CheckoutProductCart data={productData} variantData={variantData} />
+                        </div>
+                    )}
+                    <div className='flex items-center justify-center gap-2 w-full mt-1'>
                         {isShipping ?
                             <>
                                 <div

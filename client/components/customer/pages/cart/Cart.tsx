@@ -38,7 +38,7 @@ export default function Cart() {
                         })}
                     </div>
                     <div className='fixed py-5 px-5 border-t left-0 mx-auto max-w-auto bottom-0 bg-white w-full z-[999] flex items-end justify-between'>
-                        <h1 className='text-xs text-slate-500'>Total Price</h1>
+                        <h1 className='text-sm text-greyMain'>Total Price</h1>
                         <h1 className='font-bold text-primary'>{useConvertRupiah(data.total_price)}</h1>
                     </div>
                 </>
