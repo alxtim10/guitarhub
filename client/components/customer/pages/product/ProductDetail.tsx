@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useProductDetail } from './hooks';
 import LoadingWeb from '@/components/loaders/LoadingWeb';
 import { useConvertRupiah } from '@/utils/useConvertRupiah';
-import { AngleLeft } from 'flowbite-react-icons/outline';
+import { AngleLeft, Cart } from 'flowbite-react-icons/outline';
 
 export default function ProductDetail() {
 
@@ -25,14 +25,17 @@ export default function ProductDetail() {
                     <Link href={'/'} className='absolute top-5 left-5 z-[99]'>
                         <AngleLeft className='bg-white rounded-full w-7 h-7 p-1 shadow-xl border border-gray-500' />
                     </Link>
+                    <Link href={'/cart'} className='absolute top-5 right-5 z-[99]'>
+                        <Cart className='bg-white rounded-full w-10 h-10 p-1 shadow-xl border border-gray-500' />
+                    </Link>
                     <div className="relative w-full h-[450px] bg-gray-300 rounded-b-xl">
                         <Image alt="" src={data.image_url} fill className="object-cover rounded-b-2xl" />
                     </div>
                     <div className='p-4'>
                         <h1 className='font-semibold text-lg'>{data.name}</h1>
                         <div className='flex items-center justify-start gap-2'>
-                            <div className="flex items-center justify-center gap-1 border-2 mt-2 w-fit px-3 rounded-full">
-                                <svg className="w-[15px] h-[15px] text-yellow-500 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <div className="flex items-center justify-center gap-1 border px-3 bg-slate-50 mt-2 w-fit rounded-full">
+                                <svg className="w-[15px] h-[15px] text-yellow-400 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                                 </svg>
                                 <h1 className="text-sm mt-[0.12rem] font-bold">{data.rating}</h1>

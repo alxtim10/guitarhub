@@ -39,7 +39,7 @@ export default function Transaction() {
                             }}
                             className={
                                 `${i == 0 ? 'border-r-2 border-r-gray-500 pr-12' : ''} 
-                            ${selected === i ? 'text-green-400' : 'text-gray-500'}
+                            ${selected === i ? 'text-primary' : 'text-gray-500'}
                             cursor-pointer transition-all`}>
                             <h1>{item}</h1>
                         </div>
@@ -54,7 +54,7 @@ export default function Transaction() {
                                 router.push(`/transaction/detail?id=${item.id}`);
                             }}
                             key={i}
-                            className='cursor-pointer relative bg-gray-100 border shadow-lg px-1 pt-1 pb-1 rounded-xl w-full  gap-3'
+                            className='cursor-pointer relative bg-gray-100 border shadow-lg px-1 pt-1 pb-1 rounded-xl w-full  gap-3 mb-4'
                         >
                             <div className='flex items-center justify-between bg-white border shadow-sm p-3 rounded-xl'>
                                 <div className='mt-1'>
@@ -73,7 +73,7 @@ export default function Transaction() {
                             </div>
                             <div className='flex items-center justify-between px-2 pt-4 pb-2'>
                                 <h1 className='font-bold'>{useConvertRupiah(item.transaction_detail.total_price)}</h1>
-                                <span className='bg-primary px-3 font-semibold py-1 rounded-full text-xs text-white'>{item.status}</span>
+                                <span className='bg-primary px-3 font-semibold py-1 rounded-full text-xs text-white'>{item.status_name}</span>
                             </div>
                         </div>
                     )

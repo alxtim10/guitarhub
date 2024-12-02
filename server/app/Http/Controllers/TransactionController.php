@@ -107,7 +107,7 @@ class TransactionController extends Controller
                 return [
                     'id' => $transaction->id,
                     'user_id' => $transaction->user_id,
-                    'status' => StatusMaster::where('id', $transaction->status_master_id)->get()->value('name'),
+                    'status_name' => StatusMaster::where('id', $transaction->status_master_id)->get()->value('name'),
                     'total_price' => $transaction->total_price,
                     'transaction_detail' => $transaction_detail,
                     'product' => Product::where('id', $transaction_detail->product_id)->first(),
@@ -238,25 +238,13 @@ class TransactionController extends Controller
             TransactionTimeline::create([
                 'transaction_id' => $transaction->id,
                 'event_date' => now(),
-                'message' => 'Delivery failed.'
+                'message' => 'Package Received.'
             ]);
         } else if ($status_master_id == 11) {
             TransactionTimeline::create([
                 'transaction_id' => $transaction->id,
                 'event_date' => now(),
                 'message' => 'Order completed.'
-            ]);
-        } else if ($status_master_id == 12) {
-            TransactionTimeline::create([
-                'transaction_id' => $transaction->id,
-                'event_date' => now(),
-                'message' => 'Package returned.'
-            ]);
-        } else if ($status_master_id == 13) {
-            TransactionTimeline::create([
-                'transaction_id' => $transaction->id,
-                'event_date' => now(),
-                'message' => 'Order cancelled.'
             ]);
         }
 
@@ -274,6 +262,27 @@ class TransactionController extends Controller
         $customResponse = [
             'status' => 'Success',
             'data' => $data
+        ];
+        return response()->json($customResponse, 200);
+    }
+
+    public function CancelTransactionStatus(Request $request)
+    {
+        $id = $request->input('id');
+        $transaction = Transaction::where('id', $id)->first();
+        $status = StatusMaster::where('id', 13)->first();
+
+        $transaction->status_master_id = 13;
+        $transaction->status_name = $status->name;
+        $transaction->save();
+        TransactionTimeline::create([
+            'transaction_id' => $transaction->id,
+            'event_date' => now(),
+            'message' => 'Order Canceled.'
+        ]);
+
+        $customResponse = [
+            'status' => 'Success',
         ];
         return response()->json($customResponse, 200);
     }

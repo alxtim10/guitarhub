@@ -38,6 +38,16 @@ export const SetTransactionStatus = async (body: SetTransactionStatusParams) => 
         throw new Error("Failed to set transaction status");
     }
 };
+
+export const CancelTransactionStatus = async (body: SetTransactionStatusParams) => {
+    try {
+        const response = await axiosInstance.post(ENDPOINTS.CancelTransactionStatus, body);
+        return response.data;
+    } catch (error) {
+        throw new Error("Failed to set transaction status");
+    }
+};
+
 export const GetAllTransactionTimeline = async (params: { id: number }): Promise<TransactionTimelineType[] | null> => {
     try {
         const response = await axiosInstance.get(ENDPOINTS.GetAllTransactionTimeline, { params });

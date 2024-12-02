@@ -31,7 +31,7 @@ const Banner = () => {
     },
   };
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full rounded-lg">
       <Swiper
         className="mySwiper"
         modules={[Autoplay, Navigation, Pagination, A11y]}
@@ -50,9 +50,8 @@ const Banner = () => {
         }}
       >
         {[...Array(5)].map((_, i) => (
-          <SwiperSlide key={i} className="h-full w-full relative">
+          <SwiperSlide key={i} className="h-full w-full relative rounded-lg">
             <div className="w-full bg-primary rounded-lg h-[150px] p-4 relative">
-             
             </div>
           </SwiperSlide>
         ))}

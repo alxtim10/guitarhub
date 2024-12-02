@@ -13,6 +13,7 @@ export interface AddTransactionType {
 
 export interface TransactionType {
     id: number,
+    code: string,
     user_id: number,
     status_name: string,
     status_master_id: string,

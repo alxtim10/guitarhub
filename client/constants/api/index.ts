@@ -25,6 +25,7 @@ export const ENDPOINTS = {
   DeleteCartItem: '/DeleteCartItem',
   AddTransaction: '/AddTransaction',
   SetTransactionStatus: '/SetTransactionStatus',
+  CancelTransactionStatus: '/CancelTransactionStatus',
   GetAllTransaction: '/GetAllTransaction',
   GetTransactionDetail: '/GetTransactionDetail',
   GetAllTransactionTimeline: '/GetAllTransactionTimeline',

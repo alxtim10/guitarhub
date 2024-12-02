@@ -18,6 +18,7 @@ export default function TransactionStatusCard({ data }: TransactionStatusCardPro
                 <>
                     <div className='bg-red-500 rounded-t-lg px-4 py-3'>
                         <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
+                        <h1 className='text-white text-sm font-bold'>{data.transaction.code}</h1>
                     </div>
                     <div
                         onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
@@ -30,11 +31,29 @@ export default function TransactionStatusCard({ data }: TransactionStatusCardPro
                     </div>
                 </>
             )
-        } else if (id == 2) {
+        } else if (id >= 2 && id < 5) {
             return (
                 <>
                     <div className='bg-orange-500 rounded-t-lg px-4 py-3'>
                         <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
+                        <h1 className='text-white text-sm font-bold'>{data.transaction.code}</h1>
+                    </div>
+                    <div
+                        onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
+                        className='p-4 bg-primary cursor-pointer'>
+                        <div className='flex items-center justify-between'>
+                            <h1 className='font-semibold text-white'>Transaction Info</h1>
+                            <AngleRight className='w-4 h-4 text-white' />
+                        </div>
+                    </div>
+                </>
+            )
+        } else if (id >= 5 && id < 13) {
+            return (
+                <>
+                    <div className='bg-orange-600 rounded-t-lg px-4 py-3'>
+                        <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
+                        <h1 className='text-white text-sm font-bold'>{data.transaction.code}</h1>
                     </div>
                     <div
                         onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
@@ -44,6 +63,23 @@ export default function TransactionStatusCard({ data }: TransactionStatusCardPro
                             <AngleRight className='w-4 h-4 text-white' />
                         </div>
                         <h1 className='text-sm text-white'>{data.transaction_detail.shipping_name}</h1>
+                    </div>
+                </>
+            )
+        } else if (id == 13) {
+            return (
+                <>
+                    <div className='bg-green-500 rounded-t-lg px-4 py-3'>
+                        <h1 className='text-white text-lg font-bold'>{data.transaction.status_name.toUpperCase()}</h1>
+                        <h1 className='text-white text-sm font-bold'>{data.transaction.code}</h1>
+                    </div>
+                    <div
+                        onClick={() => router.push(`/transaction/detail/timeline?id=${data.id}`)}
+                        className='p-4 bg-primary cursor-pointer'>
+                        <div className='flex items-center justify-between'>
+                            <h1 className='font-semibold text-white'>Transaction Info</h1>
+                            <AngleRight className='w-4 h-4 text-white' />
+                        </div>
                     </div>
                 </>
             )

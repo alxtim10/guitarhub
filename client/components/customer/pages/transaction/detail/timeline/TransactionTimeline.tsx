@@ -12,7 +12,7 @@ export default function TransactionTimeline() {
     const searchParams = useSearchParams();
     const id = Number(searchParams.get('id')) || 0;
 
-    const { data, isFetching, detailData, handleSetTransactionStatus } = useTransactionTimeline(id);
+    const { data, isFetching, detailData, handleSetTransactionStatus, handleCancelTransactionStatus } = useTransactionTimeline(id);
 
     if (isFetching > 0) {
         return <LoadingWeb />
@@ -35,23 +35,33 @@ export default function TransactionTimeline() {
                             <Truck className="text-green-700" />
                         </div>
                         <div className="flex flex-col items-center">
-                            <h1 className="text-white font-bold tracking-widest">{detailData.transaction.status_name}</h1>
-                            <h1 className="text-white text-sm">{detailData.transaction.id}</h1>
+                            <h1 className="text-white font-bold tracking-widest">{detailData.transaction.code}</h1>
+                            <h1 className="text-white text-sm">{detailData.transaction.status_name}</h1>
                         </div>
                         <div className="bg-green-100 rounded-full p-3 shadow-lg">
                             <MapPinAlt className="text-green-700" />
                         </div>
                     </div>
-                    <div className="flex items-center justify-center mt-5">
-                        <button
-                            onClick={() => {
-                                handleSetTransactionStatus();
-                            }}
-                            className="bg-primary text-white rounded-full shadow-lg px-3 py-1 text-sm flex items-center justify-between gap-1">
-                            <h1>Next Step</h1>
-                            <AngleRight className="w-4 h-4" />
-                        </button>
-                    </div>
+                    {Number(detailData.transaction.status_master_id) != 13 && (
+                        <div className="flex items-center justify-center mt-5 gap-4">
+                            <button
+                                onClick={() => {
+                                    handleSetTransactionStatus();
+                                }}
+                                className="bg-primary text-white rounded-full shadow-lg px-3 py-1 text-sm flex items-center justify-between gap-1">
+                                <h1>Next Step</h1>
+                                <AngleRight className="w-4 h-4" />
+                            </button>
+                            <button
+                                onClick={() => {
+                                    handleCancelTransactionStatus();
+                                }}
+                                className="bg-red-500 text-white rounded-full shadow-lg px-3 py-1 text-sm flex items-center justify-between gap-1">
+                                <h1>Cancel</h1>
+                            </button>
+                        </div>
+                    )}
+
                     <div className="px-5 pt-2">
                         <section className="mt-3 h-full w-full pl-4">
                             {data.map((data, i) => {

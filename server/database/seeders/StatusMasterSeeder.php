@@ -52,7 +52,7 @@ class StatusMasterSeeder extends Seeder
             ],
             [
                 'category' => 'SHIPMENT',
-                'name' => 'Failed Delivery',
+                'name' => 'Received',
             ],
             [
                 'category' => 'DONE',
@@ -64,7 +64,7 @@ class StatusMasterSeeder extends Seeder
             ],
             [
                 'category' => 'DONE',
-                'name' => 'Cancelled',
+                'name' => 'Canceled',
             ],
         ]);
     }
