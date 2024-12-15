@@ -30,7 +30,7 @@ export default function Cart() {
                     <div className='flex flex-col gap-3 mt-5 px-5'>
                         {data.items.map((item, i) => {
                             return (
-                                <div key={i}>
+                                <div className="bg-white py-2 px-4 rounded-lg shadow-lg" key={i}>
                                     <CartStore data={item} />
                                     <hr />
                                 </div>

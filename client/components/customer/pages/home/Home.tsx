@@ -12,7 +12,7 @@ export default function Home() {
                 <NavbarMobile />
             </div>
             <div className="mb-16 mt-7">
-                <div className='pt-5 px-5'>
+                <div className='pt-5 px-5 rounded-lg'>
                     <Banner />
                 </div>
                 {/* <Category /> */}
